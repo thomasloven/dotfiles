@@ -1,0 +1,5 @@
+vbell_msg "Beep"
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G}  %{..Y} %m/%d %c "
+altscreen on
