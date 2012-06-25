@@ -87,6 +87,7 @@ nnoremap k gk
 
 " Use jj to leave insert mode
 inoremap jj <ESC>
+inoremap <C-[> <ESC>
 
 " Window split movement
 nnoremap <leader>w <C-w>v<C-w>l
@@ -107,3 +108,10 @@ nnoremap <leader>q :NERDTreeToggle<cr>
 " ,j to add a line below, ,k above
 nnoremap <leader>j o<esc>k
 nnoremap <leader>k O<esc>j
+
+" Tab commands
+nnoremap <leader>tt :tabnew<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm :tabmove
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tp :tabprevious<cr>
