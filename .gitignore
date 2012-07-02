@@ -40,3 +40,5 @@
 .serverauth.35204
 .serverauth.35415
 .sqlite_history
+.cpan/
+.dropbox-api-config

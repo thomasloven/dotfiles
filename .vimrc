@@ -64,7 +64,7 @@ nnoremap <leader><space> :noh<cr>
 " Use tab to jump between brackets
 nnoremap <tab> %
 vnoremap <tab> %
-inoremap <tab> <C-N>
+inoremap <leader><tab> <C-N>
 
 " Fix line wrapping
 set wrap
