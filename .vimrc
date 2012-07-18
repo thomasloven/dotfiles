@@ -1,6 +1,9 @@
 " Deactivate vi mode
 set nocompatible
 
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 " Syntax highlighting and line numbering
 syntax on
 set number
