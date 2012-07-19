@@ -4,6 +4,7 @@ set nocompatible
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+let g:localvimrc_sandbox=0
 " Syntax highlighting and line numbering
 syntax on
 set number

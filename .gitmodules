@@ -10,3 +10,9 @@
 [submodule ".vim/bundle/localvimrc"]
 	path = .vim/bundle/localvimrc
 	url = https://github.com/embear/vim-localvimrc.git
+[submodule ".vim/bundle/Rainbow-Parenthsis-Bundle"]
+	path = .vim/bundle/Rainbow-Parenthsis-Bundle
+	url = https://github.com/autre/Rainbow-Parenthsis-Bundle.git
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
+	url = https://github.com/tpope/vim-fugitive
