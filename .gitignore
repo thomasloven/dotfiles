@@ -42,3 +42,8 @@
 .sqlite_history
 .cpan/
 .dropbox-api-config
+.w3m/
+.zcompdump
+.zsh-update
+.zsh_history
+.zshrc.orig
