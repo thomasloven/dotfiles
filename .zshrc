@@ -30,7 +30,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git osx extract screen)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -45,9 +45,8 @@ bindkey "^?" backward-delete-char
 bindkey -M viins 'jj' vi-cmd-mode
 
 function zle-keymap-select {
-	#eval PCLR2='${${KEYMAP/vicmd/%{$fg_bold[red]%}}/(main|viins)/%{$fg[green]%}}'
+	eval PCLR2='${${KEYMAP/vicmd/%{$fg_bold[red]%}}/(main|viins)/%{$fg[green]%}}'
 	eval PCLR3='${${KEYMAP/vicmd/%{$fg[red]%}}/(main|viins)/%{$fg_bold[green]%}}'
-	eval PCLR3='%{$fg_bold[red]%}'
 	zle reset-prompt
 }
 

@@ -6,7 +6,9 @@ function git_prompt_info() {
     return
   fi
 
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  GITPATH=`git rev-parse --show-toplevel`
+
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$GITPATH:t:${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
 
