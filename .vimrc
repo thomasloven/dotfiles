@@ -119,3 +119,6 @@ nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>tm :tabmove
 nnoremap <leader>tn :tabnext<cr>
 nnoremap <leader>tp :tabprevious<cr>
+
+" Toggle comments with space
+nnoremap <space> za
