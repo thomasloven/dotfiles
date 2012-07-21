@@ -6,9 +6,13 @@ call pathogen#helptags()
 
 let g:localvimrc_sandbox=0
 " Syntax highlighting and line numbering
+set t_Co=256
 syntax on
 set number
 set background=dark
+
+" Leader key is comma (,)
+let mapleader = ","
 
 " Don't save backups
 set nobackup
@@ -20,9 +24,11 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set noexpandtab
-" Display tab characters
+
+" Display tab characters and toggle with <leader>l
 set list
-set listchars=tab:>-
+nnoremap <leader>l :set list!<cr>
+set listchars=tab:▸\ ,eol:¬
 
 " Use utf-8 encoding
 set encoding=utf-8
@@ -51,8 +57,6 @@ endfunc
 
 nnoremap <c-o> :call g:ToggleNuMode()<cr>
 
-" Leader key is comma (,)
-let mapleader = ","
 
 " Some useful search settings
 nnoremap / /\v
@@ -65,9 +69,12 @@ set hlsearch
 
 " Use <leader><space> to turn off syntax highlighting
 nnoremap <leader><space> :noh<cr>
+
 " Use tab to jump between brackets
 nnoremap <tab> %
 vnoremap <tab> %
+
+" Auto completion on <leader><tab> ( should try to find a better mapping...
 inoremap <leader><tab> <C-N>
 
 " Fix line wrapping
@@ -91,6 +98,7 @@ nnoremap k gk
 
 " Use jj to leave insert mode
 inoremap jj <ESC>
+vnoremap jj <ESC> 
 inoremap <C-[> <ESC>
 
 " Window split movement
@@ -122,3 +130,20 @@ nnoremap <leader>tp :tabprevious<cr>
 
 " Toggle comments with space
 nnoremap <space> za
+
+" Enter commands with the ö-key (Swedish keyboards)
+nnoremap ö :
+
+" Use <leader>ev to Edit .Vimrc
+" Use <leader>sv to Source .Vimrc
+nmap <silent> <leader>ev :e $MYVIMRC<cr>
+nmap <silent> <leader>sv :so $MYVIMRC<cr>
+
+" <leader>b lists buffers
+nnoremap <leader>b :LustyJuggler<cr>
+
+" <leader>u shows undo tree
+nnoremap <leader>u :GundoToggle<cr>
+
+" Enable powerline symbols
+let g:Powerline_symbols='fancy'
