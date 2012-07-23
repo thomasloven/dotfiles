@@ -56,7 +56,7 @@ function! g:ToggleNuMode()
     endif
 endfunc
 
-nnoremap <c-o> :call g:ToggleNuMode()<cr>
+nnoremap <leader>o :call g:ToggleNuMode()<cr>
 
 
 " Some useful search settings
@@ -100,7 +100,7 @@ nnoremap k gk
 " Use jj to leave insert mode
 inoremap jj <ESC>
 vnoremap jj <ESC> 
-inoremap <C-[> <ESC>
+inoremap <ä> <ESC>
 
 " Window split movement
 nnoremap <leader>w <C-w>v<C-w>l
