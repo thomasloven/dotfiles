@@ -37,8 +37,11 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 EDITOR="vim"
+PATH="/usr/local/sbin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
-PATH="$HOME/bin:/usr/local/mysql/bin:/usr/texbin:/usr/local/sbin:${PATH}"
+PATH="/usr/texbin:${PATH}"
+PATH="/usr/local/mysql/bin:${PATH}"
+PATH="${HOME}/bin:${PATH}"
 
 bindkey -v
 bindkey "^H" backward-delete-char
