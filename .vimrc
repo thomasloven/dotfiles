@@ -25,10 +25,6 @@ set shiftwidth=4
 set softtabstop=4
 set noexpandtab
 
-" Display tab characters and toggle with <leader>l
-set list
-nnoremap <leader>l :set list!<cr>
-set listchars=tab:▸\ ,eol:¬
 
 " Use utf-8 encoding
 set encoding=utf-8
@@ -45,6 +41,11 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
+
+" Display tab characters and toggle with <leader>l
+set list
+nnoremap <leader>l :set list!<cr>
+set listchars=tab:▸\ ,eol:¬
 
 " Ctrl+o toggles the line numbering mode
 function! g:ToggleNuMode()

@@ -6,11 +6,15 @@ function git_prompt_info() {
     return
   fi
 
-  GITPATH=`git rev-parse --show-toplevel`
+	GITPATH=`git rev-parse --show-toplevel`
 
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$GITPATH:t:${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$GITPATH:t$ZSH_THEME_GIT_MIDDLE${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
+function git_root_info() {
+	GITPATH=`git rev-parse --show-toplevel`
+	echo "$GITPATH:t"
+}
 
 # Checks if working tree is dirty
 parse_git_dirty() {

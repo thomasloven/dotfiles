@@ -1,15 +1,42 @@
 #!/usr/bin/env zsh
 
-eval PCLR1='%{$reset_color%}'
-eval PCLR2='%{$fg[green]%}'
-eval PCLR3='%{$fg_bold[green]%}'
+# 2b80 ⮀
+# 2b81 ⮁
+# 2b82 ⮂
+# 2b83 ⮃
+# 2717 ✗
+# 2713 ✓
 
-PROMPT='%{$fg_bold[red]%}%m %{$fg[cyan]%}%c %{$fg_bold[blue]%}[%{$fg_bold[yellow]%}%!%{$fg_bold[blue]%}] %{$fg_bold[blue]%}%(!.#.%{$PCLR1%}>%{$PCLR2%}>%{$PCLR3%}>)%{$reset_color%}'
+source $ZSH_CUSTOM/colors.zsh
 
+STATBG=$CL_brightgreen
+STATFG=$CL_darkestgreen
 
-RPROMPT='%{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[green]%}%* %{$reset_color%}'
+PROMPT='$(setFG $STATFG)$(setBG $STATBG)'
+PROMPT+='%m %b'
+PROMPT+='$(setFG $STATBG)$(setBG $CL_gray4)'
+PROMPT+='%{⮀%} '
+PROMPT+='$(setFG $CL_gray9)$(setBG $CL_gray4)'
+PROMPT+='%c '
+PROMPT+='%{⮁%}'
+PROMPT+=' %! '
+PROMPT+=''
+PROMPT+='%(!.$(setFG $CL_gray4)$(setBG $CL_red)%{⮀%}$(setFG $CL_red)$(setBG $CL_black)%{⮀%}.$(setFG $CL_gray4)$(setBG $CL_black)%{⮀%})'
+PROMPT+='%{$reset_color%}'
 
-ZSH_THEME_GIT_PROMPT_PREFIX="(%{$fg[yellow]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}●%{$reset_color%}%{$fg_bold[blue]%})"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+RPROMPT=''
+RPROMPT+='$(setBG $CL_black)$(setFG $CL_gray4)'
+RPROMPT+='%{⮂%}'
+RPROMPT+='$(setBG $CL_gray4)$(setFG $CL_gray9)'
+RPROMPT+='$(git_prompt_info)'
+RPROMPT+='$(setBG $CL_gray4)$(setFG $CL_gray10)'
+RPROMPT+='%{⮂%}'
+RPROMPT+='$(setBG $CL_gray10)$(setFG $CL_gray2)'
+RPROMPT+='%* '
+RPROMPT+='%{$reset_color%}'
+
+ZSH_THEME_GIT_MIDDLE=" %{⭠%} "
+ZSH_THEME_GIT_PROMPT_PREFIX=""
+ZSH_THEME_GIT_PROMPT_SUFFIX=""
+ZSH_THEME_GIT_PROMPT_DIRTY="$(setFG $CL_brightred)%{✗%}$(setFG $CL_gray9)"
+ZSH_THEME_GIT_PROMPT_CLEAN="$(setFG $CL_brightgreen)%{✓%} $(setFG $CL_gray9)"

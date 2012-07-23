@@ -37,6 +37,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 EDITOR="vim"
+PATH="/usr/local/bin:${PATH}"
 PATH="$HOME/bin:/usr/local/mysql/bin:/usr/texbin:/usr/local/sbin:${PATH}"
 
 bindkey -v
@@ -45,16 +46,18 @@ bindkey "^?" backward-delete-char
 bindkey -M viins 'jj' vi-cmd-mode
 
 function zle-keymap-select {
-	eval PCLR2='${${KEYMAP/vicmd/%{$fg_bold[red]%}}/(main|viins)/%{$fg[green]%}}'
-	eval PCLR3='${${KEYMAP/vicmd/%{$fg[red]%}}/(main|viins)/%{$fg_bold[green]%}}'
+	eval STATBG='${${KEYMAP/vicmd/$CL_red}/(main|viins)/$CL_brightgreen}'
+	eval STATFG='${${KEYMAP/vicmd/$CL_brightorange}/(main|viins)/$CL_darkestgreen}'
 	zle reset-prompt
 }
 
 function accept_line {
-	eval PCLR2='%{$fg[green]%}'
-	eval PCLR3='%{$fg_bold[green]%}'
+	eval STATBG=$CL_brightgreen
+	eval STATFG=$CL_darkestgreen
 	builtin zle .accept-line
 }
 zle -N accept_line
 bindkey -M vicmd "^M" accept_line
 zle -N zle-keymap-select
+
+alias screen="screen -U"
