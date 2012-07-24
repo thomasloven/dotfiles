@@ -1,3 +1,5 @@
+export LANG='sv_SE.UTF-8'
+export LC_ALL='sv_SE.UTF-8'
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
@@ -30,13 +32,13 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx extract screen)
+plugins=(git brew osx extract screen)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-EDITOR="vim"
+export EDITOR="vim"
 PATH="/usr/local/sbin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="/usr/texbin:${PATH}"
@@ -49,8 +51,8 @@ bindkey "^?" backward-delete-char
 bindkey -M viins 'jj' vi-cmd-mode
 
 function zle-keymap-select {
-	eval STATBG='${${KEYMAP/vicmd/$CL_red}/(main|viins)/$CL_brightgreen}'
-	eval STATFG='${${KEYMAP/vicmd/$CL_brightorange}/(main|viins)/$CL_darkestgreen}'
+	eval STATBG='${${KEYMAP/vicmd/$CL_brightorange}/(main|viins)/$CL_brightgreen}'
+	eval STATFG='${${KEYMAP/vicmd/$CL_red}/(main|viins)/$CL_darkestgreen}'
 	zle reset-prompt
 }
 
