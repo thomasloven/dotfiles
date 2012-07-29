@@ -1,68 +1,70 @@
+
+# PS4='+$(date "+%s:%N") %N:%i> '
+# exec 3>&2 2>/tmp/startlog.$$
+# setopt xtrace prompt_subst
+
+
+# Swedish and UTF8
 export LANG='sv_SE.UTF-8'
 export LC_ALL='sv_SE.UTF-8'
-# Path to your oh-my-zsh configuration.
+
+# Oh my ZSH
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
+ZSH_THEME="powerline"
 plugins=(git brew osx extract screen)
-
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-
+# Use vim for editing
 export EDITOR="vim"
+
+# Path variable
 PATH="/usr/local/sbin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="/usr/texbin:${PATH}"
 PATH="/usr/local/mysql/bin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
 
+# Use vim editing mode
+# Make sure backspace works as it should
+# jj is the same as esc in insert mode
 bindkey -v
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
 bindkey -M viins 'jj' vi-cmd-mode
 
-function zle-keymap-select {
-	eval STATBG='${${KEYMAP/vicmd/$CL_brightorange}/(main|viins)/$CL_brightgreen}'
-	eval STATFG='${${KEYMAP/vicmd/$CL_red}/(main|viins)/$CL_darkestgreen}'
-	zle reset-prompt
-}
-
-function accept_line {
-	eval STATBG=$CL_brightgreen
-	eval STATFG=$CL_darkestgreen
-	builtin zle .accept-line
-}
-zle -N accept_line
-bindkey -M vicmd "^M" accept_line
-zle -N zle-keymap-select
-
+# Always run screen in utf8 mode
 alias screen="screen -U"
+alias tmux="nocorrect tmux"
+
+# Use C-s to insert sudo
+function insert_sudo() {
+	zle beginning-of-line
+	zle -U "sudo "
+}
+zle -N insert-sudo insert_sudo
+bindkey "\C-s" insert-sudo
+
+setopt AUTO_CD
+
+# Look for .localzsh from the current directory and upwards and runs it
+#function chpwd; {
+	#DIRECTORY="$PWD"
+	#while true; do
+		#if [ -f './.localzsh']; then
+			#source './.localzsh'
+			#break
+		#fi
+		#[ $PWD = '/' ] && break
+		#cd -q ..
+	#done
+	#cd -q $DIRECTORY
+#}
+
+# Use C-l to run command into less
+bindkey -s "\C-l" " 2>&1|less^M"
+
+# unsetopt xtrace
+# exec 2>&3 3>&-
+
+export TTY=$(tty)

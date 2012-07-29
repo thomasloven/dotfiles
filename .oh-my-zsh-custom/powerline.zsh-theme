@@ -42,3 +42,17 @@ ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX=" "
 ZSH_THEME_GIT_PROMPT_DIRTY=$(print "$(setFG $CL_brightred)\u2717$(setFG $CL_gray9)")
 ZSH_THEME_GIT_PROMPT_CLEAN=$(print "$(setFG $CL_brightgreen)\u2713$(setFG $CL_gray9)")
+function zle-keymap-select {
+	eval STATBG='${${KEYMAP/vicmd/$CL_brightorange}/(main|viins)/$CL_brightgreen}'
+	eval STATFG='${${KEYMAP/vicmd/$CL_red}/(main|viins)/$CL_darkestgreen}'
+	zle reset-prompt
+}
+
+function accept_line {
+	eval STATBG=$CL_brightgreen
+	eval STATFG=$CL_darkestgreen
+	builtin zle .accept-line
+}
+zle -N accept_line
+bindkey -M vicmd "^M" accept_line
+zle -N zle-keymap-select
