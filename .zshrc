@@ -12,7 +12,7 @@ export LC_ALL='sv_SE.UTF-8'
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
 ZSH_THEME="powerline"
-plugins=(git brew osx extract screen)
+plugins=(git brew osx extract screen wakeonlan)
 source $ZSH/oh-my-zsh.sh
 
 # Use vim for editing
