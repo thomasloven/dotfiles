@@ -82,7 +82,7 @@ inoremap <leader><tab> <C-N>
 set wrap
 set textwidth=79
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=79
 
 " Turn off the arrow keys
 nnoremap <up> <nop>
@@ -99,8 +99,8 @@ nnoremap k gk
 
 " Use jj to leave insert mode
 inoremap jj <ESC>
-vnoremap jj <ESC> 
-inoremap <ä> <ESC>
+vnoremap ä <ESC> 
+inoremap ä <ESC>
 
 " Window split movement
 nnoremap <leader>w <C-w>v<C-w>l
@@ -137,8 +137,8 @@ nnoremap ö :
 
 " Use <leader>ev to Edit .Vimrc
 " Use <leader>sv to Source .Vimrc
-nmap <silent> <leader>ev :e $MYVIMRC<cr>
-nmap <silent> <leader>sv :so $MYVIMRC<cr>
+nmap <leader>ev :e $MYVIMRC<cr>
+nmap <leader>sv :so $MYVIMRC<cr>
 
 " <leader>b lists buffers
 nnoremap <leader>b :LustyJuggler<cr>
@@ -148,3 +148,27 @@ nnoremap <leader>u :GundoToggle<cr>
 
 " Enable powerline symbols
 let g:Powerline_symbols='fancy'
+
+filetype plugin on
+
+function! CleanClose(toSave)
+	if (a:toSave == 1)
+		w!
+	endif
+	let todelbufNr = bufnr("%")
+	let newbufNr = bufnr("#")
+	if ((newbufNr != -1) && (newbufNr != todelbufNr) && buflisted(newbufNr))
+		exe "b".newbufNr
+	else
+		bnext
+	endif
+
+	if (bufnr("%") == todelbufNr)
+		new
+	endif
+	exe "bw".todelbufNr
+endfunction
+
+map fq <esc>:call CleanClose(0)<cr>
+map fc <esc>:call CleanClose(1)<cr>
+

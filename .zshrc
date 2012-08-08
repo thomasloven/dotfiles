@@ -68,3 +68,16 @@ bindkey -s "\C-l" " 2>&1|less^M"
 # exec 2>&3 3>&-
 
 export TTY=$(tty)
+
+function fancy-ctrl-z () {
+	if [[ $#BUFFER -eq 0 ]]; then
+		bg
+		zle redisplay
+	else
+		zle push-input
+	fi
+}
+zle -N fancy-ctrl-z
+bindkey '^z' fancy-ctrl-z
+
+alias -g L='|less'
