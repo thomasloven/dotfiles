@@ -99,8 +99,8 @@ nnoremap k gk
 
 " Use jj to leave insert mode
 inoremap jj <ESC>
+inoremap kj <ESC>
 vnoremap ä <ESC> 
-inoremap ä <ESC>
 
 " Window split movement
 nnoremap <leader>w <C-w>v<C-w>l
@@ -112,7 +112,7 @@ nnoremap <C-l> <C-w>l
 call pathogen#infect()
 nnoremap <C-p> <C-]>
 
-" Forgot to opena file with sudo? No problem w!! writes anyway
+" Forgot to open a file with sudo? No problem w!! writes anyway
 cmap w!! w !sudo dd of=%
 
 " ,q to open NERDTree
@@ -166,7 +166,7 @@ function! CleanClose(toSave)
 	if (bufnr("%") == todelbufNr)
 		new
 	endif
-	exe "bw".todelbufNr
+	exe "bw!".todelbufNr
 endfunction
 
 map fq <esc>:call CleanClose(0)<cr>

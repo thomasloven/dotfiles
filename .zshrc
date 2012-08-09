@@ -32,6 +32,7 @@ bindkey -v
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
 bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M viins 'kj' vi-cmd-mode
 
 # Always run screen in utf8 mode
 alias screen="screen -U"
