@@ -16,6 +16,7 @@ plugins=(git brew osx extract screen wakeonlan)
 source $ZSH/oh-my-zsh.sh
 
 # Use vim for editing
+alias vim="mvim -v"
 export EDITOR="vim"
 
 # Path variable

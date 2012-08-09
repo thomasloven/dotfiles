@@ -8,6 +8,7 @@ let g:localvimrc_sandbox=0
 " Syntax highlighting and line numbering
 set t_Co=256
 syntax on
+colorscheme blackboard
 set number
 set background=dark
 
