@@ -48,3 +48,5 @@
 .zshrc.orig
 .calibre_calibre GUI.lock
 .wakeonlan/
+.profile
+.keychain
