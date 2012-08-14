@@ -136,6 +136,7 @@ nnoremap <space> za
 
 " Enter commands with the ö-key (Swedish keyboards)
 nnoremap ö :
+vnoremap ö :
 
 " Use <leader>ev to Edit .Vimrc
 " Use <leader>sv to Source .Vimrc
