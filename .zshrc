@@ -39,6 +39,8 @@ bindkey -M viins 'kj' vi-cmd-mode
 alias screen="screen -U"
 alias tmux="nocorrect tmux"
 
+alias glog="git log --graph --oneline --decorate --all"
+
 # Use C-s to insert sudo
 function insert_sudo() {
 	zle beginning-of-line
