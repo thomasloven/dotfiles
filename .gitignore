@@ -50,3 +50,6 @@
 .wakeonlan/
 .profile
 .keychain
+.local/
+.ncftp/
+.viminfo.tmp

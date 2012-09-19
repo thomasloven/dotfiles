@@ -46,7 +46,7 @@ set laststatus=2
 " Display tab characters and toggle with <leader>l
 set list
 nnoremap <leader>l :set list!<cr>
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬,nbsp:·
 
 " Ctrl+o toggles the line numbering mode
 function! g:ToggleNuMode()
