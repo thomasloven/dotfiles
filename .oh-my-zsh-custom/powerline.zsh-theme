@@ -15,7 +15,13 @@ STATFG=$CL_darkestgreen
 PROMPT=''
 PROMPT+='
 $(setFG $STATFG)$(setBG $STATBG)'
-PROMPT+='  %m  '
+PROMPT+=' '
+if [[ -z "$SSH_TTY" ]]; then
+
+else
+	PROMPT+='$(setFG $CL_brightred)⚡$(setFG $STATFG)'
+fi
+PROMPT+=' %m  '
 PROMPT+='$(setFG $STATBG)$(setBG $CL_gray4)'
 PROMPT+=$(print '\u2b80')
 PROMPT+='$(setFG $CL_gray9)$(setBG $CL_gray4)'

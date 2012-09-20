@@ -17,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Use vim for editing
 alias vim="mvim -v"
-export EDITOR="vim"
+export EDITOR="mvim -v"
 
 # Path variable
 PATH="/usr/local/sbin:${PATH}"
