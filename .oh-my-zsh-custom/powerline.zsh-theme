@@ -16,7 +16,7 @@ PROMPT=''
 PROMPT+='
 $(setFG $STATFG)$(setBG $STATBG)'
 PROMPT+=' '
-if [[ -z "$SSH_TTY" ]]; then
+if [[ -z "$SSH_CONNECTION" ]]; then
 
 else
 	PROMPT+='$(setFG $CL_brightred)⚡$(setFG $STATFG)'
