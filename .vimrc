@@ -175,3 +175,4 @@ endfunction
 map fq <esc>:call CleanClose(0)<cr>
 map fc <esc>:call CleanClose(1)<cr>
 
+inoremap § <esc>
