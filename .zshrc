@@ -50,6 +50,14 @@ zle -N insert-sudo insert_sudo
 bindkey "\C-s" insert-sudo
 
 setopt AUTO_CD
+setopt IGNORE_EOF
+
+alias ls='pwd;ls -G'
+alias sz='source ~/.zshrc'
+
+bindkey -M viins ' ' magic-space
+
+setopt HIST_IGNORE_ALL_DUPS
 
 # Look for .localzsh from the current directory and upwards and runs it
 #function chpwd; {
