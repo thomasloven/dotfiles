@@ -1,6 +1,10 @@
 " Deactivate vi mode
 set nocompatible
 
+" Leader key is comma (,)
+let mapleader = ","
+let localmapleader = ","
+
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 call pathogen#infect()
@@ -166,8 +170,6 @@ set backspace=indent,eol,start
 set wildmenu
 set wildmode=list:longest
 
-" Leader key is comma (,)
-let mapleader = ","
 
 " Use jj to leave insert mode
 inoremap jj <ESC>
