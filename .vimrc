@@ -85,7 +85,7 @@ map fc <esc>:call CleanClose(1)<cr>
 
 " Use <leader>ev to Edit .Vimrc
 " Use <leader>sv to Source .Vimrc
-nmap <leader>ev :e $MYVIMRC<cr>
+nmap <leader>ev :vsplit $MYVIMRC<cr>
 nmap <leader>sv :so $MYVIMRC<cr>
 
 " ,b lists buffers
