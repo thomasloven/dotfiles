@@ -12,7 +12,7 @@ export LC_ALL='sv_SE.UTF-8'
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
 ZSH_THEME="powerline"
-plugins=(git brew osx extract screen wakeonlan)
+plugins=(git brew osx extract screen wakeonlan command-coloring)
 source $ZSH/oh-my-zsh.sh
 
 # Use vim for editing
@@ -24,6 +24,7 @@ PATH="/usr/local/sbin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="/usr/texbin:${PATH}"
 PATH="/usr/local/mysql/bin:${PATH}"
+PATH="/usr/local/Cellar/ruby/1.9.3-p286/bin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
 
 # Use vim editing mode
