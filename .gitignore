@@ -53,3 +53,5 @@
 .local/
 .ncftp/
 .viminfo.tmp
+.vim/.netrwhist
+.vimgolf
