@@ -56,3 +56,5 @@
 .vim/.netrwhist
 .vimgolf
 .unison
+.gnupg
+.htoprc
