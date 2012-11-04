@@ -184,6 +184,11 @@ vnoremap ö :
 nnoremap <leader>j o<esc>k
 nnoremap <leader>k O<esc>j
 
+" å is easier to type than ` for navigating marks
+nnoremap å `
+nnoremap ä ]
+nnoremap Ä [
+
 "}}}
 
 nnoremap <C-p> <C-]>
