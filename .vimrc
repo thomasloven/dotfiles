@@ -184,6 +184,10 @@ vnoremap ö :
 nnoremap <leader>j o<esc>k
 nnoremap <leader>k O<esc>j
 
+" Insert or append single characters with ,i and ,a
+nnoremap <leader>i i<space><esc>r
+nnoremap <leader>a a<space><esc>r
+
 " å is easier to type than ` for navigating marks
 nnoremap å `
 nnoremap ä ]
