@@ -221,3 +221,4 @@ nnoremap <leader>u :GundoToggle<cr>
 let g:Powerline_symbols='fancy'
 
 filetype plugin on
+noh
