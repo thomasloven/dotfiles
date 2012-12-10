@@ -26,6 +26,7 @@ PATH="/usr/texbin:${PATH}"
 PATH="/usr/local/mysql/bin:${PATH}"
 PATH="/usr/local/Cellar/ruby/1.9.3-p286/bin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
+PATH=".:${PATH}"
 
 # Use vim editing mode
 # Make sure backspace works as it should
