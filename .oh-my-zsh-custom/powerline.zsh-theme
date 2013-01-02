@@ -37,6 +37,12 @@ RPROMPT+='$(setBG $CL_black)$(setFG $CL_gray4)'
 RPROMPT+=$(print '\U2b82')
 RPROMPT+='$(setBG $CL_gray4)$(setFG $CL_gray9)'
 RPROMPT+='$(git_prompt_info)'
+HOSTNAME=`hostname | awk -F . '{ print $1 }' | tr MTP mtp 2>/dev/null`
+if [[ "$HOSTNAME" == "mac-thomas-pro" ]]; then
+	RPROMPT+='$(setFG $CL_brightestorange)⚡'
+	RPROMPT+=`batlevel`
+	RPROMPT+='$(setFG $CL_gray9)'
+fi
 RPROMPT+='$(setBG $CL_gray4)$(setFG $CL_gray10)'
 RPROMPT+=$(print '\u2b82')
 RPROMPT+='$(setBG $CL_gray10)$(setFG $CL_gray2)'
@@ -46,6 +52,9 @@ RPROMPT+='%{$reset_color%}'
 ZSH_THEME_GIT_MIDDLE=$(print "\u2b60")
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX=" "
+if [[ "$HOSTNAME" == "mac-thomas-pro" ]]; then
+	ZSH_THEME_GIT_PROMPT_SUFFIX+="$(print '\u2b83') "
+fi
 ZSH_THEME_GIT_PROMPT_DIRTY=$(print "$(setFG $CL_brightred)\u2717$(setFG $CL_gray9)")
 ZSH_THEME_GIT_PROMPT_CLEAN=$(print "$(setFG $CL_brightgreen)\u2713$(setFG $CL_gray9)")
 function zle-keymap-select {
@@ -54,11 +63,12 @@ function zle-keymap-select {
 	zle reset-prompt
 }
 
-function accept_line {
+function accept-line {
+	zle reset-prompt
 	eval STATBG=$CL_brightgreen
 	eval STATFG=$CL_darkestgreen
 	builtin zle .accept-line
 }
-zle -N accept_line
-bindkey -M vicmd "^M" accept_line
+zle -N accept-line
+bindkey -M vicmd "^M" accept-line
 zle -N zle-keymap-select
