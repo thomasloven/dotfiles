@@ -16,53 +16,71 @@ PROMPT=''
 PROMPT+='
 $(setFG $STATFG)$(setBG $STATBG)'
 PROMPT+=' '
-if [[ -z "$SSH_CONNECTION" ]]; then
-
-else
+# SSH Indicator ( Doesn't work too well in tmux)
+if [[ -n "$SSH_CONNECTION" ]]; then
 	PROMPT+='$(setFG $CL_brightred)⚡$(setFG $STATFG)'
 fi
+# Host name
 PROMPT+=' %m  '
-PROMPT+='$(setFG $STATBG)$(setBG $CL_gray4)'
+PROMPT+='$(setFG $STATBG)$(setBG $CL_darkestblue)'
 PROMPT+=$(print '\u2b80')
-PROMPT+='$(setFG $CL_gray9)$(setBG $CL_gray4)'
+
+# Working directory
+#PROMPT+='$(setFG $CL_gray9)$(setBG $CL_gray4)'
+PROMPT+='$(setFG $CL_base2)$(setBG $CL_darkestblue)'
 PROMPT+=' %c '
+
+# History number
 #PROMPT+='$(setFG $CL_gray4)$(setBG $CL_gray9)'
 PROMPT+=$(print '\u2b81')
 PROMPT+=' %! '
-PROMPT+=$(print '%(!.$(setFG $CL_gray4)$(setBG $CL_red)\u2b80$(setFG $CL_red)$(setBG $CL_black)\u2b80.$(setFG $CL_gray4)$(setBG $CL_black)\u2b80)')
+# Add a red arrow if superuser
+PROMPT+=$(print '%(!.$(setFG $CL_darkestblue)$(setBG $CL_red)\u2b80$(setFG $CL_red)$(setBG 0)\u2b80.$(setFG $CL_darkestblue)$(setBG 0)\u2b80)')
 PROMPT+='%{$reset_color%}'
 
 RPROMPT=''
-RPROMPT+='$(setBG $CL_black)$(setFG $CL_gray4)'
+
+# Git information
+RPROMPT+='$(setBG 0)$(setFG $CL_gray2)'
 RPROMPT+=$(print '\U2b82')
-RPROMPT+='$(setBG $CL_gray4)$(setFG $CL_gray9)'
+RPROMPT+='$(setBG $CL_gray2)$(setFG $CL_gray7)'
 RPROMPT+='$(git_prompt_info)'
+
+# Specific for the macbook
 HOSTNAME=`hostname | awk -F . '{ print $1 }' | tr MTP mtp 2>/dev/null`
 if [[ "$HOSTNAME" == "mac-thomas-pro" ]]; then
+	# Print battery level (doesn't work well at all)
 	RPROMPT+='$(setFG $CL_brightestorange)⚡'
 	RPROMPT+=`batlevel`
 	RPROMPT+='$(setFG $CL_gray9)'
 fi
-RPROMPT+='$(setBG $CL_gray4)$(setFG $CL_gray10)'
+RPROMPT+='$(setBG $CL_gray2)$(setFG $CL_gray10)'
+
+# Time
 RPROMPT+=$(print '\u2b82')
 RPROMPT+='$(setBG $CL_gray10)$(setFG $CL_gray2)'
 RPROMPT+=' %* '
 RPROMPT+='%{$reset_color%}'
 
+# Git prompt
 ZSH_THEME_GIT_MIDDLE=$(print "\u2b60")
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX=" "
 if [[ "$HOSTNAME" == "mac-thomas-pro" ]]; then
+	# Add an extra arrow if on macbook
 	ZSH_THEME_GIT_PROMPT_SUFFIX+="$(print '\u2b83') "
 fi
-ZSH_THEME_GIT_PROMPT_DIRTY=$(print "$(setFG $CL_brightred)\u2717$(setFG $CL_gray9)")
-ZSH_THEME_GIT_PROMPT_CLEAN=$(print "$(setFG $CL_brightgreen)\u2713$(setFG $CL_gray9)")
+ZSH_THEME_GIT_PROMPT_DIRTY=$(print "$(setFG $CL_brightred)\u2717$(setFG $CL_gray7)")
+ZSH_THEME_GIT_PROMPT_CLEAN=$(print "$(setFG $CL_brightgreen)\u2713$(setFG $CL_gray7)")
+
+# Change color of status indicator
 function zle-keymap-select {
 	eval STATBG='${${KEYMAP/vicmd/$CL_brightorange}/(main|viins)/$CL_brightgreen}'
 	eval STATFG='${${KEYMAP/vicmd/$CL_red}/(main|viins)/$CL_darkestgreen}'
 	zle reset-prompt
 }
 
+# Update time and change colors when pressing enter
 function accept-line {
 	zle reset-prompt
 	eval STATBG=$CL_brightgreen

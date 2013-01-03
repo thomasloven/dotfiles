@@ -24,10 +24,14 @@ set laststatus=2
 
 " Syntax highlighting and line numbering
 set t_Co=256
-syntax on
+"syntax on
 
-colorscheme sunburst
+"colorscheme sunburst
+syntax enable
+let g:CSApprox_loaded = 1
 set background=dark
+colorscheme solarized
+hi Normal ctermbg=NONE
 
 " Line numbering
 set number
@@ -219,6 +223,8 @@ nnoremap <leader>u :GundoToggle<cr>
 
 " Enable powerline symbols
 let g:Powerline_symbols='fancy'
+let g:Powerline_theme="default"
+let g:Powerline_colorscheme="skwp"
 
 filetype plugin on
 noh

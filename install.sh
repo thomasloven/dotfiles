@@ -42,7 +42,15 @@ function installTmux() {
 }
 
 function installBrew() {
-	echo "Installing Homebrew"
+	if [[ -z `which brew | grep -v 'not found'` ]]; then
+		echo "Installing Homebrew"
+		ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+	fi
+	brew update
+	brew install macvim
+	brew install tmux
+	brew install reattach-to-user-namespace
+	brew linkapps
 }
 
 function doUpdate() {
@@ -149,6 +157,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	if [[ -n $DOBREW ]]; then
 		installBrew
 	fi
+
 
 fi
 
