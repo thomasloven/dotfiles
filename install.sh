@@ -30,9 +30,13 @@ function installZsh() {
 	rm -rf ~/.oh-my-zsh
 	rm -rf ~/.oh-my-zsh-custom
 	rm -rf ~/.zshrc
+	rm -rf ~/.gitconfig
+	rm -rf ~/.gitignore_global
 	ln -s $PWD/.oh-my-zsh ~/.oh-my-zsh
 	ln -s $PWD/oh-my-zsh-custom ~/.oh-my-zsh-custom
 	ln -s $PWD/zshrc ~/.zshrc
+	ln -s $PWD/gitconfig ~/.gitconfig
+	ln -s $PWD/gitignore_global ~/.gitignore_global
 }
 
 function installTmux() {
