@@ -115,3 +115,7 @@ expand-or-complete-with-dots() {
 }
 zle -N expand-or-complete-with-dots
 bindkey '^I' expand-or-complete-with-dots
+
+db() { cd ~/Dropbox/$1; }
+_db() { _files -W ~/Dropbox ~/; }
+compdef _db db
