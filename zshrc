@@ -24,7 +24,7 @@ PATH="/usr/local/sbin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="/usr/texbin:${PATH}"
 PATH="/usr/local/mysql/bin:${PATH}"
-PATH="/usr/local/Cellar/ruby/1.9.3-p286/bin:${PATH}"
+PATH="$(cd $(which gem)/..; pwd):${PATH}"
 PATH="${HOME}/bin:${PATH}"
 PATH=".:${PATH}"
 
