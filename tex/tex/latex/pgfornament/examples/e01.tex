@@ -1,0 +1,34 @@
+\documentclass[a4paper]{tufte-handout} 
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfornament,tkzexample,tikzrput}     
+
+
+\definecolor{fondpaille}{cmyk}{0,0,0.1,0}
+\begin{document}  
+\null\vspace{5cm}  
+
+
+  \begin{center}
+  \rput[r](-3pt,3pt){\pgfornament[scale=.5]{72}}
+  \huge{Motifs d'ornements}%
+  \rput[l](3pt,3pt){\pgfornament[scale=.5]{73}}\\
+  \rput(0,0){\pgfornament[scale=.5]{85}}
+  \end{center} 
+
+
+
+\begin{tkzexample}[code only]
+  \rput[r](-3pt,3pt){\pgfornament[scale=.5]{72}}
+  \huge{Motifs d'ornements}%
+  \rput[l](3pt,3pt){\pgfornament[scale=.5]{73}}\\
+  \rput(0,0){\pgfornament[scale=.5]{85}} 
+\end{tkzexample}
+ 
+\begin{center}
+\rput[r](-2pt,6pt){\pgfornament[color=black,height=1cm]{21}}
+\Large{Texte}%   
+\rput[l](2pt,6pt){\pgfornament[color=black,height=1cm]{23}} 
+\end{center}   
+ \end{document}

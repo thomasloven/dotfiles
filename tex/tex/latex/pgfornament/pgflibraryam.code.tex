@@ -1,0 +1,29 @@
+% utf8
+% author Alain Matthes d'après des travaux de F Fradin et H Voss  sur un fichier
+% 21/01/2012
+\makeatletter
+
+% dimensions des motifs
+\def\@pgfornamentDim#1{% dim en bp
+\ifcase#1\relax%
+\or\def\@pgfornamentX{136}\def\@pgfornamentY{107}% 1
+\or\def\@pgfornamentX{133}\def\@pgfornamentY{48}%  2
+\fi%
+}%
+% appels des motifs 
+\def\pgf@@ornament#1{%
+\begingroup
+\def\i{\pgfusepath{clip}}
+\let\o\pgfpathclose
+\let\s\pgfusepathqfillstroke
+\def\p ##1##2{\pgfqpoint{##1bp}{##2bp}}
+\def\m ##1 ##2 {\pgfpathmoveto{\p{##1}{##2}}}
+\def\l ##1 ##2 {\pgfpathlineto{\p{##1}{##2}}}
+\def\r ##1 ##2 ##3 ##4 {\pgfpathrectangle{\p{##1}{##2}}{\p{##3}{##4}}}
+\def\c ##1 ##2 ##3 ##4 ##5 ##6 {%
+\pgfpathcurveto{\p{##1}{##2}}{\p{##3}{##4}}{\p{##5}{##6}}}%
+\@@input am#1.pgf 
+%\@nameuse{pgf@@am@#1}%
+\endgroup}%
+\makeatother
+\endinput   

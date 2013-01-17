@@ -17,6 +17,12 @@ function doIt() {
 	echo "Doing stuff!"
 }
 
+function installLatex() {
+	echo "Installing latex packages"
+	rm -rf ~/Library/texmf
+	ln -s $PWD/tex ~/Library/texmf
+}
+
 function installVim() {
 	echo "Installing .vimrc and plugins"
 	rm -rf ~/.vim
