@@ -149,9 +149,13 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 nnoremap j gj
+nnoremap gj j
 nnoremap k gk
+nnoremap gk k
 nnoremap 0 g0
+nnoremap g0 0
 nnoremap $ g$
+nnoremap g$ $
 
 " Window split movement
 nnoremap <leader>w <C-w>v<C-w>l
