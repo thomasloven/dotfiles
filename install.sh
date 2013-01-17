@@ -99,6 +99,7 @@ DOVIM=
 DOZSH=
 DOTMUX=
 DOBREW=
+DOLATEX=
 NOUPDATE=
 REPLY=
 
@@ -122,6 +123,7 @@ do
 			DOZSH=TRUE
 			DOTMUX=TRUE
 			DOBREW=TRUE
+			DOLATEX=TRUE
 			;;
 		v)
 			DOVIM=TRUE
@@ -134,6 +136,9 @@ do
 			;;
 		b)
 			DOBREW=TRUE
+			;;
+		l)
+			DOLATEX=TRUE
 			;;
 		h)
 			showHelp
@@ -166,6 +171,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	fi
 	if [[ -n $DOBREW ]]; then
 		installBrew
+	fi
+	if [[ -n $DOLATEX ]]; then
+		installLatex
 	fi
 
 
