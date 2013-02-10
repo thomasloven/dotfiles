@@ -35,13 +35,13 @@ PROMPT+=' %c '
 PROMPT+=$(print '\u2b81')
 PROMPT+=' %! '
 # Add a red arrow if superuser
-PROMPT+=$(print '%(!.$(setFG $CL_darkestblue)$(setBG $CL_red)\u2b80$(setFG $CL_red)$(setBG )\u2b80.$(setFG $CL_darkestblue)$(setBG )\u2b80)')
+PROMPT+=$(print '%(!.$(setFG $CL_darkestblue)$(setBG $CL_red)\u2b80$(noBG 0)$(setFG $CL_red)\u2b80.$(noBG 0)$(setFG $CL_darkestblue)\u2b80)')
 PROMPT+='%{$reset_color%}'
 
 RPROMPT=''
 
 # Git information
-RPROMPT+='$(setBG )$(setFG $CL_gray2)'
+RPROMPT+='$(noBG 0)$(setFG $CL_gray2)'
 RPROMPT+=$(print '\U2b82')
 RPROMPT+='$(setBG $CL_gray2)$(setFG $CL_gray7)'
 RPROMPT+='$(git_prompt_info)'

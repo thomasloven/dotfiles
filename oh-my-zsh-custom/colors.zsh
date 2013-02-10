@@ -6,6 +6,10 @@ function setBG() {
 	echo "%{[48;05;$1m%}"
 }
 
+function noBG() {
+	echo "%{[49m%}"
+}
+
 CL_black=16
 CL_white=231
 
