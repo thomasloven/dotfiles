@@ -208,6 +208,8 @@ nnoremap <C-p> <C-]>
 " ,q to open NERDTree
 nnoremap <leader>q :NERDTreeToggle<cr>
 
+nnoremap <leader>p :TagbarToggle<cr>
+
 " Tab commands
 nnoremap <leader>tt :tabnew<cr>
 nnoremap <leader>tc :tabclose<cr>
