@@ -5,7 +5,7 @@
       <identifier>private.left_ctrl_to_left_ctrl</identifier>
 
       <autogen>
-        --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::BACKQUOTE, ModifierFlag::CONTROL_L
+        --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F19
       </autogen>
   </item>
 </root>
