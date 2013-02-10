@@ -11,6 +11,8 @@ call pathogen#infect()
 
 let g:localvimrc_sandbox=0
 
+filetype plugin on
+
 " DISPLAY {{{
 
 " Use utf-8 encoding
@@ -22,99 +24,120 @@ set cursorline
 set ruler
 set laststatus=2
 
+set ttyfast
+
+
 " Syntax highlighting and line numbering
 set t_Co=256
-"syntax on
-
-"colorscheme sunburst
 syntax enable
 let g:CSApprox_loaded = 1
 set background=dark
 colorscheme solarized
 hi Normal ctermbg=NONE
 
+
 " Line numbering
 set number
-" Ctrl+o toggles the line numbering mode
 function! g:ToggleNuMode()
-	if(&rnu==1)
-		set nu
-	else
-		set rnu
-	endif
+  if(&rnu==1)
+    set nu
+  else
+    set rnu
+  endif
 endfunc
-
+" Ctrl+o toggles the line numbering mode
 nnoremap <leader>o :call g:ToggleNuMode()<cr>
+
 
 " Display tab characters and toggle with <leader>l
 set list
 nnoremap <leader>l :set list!<cr>
 set listchars=tab:▸\ ,eol:¬,nbsp:·
 
+
+" Enable powerline symbols
+let g:Powerline_symbols='fancy'
+let g:Powerline_theme="default"
+let g:Powerline_colorscheme="skwp"
+
 " }}}
 
+
 " FILE MANAGEMENT {{{
+"
 " Don't save backups
 set nobackup
 set nowritebackup
 set noswapfile
-
 set hidden
+
 
 " Forgot to open a file with sudo? No problem w!! writes anyway
 cmap w!! w !sudo dd of=%
 
+
 " Fc save and close buffer
 " fq close buffer without saving
 function! CleanClose(toSave)
-	if (a:toSave == 1)
-		w!
-	endif
-	let todelbufNr = bufnr("%")
-	let newbufNr = bufnr("#")
-	if ((newbufNr != -1) && (newbufNr != todelbufNr) && buflisted(newbufNr))
-		exe "b".newbufNr
-	else
-		bnext
-	endif
+  if (a:toSave == 1)
+    w!
+  endif
+  let todelbufNr = bufnr("%")
+  let newbufNr = bufnr("#")
+  if ((newbufNr != -1) && (newbufNr != todelbufNr) && buflisted(newbufNr))
+    exe "b".newbufNr
+  else
+    bnext
+  endif
 
-	if (bufnr("%") == todelbufNr)
-		new
-	endif
-	exe "bw!".todelbufNr
+  if (bufnr("%") == todelbufNr)
+    new
+  endif
+  exe "bw!".todelbufNr
 endfunction
 
 map fq <esc>:call CleanClose(0)<cr>
 map fc <esc>:call CleanClose(1)<cr>
+
 
 " Use <leader>ev to Edit .Vimrc
 " Use <leader>sv to Source .Vimrc
 nmap <leader>ev :vsplit $MYVIMRC<cr>
 nmap <leader>sv :so $MYVIMRC<cr>
 
+
 " ,b lists buffers
 nnoremap <leader>b :LustyJuggler<cr>
 
 "}}}
 
+
 " FORMATING {{{
-" Tabs should be tabs and 4 spaces wide.
+
+" Tab settings
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-set noexpandtab
+set expandtab
 set smartindent
 
-" Fix line wrapping
+autocmd FileType make setlocal ts=8 sts=8 sw=8 noet
+autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab
+
+autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet
+
+
+" Line wrapping settings
 set wrap
-set textwidth=79
+set textwidth=72
 set formatoptions=qrn1
-set colorcolumn=79
+set colorcolumn=72
 set formatprg=par
+
+
 
 "}}}
 
-set ttyfast
 
 " SEARCHING {{{
 " Some useful search settings
@@ -131,8 +154,6 @@ nnoremap <leader><space> :noh<cr>
 
 " }}}
 
-" Auto completion on <leader><tab> ( should try to find a better mapping...
-inoremap <leader><tab> <C-N>
 
 " NAVIGATION {{{
 
@@ -170,9 +191,20 @@ nnoremap <C-l> <C-w>l
 nnoremap <tab> %
 vnoremap <tab> %
 
+" Tab commands
+nnoremap <leader>tt :tabnew<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm :tabmove
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tp :tabprevious<cr>
+
 "}}}
 
+
 " COMMAND KEYS {{{
+
+set ttimeout
+set ttimeoutlen=100
 
 set backspace=indent,eol,start
 set wildmenu
@@ -196,39 +228,43 @@ nnoremap <leader>k O<esc>j
 nnoremap <leader>i i<space><esc>r
 nnoremap <leader>a a<space><esc>r
 
+
 " å is easier to type than ` for navigating marks
 nnoremap å `
+nnoremap må m`
+nnoremap åå ``
+
+" ä for marks navigation
 nnoremap ä ]
+nnoremap <C-ä> <C-]>
 nnoremap Ä [
 
-"}}}
 
+" Tags navigation with C-p
 nnoremap <C-p> <C-]>
 
-" ,q to open NERDTree
-nnoremap <leader>q :NERDTreeToggle<cr>
 
-" Tab commands
-nnoremap <leader>tt :tabnew<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>tm :tabmove
-nnoremap <leader>tn :tabnext<cr>
-nnoremap <leader>tp :tabprevious<cr>
+" ,q to open NERDTree
+nnoremap <leader>q :NERDTr eeTabsToggle<cr>
+
+
+" <leader>u shows undo tree
+nnoremap <leader>u :GundoToggle<cr>
+
+
+" Auto completion on <leader><tab> ( should try to find a better mapping...
+inoremap <leader><tab> <C-N>
+
+"}}} COMMAND KEYS
+
 
 " FOLDING {{{
-" Toggle comments with space
+" Toggle folds with space
 nnoremap <space> za
 " Fold between {{{ and }}}
 set foldmethod=marker
 " }}}
 
-" <leader>u shows undo tree
-nnoremap <leader>u :GundoToggle<cr>
 
-" Enable powerline symbols
-let g:Powerline_symbols='fancy'
-let g:Powerline_theme="default"
-let g:Powerline_colorscheme="skwp"
 
-filetype plugin on
 noh
