@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<root>
+  <item>
+      <name>Remap left control to left control</name>
+      <identifier>private.left_ctrl_to_left_ctrl</identifier>
+
+      <autogen>
+        --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::BACKQUOTE, ModifierFlag::CONTROL_L
+      </autogen>
+  </item>
+</root>
