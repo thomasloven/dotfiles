@@ -212,9 +212,9 @@ set wildmode=list:longest
 
 
 " Use jj to leave insert mode
-inoremap jj <ESC>
-inoremap kj <ESC>
-vnoremap ä <ESC> 
+"inoremap jj <ESC>
+"inoremap kj <ESC>
+"vnoremap ä <ESC> 
 
 " Enter commands with the ö-key (Swedish keyboards)
 nnoremap ö :
