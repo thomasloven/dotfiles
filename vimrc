@@ -273,6 +273,6 @@ nnoremap <space> za
 set foldmethod=marker
 " }}}
 
-
+let g:SupertabDefaultCompletionType = "context"
 
 noh

@@ -8,4 +8,14 @@
         --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F19
       </autogen>
   </item>
+  <item>
+      <name>Remap fn+tab to C-v tab</name>
+      <identifier>private.left_ctrl_to_cv_tab</identifier>
+
+      <autogen>
+        --KeyToKey--
+        KeyCode::TAB, ModifierFlag::FN,
+        KeyCode::V, ModifierFlag::CONTROL_L, KeyCode::TAB
+      </autogen>
+  </item>
 </root>
