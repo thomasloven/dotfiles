@@ -34,9 +34,6 @@
 [submodule ".vim/bundle/CSApprox"]
 	path = .vim/bundle/CSApprox
 	url = https://github.com/vim-scripts/CSApprox.git
-[submodule ".vim/bundle/syntastic"]
-	path = .vim/bundle/syntastic
-	url = https://github.com/thomasloven/syntastic.git
 [submodule ".vim/bundle/latex-box"]
 	path = .vim/bundle/latex-box
 	url = https://github.com/LaTeX-Box-Team/LaTeX-Box.git
@@ -52,3 +49,6 @@
 [submodule ".vim/bundle/supertab"]
 	path = .vim/bundle/supertab
 	url = http://github.com/ervandew/supertab
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = http://github.com/scrooloose/syntastic
