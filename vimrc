@@ -53,6 +53,7 @@ nnoremap <leader>o :call g:ToggleNuMode()<cr>
 set list
 nnoremap <leader>l :set list!<cr>
 set listchars=tab:▸\ ,eol:¬,nbsp:·
+set showbreak=↪
 
 
 " Enable powerline symbols
