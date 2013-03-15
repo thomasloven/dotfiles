@@ -9,6 +9,15 @@
       </autogen>
   </item>
   <item>
+      <name>Remap F18 to ctrl+tab</name>
+      <identifier>private.F80_to_ctrl_tab</identifier>
+      <autogen>
+      --KeyToKey--
+      KeyCode::F18,
+      KeyCode::TAB, ModifierFlag::CONTROL_R
+      </autogen>
+  </item>
+  <item>
       <name>Remap fn+tab to C-v tab</name>
       <identifier>private.left_ctrl_to_cv_tab</identifier>
 

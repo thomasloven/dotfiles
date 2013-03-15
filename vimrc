@@ -59,7 +59,8 @@ set showbreak=↪
 " Enable powerline symbols
 let g:Powerline_symbols='fancy'
 let g:Powerline_theme="default"
-let g:Powerline_colorscheme="skwp"
+"let g:Powerline_colorscheme="skwp"
+let g:Powerline_colorscheme="solarized16"
 
 " }}}
 
@@ -212,14 +213,8 @@ set wildmenu
 set wildmode=list:longest
 
 
-" Use jj to leave insert mode
-"inoremap jj <ESC>
-"inoremap kj <ESC>
-"vnoremap ä <ESC> 
-
 " Enter commands with the ö-key (Swedish keyboards)
-nnoremap ö :
-vnoremap ö :
+noremap ö :
 
 " ,j to add a line below, ,k above
 nnoremap <leader>j o<esc>k
@@ -230,23 +225,20 @@ nnoremap <leader>i i<space><esc>r
 nnoremap <leader>a a<space><esc>r
 
 
-" å is easier to type than ` for navigating marks
-nnoremap å `
-nnoremap må m`
-nnoremap åå ``
+" ä is easier to type than ` for navigating marks
+noremap ä `
 
-" ä for marks navigation
-nnoremap ä ]
-nnoremap <C-ä> <C-]>
-nnoremap Ä [
-
-
-" Tags navigation with C-p
-nnoremap <C-p> <C-]>
+" å for marks navigation
+noremap å [
+noremap ¨ ]
+" For computer where ¨ is a dead key
+noremap Å ]
 
 
-" ,q to open NERDTree
+
+" ,q or § to open NERDTree
 nnoremap <leader>q :NERDTreeTabsToggle<cr>
+nnoremap <silent> § :NERDTreeTabsToggle<cr>
 
 
 " <leader>u shows undo tree
@@ -258,6 +250,7 @@ inoremap <leader><tab> <C-N>
 nnoremap <leader>p :TagbarToggle<cr>
 
 "}}} COMMAND KEYS
+
 
 
 " Tab commands
