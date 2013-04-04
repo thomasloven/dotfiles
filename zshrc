@@ -15,6 +15,7 @@ PATH="/usr/texbin:${PATH}"
 PATH="/usr/local/mysql/bin:${PATH}"
 #PATH="$(cd $(which gem)/..; pwd):${PATH}"
 PATH="/usr/local/opt/ruby/bin:${PATH}"
+PATH="/usr/local/share/python:${PATH}"
 PATH="${HOME}/bin:${PATH}"
 PATH=".:${PATH}"
 
