@@ -144,3 +144,6 @@ hosts=(
 
 zstyle ':completion:*:hosts' hosts $hosts
 
+function mcd() {
+  mkdir -p "$1" && cd "$1"
+}
