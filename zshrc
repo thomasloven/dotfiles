@@ -129,3 +129,18 @@ bindkey '^I' expand-or-complete-with-dots
 db() { cd ~/Dropbox/$1; }
 _db() { _files -W ~/Dropbox ~/; }
 compdef _db db
+
+# Use ~/.ssh/hosts for autocompletion of ssh commands
+source ~/.oh-my-zsh/lib/completion.zsh
+[ -r ~/.ssh/config ] &&      _ssh_config_hosts=(${(s: :)${(ps:\t:)${(f)"$(<$HOME/.ssh/config|grep 'Host')"}#Host}#Hostname}) || _ssh_config_hosts=()
+hosts=(
+    "$_global_ssh_hosts[@]"
+    "$_ssh_config_hosts[@]"
+    "$_ssh_hosts[@]"
+    "$_etc_hosts[@]"
+    "$HOST"
+    localhost
+    )
+
+zstyle ':completion:*:hosts' hosts $hosts
+
