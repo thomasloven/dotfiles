@@ -1,17 +1,18 @@
 " Deactivate vi mode
 set nocompatible
 
+filetype off
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+call pathogen#infect()
+filetype plugin indent on
+
+let g:localvimrc_sandbox=0
+"
 " Leader key is comma (,)
 let mapleader = ","
 let localmapleader = ","
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-call pathogen#infect()
-
-let g:localvimrc_sandbox=0
-
-filetype plugin on
 
 " DISPLAY {{{
 
@@ -133,7 +134,7 @@ autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet
 set wrap
 set textwidth=72
 set formatoptions=qrn1
-set colorcolumn=72
+set colorcolumn=+1
 set formatprg=par
 
 
