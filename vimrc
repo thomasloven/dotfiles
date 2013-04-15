@@ -146,6 +146,7 @@ set formatprg=par
 " Some useful search settings
 nnoremap / /\v
 vnoremap / /\v
+nnoremap * *<c-o>
 set ignorecase
 set smartcase
 set incsearch
@@ -231,9 +232,15 @@ noremap ä `
 
 " å for marks navigation
 noremap å [
+noremap åå [[
 noremap ¨ ]
+noremap ¨¨ ]]
+" For some reason C-¨ registers as C-^ on my keyboard...
+nnoremap <c-^> <c-]>
+nnoremap <c-^> <c-]>mzzvzz15<c-e>`z
 " For computer where ¨ is a dead key
-noremap Å ]
+"noremap Å ]
+"noremap ÅÅ ]]
 
 
 
