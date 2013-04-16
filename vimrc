@@ -99,7 +99,7 @@ nnoremap <c-z> :Pulse<CR>
 
 " FOLDING {{{
 " Toggle folds with space
-nnoremap <space> za
+nnoremap <space> zA
 " Fold between {{{ and }}}
 set foldmethod=marker
 " }}}
