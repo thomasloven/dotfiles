@@ -63,6 +63,12 @@ nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
 nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
 nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
 nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
+vnoremap <silent> <leader>1 :call HiInterestingVisual(1)<CR>
+vnoremap <silent> <leader>2 :call HiInterestingVisual(2)<CR>
+vnoremap <silent> <leader>3 :call HiInterestingVisual(3)<CR>
+vnoremap <silent> <leader>4 :call HiInterestingVisual(4)<CR>
+vnoremap <silent> <leader>5 :call HiInterestingVisual(5)<CR>
+vnoremap <silent> <leader>6 :call HiInterestingVisual(6)<CR>
 nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 
 " Show why a word is highlighted as it is
@@ -99,7 +105,7 @@ nnoremap <c-z> :Pulse<CR>
 
 " FOLDING {{{
 " Toggle folds with space
-nnoremap <space> zA
+nnoremap <space> za
 " Fold between {{{ and }}}
 set foldmethod=marker
 " }}}
@@ -370,6 +376,15 @@ function! HiInterestingWord(n) "{{{
   let pat = '\V\<' . escape(@z, '\') . '\>'
   call matchadd("InterestingWord" . a:n, pat, 1, mid)
   normal! `z
+endfunction "}}}
+
+function! HiInterestingVisual(n) "{{{
+  normal! gv"zy
+  let mid = 86750 + a:n
+  silent! call matchdelete(mid)
+  let pat = '\V' . escape(@z, '\')
+  call matchadd("InterestingWord" . a:n, pat, 1, mid)
+  normal! gv
 endfunction "}}}
 
 " Unhighlight word functin - By me :)
