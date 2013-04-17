@@ -95,11 +95,11 @@ let g:Powerline_colorscheme="solarized16"
 " POWERLINE PLUGIN }}}
 
 " Show position
-nnoremap <c-z> :Pulse<CR>
+nnoremap <c-z> mzzMzvzz5<c-e>`z:Pulse<CR>
 
 " FOLDING {{{
 " Toggle folds with space
-nnoremap <space> zA
+nnoremap <space> za
 " Fold between {{{ and }}}
 set foldmethod=marker
 " }}}
@@ -291,6 +291,7 @@ autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmark
 
 autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd FileType tex setlocal foldmarker=(fold),(end)
 " FILETYPE }}}
 
 " FUNCTIONS {{{
