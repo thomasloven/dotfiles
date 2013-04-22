@@ -261,6 +261,9 @@ nnoremap <leader>tm :tabmove
 nnoremap <leader>tn :tabnext<cr>
 nnoremap <leader>tp :tabprevious<cr>
 
+" ,, to switch to previous file
+nnoremap <leader><leader> <c-^>
+
 "}}}
 
 
@@ -292,6 +295,8 @@ let g:gundo_preview_bottom=1
 nnoremap <silent> <leader>p :TagbarToggle<cr>
 
 let g:SupertabDefaultCompletionType = "context"
+
+nnoremap <leader>ri :call InlineVariable()<cr>
 "}}} COMMAND KEYS
 
 
@@ -399,6 +404,26 @@ function! UnHiInterestingWord() "{{{
     let mid = 86750 + i
     silent! call matchdelete(mid)
   endfor
+endfunction "}}}
+
+" InlineVariable - by Gary Bernhardt {{{
+" Changes
+"   a = 123;
+"   b = a*5;
+" to
+"   b = 123*5;
+function! InlineVariable()
+  let l:tmp_a = @a
+  normal "ayiw
+  normal 2daw
+  let l:tmp_b = @b
+  normal "bd$
+  normal dd
+  normal k$
+  exec '/\<' . @a . '\>'
+  exec ':s//' . @b
+  let @a = l:tmp_a
+  let @b = l:tmp_b
 endfunction "}}}
 
 " }}}

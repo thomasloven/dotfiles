@@ -78,7 +78,7 @@ setopt HIST_IGNORE_ALL_DUPS
 #}
 
 # Use C-l to run command into less
-bindkey -s "\C-l" " 2>&1|less^M"
+#bindkey -s "\C-l" " 2>&1|less^M"
 
 # unsetopt xtrace
 # exec 2>&3 3>&-
