@@ -26,6 +26,8 @@ set colorcolumn=+1
 set ruler
 set laststatus=2
 set ttyfast
+set lazyredraw
+set title
 
 
 " SYNTAX HIGHLIGTING {{{
@@ -153,6 +155,8 @@ nnoremap <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>q :NERDTreeTabsToggle<cr>
 nnoremap <silent> § :NERDTreeTabsToggle<cr>
 
+set makeprg=make\ -w
+
 "}}}
 
 
@@ -268,6 +272,7 @@ set ttimeoutlen=100
 set backspace=indent,eol,start
 set wildmenu
 set wildmode=list:longest
+set wildignore=*.o,*~
 
 " Window splits
 nnoremap <leader>w <C-w>v<C-w>l
