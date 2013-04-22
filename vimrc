@@ -26,6 +26,8 @@ set colorcolumn=+1
 set ruler
 set laststatus=2
 set ttyfast
+set lazyredraw
+set title
 
 
 " SYNTAX HIGHLIGTING {{{
@@ -101,7 +103,7 @@ let g:Powerline_colorscheme="solarized16"
 " POWERLINE PLUGIN }}}
 
 " Show position
-nnoremap <c-z> :Pulse<CR>
+nnoremap <c-z> mzzMzvzz5<c-e>`z:Pulse<CR>
 
 " FOLDING {{{
 " Toggle folds with space
@@ -152,6 +154,8 @@ nnoremap <leader>gd :Gdiff<CR>
 " ,q or § to toggle NERDTree
 nnoremap <silent> <leader>q :NERDTreeTabsToggle<cr>
 nnoremap <silent> § :NERDTreeTabsToggle<cr>
+
+set makeprg=make\ -w
 
 "}}}
 
@@ -268,6 +272,7 @@ set ttimeoutlen=100
 set backspace=indent,eol,start
 set wildmenu
 set wildmode=list:longest
+set wildignore=*.o,*~
 
 " Window splits
 nnoremap <leader>w <C-w>v<C-w>l
@@ -297,6 +302,7 @@ autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmark
 
 autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd FileType tex setlocal foldmarker=(fold),(end)
 " FILETYPE }}}
 
 " FUNCTIONS {{{
