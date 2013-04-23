@@ -306,8 +306,15 @@ autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
 autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,}
 
 autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
-autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType tex setlocal foldmarker=(fold),(end)
+
+augroup au_python
+  au!
+  autocmd FileType python map ,m :w<cr>:execute '!python %'<cr>
+  autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+  autocmd FileType python setlocal foldmethod=indent
+augroup END
+
 " FILETYPE }}}
 
 " FUNCTIONS {{{

@@ -149,3 +149,4 @@ function mcd() {
 }
 
 alias AvadaKedavra="pkill -9"
+alias tt="ssh tynnered -t 'tmux attach'"
