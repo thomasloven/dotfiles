@@ -23,6 +23,7 @@ PATH=".:${PATH}"
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
 ZSH_THEME="powerline"
+ZSH_THEME="thomas"
 plugins=(git brew osx extract screen wakeonlan command-coloring)
 source $ZSH/oh-my-zsh.sh
 
