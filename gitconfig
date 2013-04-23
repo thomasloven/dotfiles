@@ -26,3 +26,4 @@
 	default = current
 [core]
 	excludesfile = /Users/thomas/.gitignore_global
+	pager = less -F -X
