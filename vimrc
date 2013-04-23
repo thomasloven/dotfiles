@@ -261,6 +261,9 @@ nnoremap <leader>tm :tabmove
 nnoremap <leader>tn :tabnext<cr>
 nnoremap <leader>tp :tabprevious<cr>
 
+" ,, to switch to previous file
+nnoremap <leader><leader> <c-^>
+
 "}}}
 
 
@@ -292,6 +295,8 @@ let g:gundo_preview_bottom=1
 nnoremap <silent> <leader>p :TagbarToggle<cr>
 
 let g:SupertabDefaultCompletionType = "context"
+
+nnoremap <leader>ri :call InlineVariable()<cr>
 "}}} COMMAND KEYS
 
 
@@ -301,8 +306,15 @@ autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
 autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,}
 
 autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
-autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType tex setlocal foldmarker=(fold),(end)
+
+augroup au_python
+  au!
+  autocmd FileType python map ,m :w<cr>:execute '!python %'<cr>
+  autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+  autocmd FileType python setlocal foldmethod=indent
+augroup END
+
 " FILETYPE }}}
 
 " FUNCTIONS {{{
@@ -399,6 +411,26 @@ function! UnHiInterestingWord() "{{{
     let mid = 86750 + i
     silent! call matchdelete(mid)
   endfor
+endfunction "}}}
+
+" InlineVariable - by Gary Bernhardt {{{
+" Changes
+"   a = 123;
+"   b = a*5;
+" to
+"   b = 123*5;
+function! InlineVariable()
+  let l:tmp_a = @a
+  normal "ayiw
+  normal 2daw
+  let l:tmp_b = @b
+  normal "bd$
+  normal dd
+  normal k$
+  exec '/\<' . @a . '\>'
+  exec ':s//' . @b
+  let @a = l:tmp_a
+  let @b = l:tmp_b
 endfunction "}}}
 
 " }}}
