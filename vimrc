@@ -9,6 +9,7 @@ filetype plugin indent on
 
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
+let g:Powerline_loaded=1
 "
 " Leader key is comma (,)
 let mapleader = ","
