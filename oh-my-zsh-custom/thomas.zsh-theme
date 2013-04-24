@@ -30,7 +30,11 @@ function git_prompt_info() {
 
   OUTPUT='['
   if [[ -n $(git status -s --ignore-submodules=dirty 2> /dev/null) ]]; then
-    OUTPUT+="%{$fg[red]%}"
+    if [[ -n $(git status -s --ignore-submodules=dirty 2> /dev/null | grep '^[^ ]') ]]; then
+      OUTPUT+="%{$fg[yellow]%}"
+    else
+      OUTPUT+="%{$fg[red]%}"
+    fi
   else
     OUTPUT+="%{$fg[green]%}"
   fi
