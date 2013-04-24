@@ -19,7 +19,7 @@ let maplocalleader = ","
 " DISPLAY {{{
 
 set encoding=utf-8
-set noshowmode
+"set noshowmode
 set showcmd
 set visualbell
 set cursorline
