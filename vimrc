@@ -77,6 +77,87 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 " Show why a word is highlighted as it is
 nnoremap <leader>ss :call SynStack()<CR>
 
+" STATUS LINE {{{
+hi User1 cterm=NONE ctermbg=233 ctermfg=NONE " Buffer number
+hi User2 cterm=NONE ctermbg=233 ctermfg=1 " Paste marker
+hi User4 cterm=NONE ctermbg=233 ctermfg=2 " File name
+hi User5 cterm=NONE ctermbg=233 ctermfg=2 " File type
+hi User6 cterm=reverse ctermbg=233 ctermfg=2 " Position
+hi User8 cterm=NONE ctermbg=233 ctermfg=2 " Git status
+hi StatusLine cterm=NONE ctermbg=233 ctermfg=2
+hi StatusLineNC cterm=NONE ctermbg=232 ctermfg=3
+
+" Changes statusline background depending on insert mode
+function! StatusLineColor(mode)
+  if a:mode == 'i'
+    " Insert mode
+    hi StatusLine cterm=reverse ctermfg=2
+  elseif a:mode == 'R'
+    " Replace mode
+    hi StatusLine cterm=reverse ctermfg=1
+  else
+    " Visual replace mode
+    hi StatusLine cterm=NONE ctermfg=2
+  endif
+  call StatusLineGitColor()
+endfunction
+
+" Changes back status line color
+function! StatusLineColorOff()
+  hi StatusLine cterm=NONE ctermfg=2
+  call StatusLineGitColor()
+endfunction
+
+" Changes User8 highlight depending on git status
+function! StatusLineGitColor()
+  if strlen(system("git status -s --ignore-submodules=dirty 2>/dev/null"))
+    hi User8 ctermfg=1
+  else
+    hi User8 ctermfg=2
+  endif
+endfunction
+
+call StatusLineGitColor()
+
+
+set statusline=
+" Buffer number
+set statusline+=%1*%n:%*
+" Paste mode indicator
+set statusline+=%2*%{&paste?'[PASTE]':''}%*
+
+" Git status
+set statusline+=%1*
+set statusline+=%{strlen(fugitive#head())?'[':''}
+set statusline+=%8*
+set statusline+=%{strlen(fugitive#head())?fugitive#head():''}
+set statusline+=%1*
+set statusline+=%{strlen(fugitive#head())?']':''}
+set statusline+=%*
+
+" Filename and flags
+set statusline+=%4*%<\ %f
+set statusline+=%m%r
+set statusline+=\ %*%=
+
+" Filetype
+set statusline+=%5*\ %y
+" Position
+set statusline+=\ %6*%p%%\ (%l:%c)
+
+let g:Active_statusline = &g:statusline
+let g:NCstatusline = '%n: %<%f%m%r%=%y %p%% (%l:%c)'
+augroup status_line
+  au!
+  au InsertEnter * call StatusLineColor(v:insertmode)
+  au InsertLeave * call StatusLineColorOff()
+  au WinEnter * let &l:statusline = g:Active_statusline
+  au WinLeave * let &l:statusline = g:NCstatusline
+  au BufRead * call StatusLineGitColor()
+  au BufWritePost * call StatusLineGitColor()
+augroup END
+" }}}
+
 
 " LINE NUMBERS {{{
 " Line numbering
@@ -204,6 +285,7 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
+noh
 
 " Tag jumping with <c-¨> and <c-å>
 " <c-¨> registers as <c-^> in terminal...
