@@ -19,7 +19,7 @@ let maplocalleader = ","
 " DISPLAY {{{
 
 set encoding=utf-8
-"set noshowmode
+set noshowmode
 set showcmd
 set visualbell
 set cursorline
@@ -77,43 +77,39 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 nnoremap <leader>ss :call SynStack()<CR>
 
 " STATUS LINE {{{
-hi User1 cterm=NONE ctermbg=233 ctermfg=NONE " Buffer number
-hi User2 cterm=NONE ctermbg=233 ctermfg=1 " Paste marker
-hi User4 cterm=NONE ctermbg=233 ctermfg=2 " File name
-hi User5 cterm=NONE ctermbg=233 ctermfg=2 " File type
-hi User6 cterm=reverse ctermbg=233 ctermfg=2 " Position
-hi User8 cterm=NONE ctermbg=233 ctermfg=2 " Git status
+
 hi StatusLine cterm=NONE ctermbg=233 ctermfg=2
 hi StatusLineNC cterm=NONE ctermbg=232 ctermfg=3
+hi StatLineText cterm=NONE ctermbg=233 ctermfg=NONE
+hi StatLineFN cterm=NONE ctermbg=233 ctermfg=2
+hi StatLinePos cterm=reverse ctermbg=233 ctermfg=2
+hi StatLinePaste cterm=NONE ctermbg=233 ctermfg=1
+hi StatLineGitClean cterm=NONE ctermbg=233 ctermfg=2
+hi StatLineGitDirty cterm=NONE ctermbg=233 ctermfg=1
 hi StatLineHLInsert cterm=reverse ctermfg=2
 hi StatLineHLReplace cterm=reverse ctermfg=1
 hi StatLineHLV cterm=reverse ctermfg=6
 hi StatLineHLVline cterm=reverse ctermfg=4
 hi StatLineHLVblock cterm=reverse ctermfg=5
 
-" Changes User8 highlight depending on git status
-function! StatusLineGitColor()
-  if strlen(system("git status -s --ignore-submodules=dirty 2>/dev/null"))
-    hi User8 ctermfg=1
-  else
-    hi User8 ctermfg=2
-  endif
-endfunction
-
-call StatusLineGitColor()
 
 function! MakeStatusLine()
   let statLine = ''
-  let statLine = statLine . '%1*%n:%*'
-  let statLine = statLine . '%2*%{&paste?"[PASTE]":""}%*'
+  let statLine = statLine . '%#StatLineText#%n:'
+  let statLine = statLine . '%#StatLinePaste#%{&paste?"[PASTE]":""}%#StatLineText#'
   
   if strlen(fugitive#head())
-    let statLine = statLine . '%1*[%8*%{fugitive#head()}%1*]%*'
+    let statLine = statLine . '%#StatLineText#['
+    if strlen(system("git status -s --ignore-submodules=dirty 2>/dev/null"))
+      let statLine = statLine . '%#StatLineGitDirty#'
+    else
+      let statLine = statLine . '%#StatLineGitClean#'
+    endif
+    let statLine = statLine . '%{fugitive#head()}%#StatLineText#]'
   endif
 
-  let statLine = statLine . '%4*%< %f'
-  let statLine = statLine . '%m%r'
-  let statLine = statLine . ' %*'
+  let statLine = statLine . '%#StatLineFN#%< %f'
+  let statLine = statLine . '%m%r '
 
   " Add mode coloring here!
   let mode = mode()
@@ -130,8 +126,10 @@ function! MakeStatusLine()
   endif
 
   let statLine = statLine . '%='
-  let statLine = statLine . '%5* %y'
-  let statLine = statLine . ' %6*%p%% (%l:%c)'
+  if strlen(&filetype)
+    let statLine = statLine . '%#StatLineText# %y'
+  endif
+  let statLine = statLine . ' %#StatLinePos#%p%% (%l:%c)'
   return statLine
 endfunction
 
@@ -143,8 +141,6 @@ augroup status_line
   au!
   au WinEnter * let &l:statusline = g:Active_statusline
   au WinLeave * let &l:statusline = g:NCstatusline
-  au BufRead * call StatusLineGitColor()
-  au BufWritePost * call StatusLineGitColor()
 augroup END
 " }}}
 
