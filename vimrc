@@ -267,6 +267,21 @@ nnoremap <silent> § :NERDTreeTabsToggle<cr>
 
 set makeprg=make\ -w
 
+function! RenameFile(copy)
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    if a:copy == 0
+      exec ':silent !rm ' . old_name
+    endif
+    redraw!
+  endif
+endfunction
+
+noremap <leader>n :call RenameFile(0)<cr>
+noremap <leader>c :call RenameFile(1)<cr>
+
 "}}}
 
 
