@@ -56,8 +56,6 @@ hi def InterestingWord4 ctermfg=16 ctermbg=4
 hi def InterestingWord5 ctermfg=16 ctermbg=5
 hi def InterestingWord6 ctermfg=16 ctermbg=6
 
-" COLOR MAPPINGS }}}
-
 
 " Highlight interesting words with <leader>[1-6]
 nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
@@ -74,6 +72,7 @@ vnoremap <silent> <leader>5 :call HiInterestingVisual(5)<CR>
 vnoremap <silent> <leader>6 :call HiInterestingVisual(6)<CR>
 nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 
+" COLOR MAPPINGS }}}
 " Show why a word is highlighted as it is
 nnoremap <leader>ss :call SynStack()<CR>
 
@@ -86,27 +85,11 @@ hi User6 cterm=reverse ctermbg=233 ctermfg=2 " Position
 hi User8 cterm=NONE ctermbg=233 ctermfg=2 " Git status
 hi StatusLine cterm=NONE ctermbg=233 ctermfg=2
 hi StatusLineNC cterm=NONE ctermbg=232 ctermfg=3
-
-" Changes statusline background depending on insert mode
-function! StatusLineColor(mode)
-  if a:mode == 'i'
-    " Insert mode
-    hi StatusLine cterm=reverse ctermfg=2
-  elseif a:mode == 'R'
-    " Replace mode
-    hi StatusLine cterm=reverse ctermfg=1
-  else
-    " Visual replace mode
-    hi StatusLine cterm=NONE ctermfg=2
-  endif
-  call StatusLineGitColor()
-endfunction
-
-" Changes back status line color
-function! StatusLineColorOff()
-  hi StatusLine cterm=NONE ctermfg=2
-  call StatusLineGitColor()
-endfunction
+hi StatLineHLInsert cterm=reverse ctermfg=2
+hi StatLineHLReplace cterm=reverse ctermfg=1
+hi StatLineHLV cterm=reverse ctermfg=6
+hi StatLineHLVline cterm=reverse ctermfg=4
+hi StatLineHLVblock cterm=reverse ctermfg=5
 
 " Changes User8 highlight depending on git status
 function! StatusLineGitColor()
@@ -119,38 +102,45 @@ endfunction
 
 call StatusLineGitColor()
 
+function! MakeStatusLine()
+  let statLine = ''
+  let statLine = statLine . '%1*%n:%*'
+  let statLine = statLine . '%2*%{&paste?"[PASTE]":""}%*'
+  
+  if strlen(fugitive#head())
+    let statLine = statLine . '%1*[%8*%{fugitive#head()}%1*]%*'
+  endif
 
-set statusline=
-" Buffer number
-set statusline+=%1*%n:%*
-" Paste mode indicator
-set statusline+=%2*%{&paste?'[PASTE]':''}%*
+  let statLine = statLine . '%4*%< %f'
+  let statLine = statLine . '%m%r'
+  let statLine = statLine . ' %*'
 
-" Git status
-set statusline+=%1*
-set statusline+=%{strlen(fugitive#head())?'[':''}
-set statusline+=%8*
-set statusline+=%{strlen(fugitive#head())?fugitive#head():''}
-set statusline+=%1*
-set statusline+=%{strlen(fugitive#head())?']':''}
-set statusline+=%*
+  " Add mode coloring here!
+  let mode = mode()
+  if mode ==? 'i'
+    let statLine = statLine . '%#StatLineHLInsert# Insert'
+  elseif mode ==# 'v'
+    let statLine = statLine .'%#StatLineHLV# Visual'
+  elseif mode ==# 'V'
+    let statLine = statLine .'%#StatLineHLVLine# Visual line'
+  elseif mode ==# ''
+    let statLine = statLine .'%#StatLineHLVBlock# Visual block'
+  elseif mode ==# 'R'
+    let statLine = statLine .'%#StatLineHLReplace# Replace'
+  endif
 
-" Filename and flags
-set statusline+=%4*%<\ %f
-set statusline+=%m%r
-set statusline+=\ %*%=
+  let statLine = statLine . '%='
+  let statLine = statLine . '%5* %y'
+  let statLine = statLine . ' %6*%p%% (%l:%c)'
+  return statLine
+endfunction
 
-" Filetype
-set statusline+=%5*\ %y
-" Position
-set statusline+=\ %6*%p%%\ (%l:%c)
+set statusline=%!MakeStatusLine()
 
 let g:Active_statusline = &g:statusline
 let g:NCstatusline = '%n: %<%f%m%r%=%y %p%% (%l:%c)'
 augroup status_line
   au!
-  au InsertEnter * call StatusLineColor(v:insertmode)
-  au InsertLeave * call StatusLineColorOff()
   au WinEnter * let &l:statusline = g:Active_statusline
   au WinLeave * let &l:statusline = g:NCstatusline
   au BufRead * call StatusLineGitColor()
