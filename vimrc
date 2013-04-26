@@ -9,7 +9,6 @@ filetype plugin indent on
 
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
-let g:Powerline_loaded=1
 "
 " Leader key is comma (,)
 let mapleader = ","
@@ -33,7 +32,6 @@ set title
 
 " SYNTAX HIGHLIGTING {{{
 set t_Co=256
-let g:CSApprox_loaded = 1
 syntax enable
 set background=dark
 colorscheme solarized
