@@ -28,9 +28,6 @@
 [submodule ".vim/bundle/surround"]
 	path = .vim/bundle/surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule ".vim/bundle/CSApprox"]
-	path = .vim/bundle/CSApprox
-	url = https://github.com/vim-scripts/CSApprox.git
 [submodule ".vim/bundle/latex-box"]
 	path = .vim/bundle/latex-box
 	url = https://github.com/LaTeX-Box-Team/LaTeX-Box.git
