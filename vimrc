@@ -89,7 +89,7 @@ hi StatLineHLInsert cterm=reverse ctermfg=2
 hi StatLineHLReplace cterm=reverse ctermfg=1
 hi StatLineHLV cterm=reverse ctermfg=6
 hi StatLineHLVline cterm=reverse ctermfg=4
-hi StatLineHLVblock cterm=reverse ctermfg=5
+hi StatLineHLVblock cterm=reverse ctermfg=13
 " }}}
 
 function! MakeInactiveStatusLine(num) "{{{
