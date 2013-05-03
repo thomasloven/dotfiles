@@ -1,54 +1,54 @@
-[submodule ".vim/bundle/snipmate"]
-	path = .vim/bundle/snipmate
+[submodule "vim/bundle/snipmate"]
+	path = vim/bundle/snipmate
 	url = https://github.com/msanders/snipmate.vim
-[submodule ".vim/bundle/nerdcommenter"]
-	path = .vim/bundle/nerdcommenter
-	url = https://github.com/scrooloose/nerdcommenter.git
-[submodule ".vim/bundle/nerdtree"]
-	path = .vim/bundle/nerdtree
+[submodule "vim/bundle/nerdcommenter"]
+	path = vim/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.gir
+[submodule "vim/bundle/nerdtree"]
+	path = vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule ".vim/bundle/localvimrc"]
-	path = .vim/bundle/localvimrc
+[submodule "vim/bundle/localvimrc"]
+	path = vim/bundle/localvimrc
 	url = https://github.com/embear/vim-localvimrc.git
-[submodule ".vim/bundle/Rainbow-Parenthsis-Bundle"]
-	path = .vim/bundle/Rainbow-Parenthsis-Bundle
+[submodule "vim/bundle/Rainbow-Parenthsis-Bundle"]
+	path = vim/bundle/Rainbow-Parenthsis-Bundle
 	url = https://github.com/autre/Rainbow-Parenthsis-Bundle.git
-[submodule ".vim/bundle/fugitive"]
-	path = .vim/bundle/fugitive
+[submodule "vim/bundle/fugitive"]
+	path = vim/bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
-[submodule ".vim/bundle/lusty"]
-	path = .vim/bundle/lusty
+[submodule "vim/bundle/lusty"]
+	path = vim/bundle/lusty
 	url = https://github.com/sjbach/lusty.git
-[submodule ".vim/bundle/gundo"]
-	path = .vim/bundle/gundo
+[submodule "vim/bundle/gundo"]
+	path = vim/bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
-[submodule ".vim/bundle/surround"]
-	path = .vim/bundle/surround
+[submodule "vim/bundle/surround"]
+	path = vim/bundle/surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule ".vim/bundle/latex-box"]
-	path = .vim/bundle/latex-box
+[submodule "vim/bundle/latex-box"]
+	path = vim/bundle/latex-box
 	url = https://github.com/LaTeX-Box-Team/LaTeX-Box.git
-[submodule ".vim/bundle/vim-colors-solarized"]
-	path = .vim/bundle/vim-colors-solarized
+[submodule "vim/bundle/vim-colors-solarized"]
+	path = vim/bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
-[submodule ".vim/bundle/tagbar"]
-	path = .vim/bundle/tagbar
+[submodule "vim/bundle/tagbar"]
+	path = vim/bundle/tagbar
 	url = http://github.com/majutsushi/tagbar.git
-[submodule ".vim/bundle/vim-nerdtree-tabs"]
-	path = .vim/bundle/vim-nerdtree-tabs
+[submodule "vim/bundle/vim-nerdtree-tabs"]
+	path = vim/bundle/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
-[submodule ".vim/bundle/supertab"]
-	path = .vim/bundle/supertab
+[submodule "vim/bundle/supertab"]
+	path = vim/bundle/supertab
 	url = http://github.com/ervandew/supertab
-[submodule ".vim/bundle/vim-indent-guides"]
-	path = .vim/bundle/vim-indent-guides
+[submodule "vim/bundle/vim-indent-guides"]
+	path = vim/bundle/vim-indent-guides
 	url = http://github.com/nathanaelkane/vim-indent-guides.git
-[submodule ".vim/bundle/syntastic"]
-	path = .vim/bundle/syntastic
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
 	url = http://github.com/scrooloose/syntastic
-[submodule ".vim/bundle/command-t"]
-	path = .vim/bundle/command-t
+[submodule "vim/bundle/command-t"]
+	path = vim/bundle/command-t
 	url = https://github.com/wincent/Command-T.git
