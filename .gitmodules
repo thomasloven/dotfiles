@@ -1,6 +1,6 @@
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
-	url = https://github.com/msanders/snipmate.vim
+	url = https://github.com/garbas/vim-snipmate.git
 [submodule "vim/bundle/nerdcommenter"]
 	path = vim/bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
@@ -52,3 +52,12 @@
 [submodule "vim/bundle/gundo"]
 	path = vim/bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
+[submodule "vim/bundle/tlib-vim"]
+	path = vim/bundle/tlib-vim
+	url = https://github.com/tomtom/tlib_vim.git
+[submodule "vim/bundle/mw-utils"]
+	path = vim/bundle/mw-utils
+	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "vim/bundle/vim-snippets"]
+	path = vim/bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
