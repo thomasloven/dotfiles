@@ -61,3 +61,6 @@
 [submodule "vim/bundle/vim-snippets"]
 	path = vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
+[submodule "vim/bundle/vim-tstatus"]
+	path = vim/bundle/vim-tstatus
+	url = https://github.com/thomasloven/vim-tstatus
