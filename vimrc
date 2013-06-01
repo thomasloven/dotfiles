@@ -333,17 +333,17 @@ augroup END
 
 " FUNCTIONS {{{
 
+function! g:ToggleNuMode() "{{{
 " Toggle absolute and relative numbering mode
-function! g:ToggleNuMode()
   if(&rnu==1)
     set nu
   else
     set rnu
   endif
-endfunc
+endfunc "}}}
 
+function! CleanClose(toSave) "{{{
 " Close files and remove buffers
-function! CleanClose(toSave)
   if (a:toSave == 1)
     w!
   endif
@@ -358,15 +358,15 @@ function! CleanClose(toSave)
     new
   endif
   exe "bw!".todelbufNr
-endfunction
+endfunction "}}}
 
+function! SynStack() "{{{
 " Shows the syntax highlighting stack
-function! SynStack()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
-endfunc
+endfunc "}}}
 
-" Pulse - An awesome function by Steve Losh
 function! s:Pulse() "{{{
+" Pulse - An awesome function by Steve Losh
   let current_window = winnr()
   windo set nocursorline
   execute current_window . 'wincmd w'
@@ -399,8 +399,8 @@ function! s:Pulse() "{{{
 endfunction " }}}
 command! -nargs=0 Pulse call s:Pulse()
 
-" Highlight word - Another awesome function by Steve Losh
 function! HiInterestingWord(n) "{{{
+" Highlight word - Another awesome function by Steve Losh
   normal! mz
   normal! "zyiw
   let mid = 86750 + a:n
@@ -419,8 +419,8 @@ function! HiInterestingVisual(n) "{{{
   normal! gv
 endfunction "}}}
 
-" Unhighlight word functin - By me :)
 function! UnHiInterestingWord() "{{{
+" Unhighlight word functin - By me :)
   for i in range(1,6,1)
     let mid = 86750 + i
     silent! call matchdelete(mid)
@@ -446,5 +446,16 @@ function! InlineVariable()
   let @a = l:tmp_a
   let @b = l:tmp_b
 endfunction "}}}
+
+function! Preserve(command) "{{{
+" Preserve by Jonathan Palardy
+  let _s=@/
+  let l=line(".")
+  let c=col(".")
+  execute a:command
+  let @/=_s
+  call cursor(l, c)
+endfunction "}}}
+
 
 " }}}
