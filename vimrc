@@ -47,6 +47,8 @@ hi DiffAdd ctermfg=0 ctermbg=2
 hi DiffDelete ctermfg=0 ctermbg=1
 hi DiffText ctermfg=0 ctermbg=4
 
+hi SpellBad cterm=undercurl ctermfg=1
+
 " Colors for interesting words
 hi def InterestingWord1 ctermfg=16 ctermbg=1
 hi def InterestingWord2 ctermfg=16 ctermbg=2
