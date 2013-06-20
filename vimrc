@@ -24,6 +24,13 @@ set noshowmode
 set showcmd
 set visualbell
 set cursorline
+augroup au_cursorline
+  au!
+  au VimEnter * setlocal cursorline
+  au WinEnter * setlocal cursorline
+  au BufWinEnter * setlocal cursorline
+  au Winleave * setlocal nocursorline
+augroup END
 set colorcolumn=+1
 set ruler
 set laststatus=2
