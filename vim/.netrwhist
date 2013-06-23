@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/thomas/Dropbox/src/devpkg'
-let g:netrw_dirhist_2='/Users/thomas/dotfiles/.oh-my-zsh/themes'
-let g:netrw_dirhist_3='/Users/thomas/dotfiles/.git/modules'

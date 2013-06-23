@@ -2,9 +2,35 @@
 set nocompatible
 
 filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#infect()
-call pathogen#helptags()
+set rtp +=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'garbas/vim-snipmate'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'embear/vim-localvimrc'
+Bundle 'autre/Rainbow-Parenthsis-Bundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'sjbach/lusty'
+Bundle 'tpope/vim-surround'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
+Bundle 'majutsushi/tagbar'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'ervandew/supertab'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'scrooloose/syntastic'
+Bundle 'wincent/Command-T'
+Bundle 'sjl/gundo.vim'
+Bundle 'tomtom/tlib_vim'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'honza/vim-snippets'
+Bundle 'thomasloven/vim-tstatus'
+
+"call pathogen#runtime_append_all_bundles()
+"call pathogen#infect()
+"call pathogen#helptags()
 filetype plugin indent on
 
 let g:localvimrc_sandbox=0
