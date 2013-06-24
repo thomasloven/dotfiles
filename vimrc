@@ -69,7 +69,6 @@ set title
 set t_Co=256
 syntax enable
 set background=dark
-colorscheme solarized
 
 " SYNTAX HIGHLIGTING }}}
 
@@ -77,11 +76,19 @@ colorscheme solarized
 " COLOR MAPPINGS {{{
 
 " Colorized background in vimdiff
-hi DiffAdd ctermfg=0 ctermbg=2
-hi DiffDelete ctermfg=0 ctermbg=1
-hi DiffText ctermfg=0 ctermbg=4
 
 hi SpellBad cterm=undercurl ctermfg=1
+
+" Change some colors
+augroup colors
+  au!
+  au colorscheme * hi DiffAdd ctermfg=0 ctermbg=2
+  au colorscheme * hi DiffDelete ctermfg=0 ctermbg=1
+  au colorscheme * hi DiffText ctermfg=0 ctermbg=4
+  au colorscheme * hi SignColumn ctermbg='NONE'
+augroup END
+colorscheme solarized
+let g:signify_sign_color_ctermbg='NONE'
 
 " Colors for interesting words
 hi def InterestingWord1 ctermfg=16 ctermbg=1
@@ -325,7 +332,7 @@ set ttimeoutlen=100
 set backspace=indent,eol,start
 set wildmenu
 set wildmode=list:longest
-set wildignore=*.o,*~
+set wildignore+=*.o,*~,*.d
 
 " Window splits
 nnoremap <leader>w <C-w>v<C-w>l
