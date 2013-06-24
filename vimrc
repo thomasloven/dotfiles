@@ -8,7 +8,6 @@ Bundle 'gmarik/vundle'
 
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'garbas/vim-snipmate'
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'embear/vim-localvimrc'
 Bundle 'autre/Rainbow-Parenthsis-Bundle'
@@ -30,6 +29,7 @@ Bundle 'thomasloven/vim-tstatus'
 
 Bundle 'EasyMotion'
 Bundle 'ctrlp.vim'
+Bundle 'tComment'
 
 " :BundleList
 " :BundleInstall
