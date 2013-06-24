@@ -43,7 +43,7 @@ bindkey -M viins 'kj' vi-cmd-mode
 
 # Always run screen in utf8 mode
 alias screen="screen -U"
-alias tmux="nocorrect tmux"
+alias tmux="nocorrect tmux -2"
 
 alias glog="git log --graph --oneline --decorate --all"
 
