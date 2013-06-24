@@ -31,6 +31,8 @@ Bundle 'EasyMotion'
 Bundle 'ctrlp.vim'
 Bundle 'tComment'
 
+Bundle 'Valloric/YouCompleteMe'
+
 " :BundleList
 " :BundleInstall
 " :BundleInstall! 
