@@ -20,13 +20,21 @@ Bundle 'majutsushi/tagbar'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'ervandew/supertab'
 Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'mhinz/vim-signify'
 Bundle 'scrooloose/syntastic'
-Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
 Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'honza/vim-snippets'
 Bundle 'thomasloven/vim-tstatus'
+
+Bundle 'EasyMotion'
+Bundle 'ctrlp.vim'
+
+" :BundleList
+" :BundleInstall
+" :BundleInstall! 
+" :BundleClean
 
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#infect()
