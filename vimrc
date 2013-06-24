@@ -45,6 +45,11 @@ let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
 let g:LatexBox_Folding=1
 let g:solarized_termtrans=1
+
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
 "
 " Leader key is comma (,)
 let mapleader = ","
