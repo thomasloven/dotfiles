@@ -6,32 +6,42 @@ set rtp +=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'garbas/vim-snipmate'
-Bundle 'scrooloose/nerdtree'
 Bundle 'embear/vim-localvimrc'
-Bundle 'autre/Rainbow-Parenthsis-Bundle'
-Bundle 'tpope/vim-fugitive'
-Bundle 'sjbach/lusty'
-Bundle 'tpope/vim-surround'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'majutsushi/tagbar'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'ervandew/supertab'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'mhinz/vim-signify'
+"
+" Syntax
+Bundle 'tComment'
 Bundle 'scrooloose/syntastic'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'tpope/vim-surround'
+Bundle 'autre/Rainbow-Parenthsis-Bundle'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
+
+" Navigation
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'sjbach/lusty'
+Bundle 'ctrlp.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'EasyMotion'
 Bundle 'sjl/gundo.vim'
+
+" Git integration
+Bundle 'tpope/vim-fugitive'
+Bundle 'mhinz/vim-signify'
+
+" Completion
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'ervandew/supertab'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
 Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'honza/vim-snippets'
+
+" Looks
 Bundle 'thomasloven/vim-tstatus'
-
-Bundle 'EasyMotion'
-Bundle 'ctrlp.vim'
-Bundle 'tComment'
-
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'sjl/badwolf.git'
+Bundle 'Mustang2'
 
 " :BundleList
 " :BundleInstall
@@ -51,7 +61,9 @@ let g:solarized_termtrans=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
+let g:syntastic_auto_loc_list=0
+
+let g:ycm_confirm_extra_conf=0
 "
 " Leader key is comma (,)
 let mapleader = ","
@@ -79,6 +91,16 @@ set ttyfast
 set lazyredraw
 set title
 
+let g:ccmode=0 "0=one line, 1=many lines
+function! ToggleCC()
+  if g:ccmode == 0
+    execute "set cc=" . join(range(&textwidth, 300), ',')
+    let g:ccmode=1
+  else
+    set cc=+1
+    let g:ccmode=0
+  endif
+endfunction
 
 " SYNTAX HIGHLIGTING {{{
 set t_Co=256
@@ -227,6 +249,8 @@ endfunction
 
 noremap <leader>n :call RenameFile(0)<cr>
 noremap <leader>c :call RenameFile(1)<cr>
+
+noremap <leader>. <C-^>
 
 "}}}
 
