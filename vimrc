@@ -43,6 +43,8 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'sjl/badwolf.git'
 Bundle 'Mustang2'
 
+Bundle 'TagHighlight'
+
 " :BundleList
 " :BundleInstall
 " :BundleInstall! 
