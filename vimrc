@@ -2,48 +2,73 @@
 set nocompatible
 
 filetype off
-set rtp +=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+if has('vim_starting')
+  set rtp +=~/.vim/bundle/neobundle.vim
+endif
+call neobundle#rc(expand('~/vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-Bundle 'embear/vim-localvimrc'
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \  'windows' : 'make -f make_mingw32.mak',
+  \  'cygwin' : 'make -f make_cygwin.mak',
+  \  'mac' : 'make -f make_mac.mak',
+  \  'unix' : 'make -f make_unix.mak',
+  \  },
+  \ }
+NeoBundle 'Shougo/unite.vim'
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+nnoremap [unite] <Nop>
+nmap f [unite]
+nnoremap [unite]f :<C-u>Unite -no-split -start-insert file_rec/async:!<CR>
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+  nmap <buffer> <ESC> <Plug>(unite_exit)
+endfunction
+
+" NeoBundle 'gmarik/vundle'
+
+NeoBundle 'embear/vim-localvimrc'
 "
 " Syntax
-Bundle 'tComment'
-Bundle 'scrooloose/syntastic'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'tpope/vim-surround'
-Bundle 'autre/Rainbow-Parenthsis-Bundle'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
+NeoBundle 'tComment'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'autre/Rainbow-Parenthsis-Bundle'
+NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
 
 " Navigation
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'sjbach/lusty'
-Bundle 'ctrlp.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'EasyMotion'
-Bundle 'sjl/gundo.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+NeoBundle 'sjbach/lusty'
+NeoBundle 'ctrlp.vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'EasyMotion'
+NeoBundle 'sjl/gundo.vim'
 
 " Git integration
-Bundle 'tpope/vim-fugitive'
-Bundle 'mhinz/vim-signify'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'mhinz/vim-signify'
 
 " Completion
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'ervandew/supertab'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
-Bundle 'tomtom/tlib_vim'
-Bundle 'MarcWeber/vim-addon-mw-utils'
+" Bundle 'Valloric/YouCompleteMe'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
 
 " Looks
-Bundle 'thomasloven/vim-tstatus'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'sjl/badwolf.git'
-Bundle 'Mustang2'
+NeoBundle 'thomasloven/vim-tstatus'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'sjl/badwolf.git'
+NeoBundle 'Mustang2'
 
-Bundle 'TagHighlight'
+NeoBundle 'TagHighlight'
 
 " :BundleList
 " :BundleInstall
