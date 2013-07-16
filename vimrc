@@ -5,6 +5,7 @@ filetype off
 if has('vim_starting')
   set rtp +=~/.vim/bundle/neobundle.vim
 endif
+let g:neobundle#types#git#default_protocol='https'
 call neobundle#rc(expand('~/vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -21,9 +22,6 @@ NeoBundle 'Shougo/unite.vim'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 
-nnoremap [unite] <Nop>
-nmap f [unite]
-nnoremap [unite]f :<C-u>Unite -no-split -start-insert file_rec/async:!<CR>
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
@@ -91,10 +89,6 @@ let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=0
 
 let g:ycm_confirm_extra_conf=0
-"
-" Leader key is comma (,)
-let mapleader = ","
-let maplocalleader = ","
 
 
 " DISPLAY {{{
@@ -164,12 +158,6 @@ hi def InterestingWord6 ctermfg=16 ctermbg=6
 
 
 " Highlight interesting words with <leader>[1-6]
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
 vnoremap <silent> <leader>1 :call HiInterestingVisual(1)<CR>
 vnoremap <silent> <leader>2 :call HiInterestingVisual(2)<CR>
 vnoremap <silent> <leader>3 :call HiInterestingVisual(3)<CR>
@@ -180,20 +168,17 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 
 " COLOR MAPPINGS }}}
 " Show why a word is highlighted as it is
-nnoremap <leader>ss :call SynStack()<CR>
 
 " LINE NUMBERS {{{
 " Line numbering
 set number
 " <leader>o toggles the line numbering mode
-nnoremap <leader>o :call g:ToggleNuMode()<cr>
 " LINE NUMBERS }}}
 
 
 " HIDDEN CHARACTERS {{{
 " Display tab characters and toggle with <leader>l
 set list
-nnoremap <leader>l :set list!<cr>
 set listchars=tab:▸\ ,eol:¬,nbsp:·
 set showbreak=↪
 " HIDDEN CHARACTERS }}}
@@ -207,12 +192,7 @@ let g:Powerline_theme="default"
 let g:Powerline_colorscheme="solarized16"
 " POWERLINE PLUGIN }}}
 
-" Show position
-nnoremap <c-z> mzzMzvzz5<c-e>`z:Pulse<CR>
-
 " FOLDING {{{
-" Toggle folds with space
-nnoremap <space> za
 " Fold between {{{ and }}}
 set foldmethod=marker
 " }}}
@@ -232,34 +212,6 @@ set hidden
 " Forgot to open a file with sudo? No problem w!! writes anyway
 cmap w!! w !sudo dd of=%
 
-
-" BUFFERS {{{
-" Fc save and close buffer
-" fq close buffer without saving
-map fq <esc>:call CleanClose(0)<cr>
-map fc <esc>:call CleanClose(1)<cr>
-
-" ,b lists buffers
-nnoremap <leader>b :LustyJuggler<cr>
-
-"BUFFERS }}}
-
-
-" Use <leader>ev to Edit .Vimrc
-" Use <leader>sv to Source .Vimrc
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :so $MYVIMRC<cr>
-
-
-" Fugitive mappings
-nnoremap <leader>gs :Gstat<CR>
-nnoremap <leader>gd :Gdiff<CR>
-
-
-" ,q or § to toggle NERDTree
-nnoremap <silent> <leader>q :NERDTreeTabsToggle<cr>
-nnoremap <silent> § :NERDTreeTabsToggle<cr>
-
 set makeprg=make\ -w
 
 function! RenameFile(copy)
@@ -273,12 +225,6 @@ function! RenameFile(copy)
     redraw!
   endif
 endfunction
-
-noremap <leader>n :call RenameFile(0)<cr>
-noremap <leader>c :call RenameFile(1)<cr>
-
-noremap <leader>. <C-^>
-
 "}}}
 
 
@@ -298,27 +244,13 @@ set textwidth=72
 set formatoptions=qrn1
 set formatprg=par
 
-
-" ,j to add a line below, ,k above
-nnoremap <leader>j o<esc>k
-nnoremap <leader>k O<esc>j
-
-
-" Insert or append single characters with ,i and ,a
-nnoremap <leader>i i<space><esc>r
-nnoremap <leader>a a<space><esc>r
-
 "}}}
 
 
 " SEARCHING {{{
 "
 " I almost always want very magic search
-nnoremap / /\v
 vnoremap / /\v
-
-" Don't move when searching for word under cursor
-nnoremap * *<c-o>
 
 set ignorecase
 set smartcase
@@ -422,6 +354,201 @@ let g:SupertabDefaultCompletionType = "context"
 nnoremap <leader>ri :call InlineVariable()<cr>
 "}}} COMMAND KEYS
 
+" Key bindings {{{
+"   Normal mode {{{
+
+" §: toggle NERDTree
+nnoremap <silent> § :NERDTreeTabsToggle<cr>
+
+" /: search, but in very magic mode
+nnoremap / /\v
+
+" ,1-6: highlight interesting words
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
+
+" q: Record macro
+" Q: Append macro
+" ,q: close all (don't save)
+nnoremap <leader>q :qall!<CR>
+
+" w: Move forward one word
+" W: Move forward one Word
+" ,w:
+
+" e:
+" E:
+" ,e:
+" ,ev: Edit vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" r: replace character
+" R: replace text
+" ,r:
+
+" t: move To forward
+" T: move To backward
+" ,t: TODO: tab handling
+
+" y: yank
+" Y: yank rest or line
+" ,y:
+
+" u: undo
+" U: TODO: redo?
+" ,u:
+
+" i: insert
+" I: insert at beginning of line
+" ,i: insert single character
+nnoremap <leader>i i<space><esc>r
+
+" o: open line below
+" O: open line above
+" ,o: toggle relative line numbers
+nnoremap <leader>o :call g:ToggleNuMode()<cr>
+
+" p: paste
+" P: paste before
+" ,p:
+
+" å: Try not to use
+
+" ^: Try not to use
+
+" a: append
+" A: append at end of line
+" ,a: append single character
+nnoremap <leader>a a<space><esc>r
+
+" s: substitute?
+" S: ?
+" ,s:
+" ,ss: show syntax highlighting stack (useful?)
+" ,sv: resource vimrc
+nnoremap <leader>ss :call SynStack()<CR>
+nnoremap <leader>sv :so $MYVIMRC<cr>
+
+" d: delete
+" D: delete rest of line
+" ,d:
+
+" f: find forward
+" F: find backwards
+" ,f:
+" f: [unite] prefix
+" ff: Unite file finder
+" fb: Unite buffer select
+" fc: save and close buffer
+" fq: close buffer without saving
+nnoremap [unite] <Nop>
+nmap f [unite]
+nnoremap [unite]f :<C-u>Unite -no-split -start-insert file_rec/async:!<CR>
+map fq <esc>:call CleanClose(0)<cr>
+map fc <esc>:call CleanClose(1)<cr>
+
+" g: Many uses
+" G:
+" ,g:
+" ,gs: Git status
+" ,gd: Git diff
+nnoremap <leader>gs :Gstat<CR>
+nnoremap <leader>gd :Gdiff<CR>
+
+" h: move left
+" H:
+" ,h:
+" C-h: move to left window
+
+" j: move down
+" J: join lines
+" ,j: add empty line below
+" C-j: move to window below
+nnoremap <leader>j o<esc>k
+
+" k: move up
+" K:
+" ,k: add empty line above
+" C-k: Move to window above
+nnoremap <leader>k O<esc>j
+
+" l: move right
+" L: 
+" ,l: toggle display of unprintable characters
+" C-l: Move to right window
+nnoremap <leader>l :set list!<cr>
+
+" ö: Try not to use
+
+" ä: Try not to use
+
+" ': Try not to use
+" *: search for line under cursor, but don't move
+nnoremap * *<c-o>
+
+" <: decrease indent
+" >: increase indent
+
+" z: many uses
+" Z:
+" ,z:
+" C-z: show current position
+nnoremap <c-z> mzzMzvzz5<c-e>`z:Pulse<CR>
+
+" x: delete character
+" X: delete character backwards?
+" ,x:
+
+" c: change
+" C: change rest of line
+" ,c: copy file and open copy
+noremap <leader>c :call RenameFile(1)<cr>
+
+" v: visual mode
+" V: visual line
+" ,v:
+" C-v: visual block
+
+" b: back a word
+" b: back a Word
+" ,b: Buffer list (replace with unite?)
+nnoremap <leader>b :LustyJuggler<cr>
+
+" n: next search hit
+" N: previous search hit
+" ,n: move open file
+noremap <leader>n :call RenameFile(0)<cr>
+
+" m:
+" M:
+" ,m:
+
+" ,: leader key
+" ;:
+" ,,: easymotion trigger
+let mapleader = ","
+let maplocalleader = ","
+
+" .: repeat command
+" :: command mode
+" ,.: alternate file
+noremap <leader>. <C-^>
+
+" -:
+" _:
+" ,-:
+" C--: Jump to tag
+nnoremap <c-_> <c-]>
+
+" <space>: toggle folds
+nnoremap <space> za
+
+"   Normal mode }}}
+" }}}
 
 " FILETYPE {{{
 
