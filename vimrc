@@ -2,13 +2,17 @@
 set nocompatible
 
 filetype off
+
+" Neobundle - plugin management {{{
 if has('vim_starting')
   set rtp +=~/.vim/bundle/neobundle.vim
 endif
 let g:neobundle#types#git#default_protocol='https'
 call neobundle#rc(expand('~/vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+" }}}
 
+" Vimproc - allows for asyncronous execution of external programs {{{
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
   \  'windows' : 'make -f make_mingw32.mak',
@@ -17,16 +21,13 @@ NeoBundle 'Shougo/vimproc', {
   \  'unix' : 'make -f make_unix.mak',
   \  },
   \ }
-NeoBundle 'Shougo/unite.vim'
+" }}}
 
+" Unite - unified searching {{{
+NeoBundle 'Shougo/unite.vim'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-
 let g:unite_split_rule = 'botright'
-nnoremap [unite] <Nop>
-nmap f [unite]
-nnoremap [unite]f :<C-u>Unite -no-split -start-insert file_rec/async:!<CR>
-nnoremap [unite]b :<C-u>Unite -no-split -quick-match buffer<CR>
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
@@ -37,35 +38,55 @@ function! s:unite_my_settings()
   imap <buffer> <C-j> <Plug>(unite_select_next_line)
   imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
+" }}}
 
-" NeoBundle 'gmarik/vundle'
+" Bundle 'gmarik/vundle'
 
+" localvimrc - source .lvimrc from project root
 NeoBundle 'embear/vim-localvimrc'
+let g:localvimrc_sandbox=0
+let g:localvimrc_ask=0
 "
 " Syntax
+" tComment - easy commenting
 NeoBundle 'tComment'
+" Syntastic - automatic syntax checking
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=0
+" surround - add and change surrounding "({[' and so on
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'autre/Rainbow-Parenthsis-Bundle'
+" LaTeX-Box - latex functions
 NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
+let g:LatexBox_Folding=1
 
 " Navigation
+" Nerdtree - file navigator
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
+" Lusty - buffer navigator (may be replaced by unite)
 NeoBundle 'sjbach/lusty'
+" CtrlP - file finder (may be replaced by unite)
 NeoBundle 'ctrlp.vim'
+" tagbar - navigate tags in file (may be replaced by unite)
 NeoBundle 'majutsushi/tagbar'
+" Easymotion - more advanced jumping
 NeoBundle 'EasyMotion'
+" Gundo - undo tree visualiser
 NeoBundle 'sjl/gundo.vim'
+let g:gundo_preview_bottom=1
 
 " Git integration
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'mhinz/vim-signify'
+" Signify - show git differences in gutter
+" NeoBundle 'mhinz/vim-signify'
 
 " Completion
 " Bundle 'Valloric/YouCompleteMe'
+" let g:ycm_confirm_extra_conf=0
 NeoBundle 'ervandew/supertab'
+let g:SupertabDefaultCompletionType = "context"
 NeoBundle 'garbas/vim-snipmate'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'tomtom/tlib_vim'
@@ -74,6 +95,7 @@ NeoBundle 'MarcWeber/vim-addon-mw-utils'
 " Looks
 NeoBundle 'thomasloven/vim-tstatus'
 NeoBundle 'altercation/vim-colors-solarized'
+let g:solarized_termtrans=1
 NeoBundle 'sjl/badwolf.git'
 NeoBundle 'Mustang2'
 
@@ -89,17 +111,10 @@ NeoBundle 'TagHighlight'
 "call pathogen#helptags()
 filetype plugin indent on
 
-let g:localvimrc_sandbox=0
-let g:localvimrc_ask=0
-let g:LatexBox_Folding=1
-let g:solarized_termtrans=1
+let mapleader = ","
+let maplocalleader = ","
 
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=0
 
-let g:ycm_confirm_extra_conf=0
 
 
 " DISPLAY {{{
@@ -123,16 +138,6 @@ set ttyfast
 set lazyredraw
 set title
 
-let g:ccmode=0 "0=one line, 1=many lines
-function! ToggleCC()
-  if g:ccmode == 0
-    execute "set cc=" . join(range(&textwidth, 300), ',')
-    let g:ccmode=1
-  else
-    set cc=+1
-    let g:ccmode=0
-  endif
-endfunction
 
 " SYNTAX HIGHLIGTING {{{
 set t_Co=256
@@ -175,15 +180,12 @@ vnoremap <silent> <leader>3 :call HiInterestingVisual(3)<CR>
 vnoremap <silent> <leader>4 :call HiInterestingVisual(4)<CR>
 vnoremap <silent> <leader>5 :call HiInterestingVisual(5)<CR>
 vnoremap <silent> <leader>6 :call HiInterestingVisual(6)<CR>
-nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 
 " COLOR MAPPINGS }}}
-" Show why a word is highlighted as it is
 
 " LINE NUMBERS {{{
 " Line numbering
 set number
-" <leader>o toggles the line numbering mode
 " LINE NUMBERS }}}
 
 
@@ -193,15 +195,6 @@ set list
 set listchars=tab:▸\ ,eol:¬,nbsp:·
 set showbreak=↪
 " HIDDEN CHARACTERS }}}
-
-
-" POWERLINE PLUGIN {{{
-" Enable powerline symbols
-let g:Powerline_symbols='fancy'
-let g:Powerline_theme="default"
-"let g:Powerline_colorscheme="skwp"
-let g:Powerline_colorscheme="solarized16"
-" POWERLINE PLUGIN }}}
 
 " FOLDING {{{
 " Fold between {{{ and }}}
@@ -270,13 +263,6 @@ set showmatch
 set hlsearch
 noh
 
-" Tag jumping with <c-¨> and <c-å>
-" <c-¨> registers as <c-^> in terminal...
-" <c-å> registers as <-]>
-nnoremap <c-^> <c-]>mzzvzz5<c-e>`z:Pulse<CR>
-nnoremap <c-]> <c-w>v<c-w>l<c-]>mzzvzz5<c-e>`z:Pulse<CR>
-
-
 " }}}
 
 
@@ -284,52 +270,16 @@ nnoremap <c-]> <c-w>v<c-w>l<c-]>mzzvzz5<c-e>`z:Pulse<CR>
 
 set scrolloff=3
 
-" Turn off the arrow keys
-" Actually, I think I'm ready to turn them on again
-"nnoremap <up> <nop>
-"nnoremap <down> <nop>
-"nnoremap <left> <nop>
-"nnoremap <right> <nop>
 
-"inoremap <up> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
-
-" Navigate split lines correctly
-nnoremap j gj
-nnoremap gj j
-nnoremap k gk
-nnoremap gk k
 nnoremap 0 g0
 nnoremap g0 0
 nnoremap $ g$
 nnoremap g$ $
 
-" ä is easier to type than ` for navigating marks
-" and is also right next to '
-noremap ä `
-
 " Jump between windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
 " Use tab to jump between brackets
-nnoremap <tab> %
 vnoremap <tab> %
-
-" Tab commands
-nnoremap <leader>tt :tabnew<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>tm :tabmove
-nnoremap <leader>tn :tabnext<cr>
-nnoremap <leader>tp :tabprevious<cr>
-
-" ,, to switch to previous file
-nnoremap <leader><leader> <c-^>
-
 "}}}
 
 
@@ -343,37 +293,20 @@ set wildmenu
 set wildmode=list:longest
 set wildignore+=*.o,*~,*.d
 
-" Window splits
-nnoremap <leader>w <C-w>v<C-w>l
-nnoremap <C-w>- <C-w>s
-nnoremap <C-w>/ <C-w>v
-
-" Enter commands with the ö-key (Swedish keyboards)
-noremap ö :
-
 set mouse=a
-
-" <leader>u shows undo tree
-nnoremap <silent> <leader>u :GundoToggle<cr>
-let g:gundo_preview_bottom=1
-
-" <leader>p shows the tag bar
-nnoremap <silent> <leader>p :TagbarToggle<cr>
-
-let g:SupertabDefaultCompletionType = "context"
-
-nnoremap <leader>ri :call InlineVariable()<cr>
 "}}} COMMAND KEYS
 
 " Key bindings {{{
 "   Normal mode {{{
 
+" !: VimProcBang
+" !!: VimProcRead
+nnoremap ! :VimProcBang 
+nnoremap !! :VimProcRead 
 " §: toggle NERDTree
 nnoremap <silent> § :NERDTreeTabsToggle<cr>
-
 " /: search, but in very magic mode
 nnoremap / /\v
-
 " ,1-6: highlight interesting words
 nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
 nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
@@ -381,76 +314,73 @@ nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
 nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
 nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
 nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
-
+" tab: Jump between brackets
+nnoremap <tab> %
 " q: Record macro
 " Q: Append macro
 " ,q: close all (don't save)
 nnoremap <leader>q :qall!<CR>
-
 " w: Move forward one word
 " W: Move forward one Word
-" ,w:
-
-" e:
-" E:
-" ,e:
+" ,w: XXX
+" <C-w>: window commands
+nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <C-w>- <C-w>s
+nnoremap <C-w>/ <C-w>v
+" e: XXX
+" E: XXX
+" ,e: XXX
 " ,ev: Edit vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-
 " r: replace character
 " R: replace text
-" ,r:
-
+" ,r: XXX
 " t: move To forward
 " T: move To backward
-" ,t: TODO: tab handling
-
+" ,t: tab handling
+nnoremap <leader>tt :tabnew<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm :tabmove
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tp :tabprevious<cr>
 " y: yank
 " Y: yank rest or line
-" ,y:
-
+" ,y: XXX
 " u: undo
 " U: TODO: redo?
-" ,u:
-
+" ,u: show Gundo tree
+nnoremap <silent> <leader>u :GundoToggle<cr>
 " i: insert
 " I: insert at beginning of line
 " ,i: insert single character
 nnoremap <leader>i i<space><esc>r
-
 " o: open line below
 " O: open line above
 " ,o: toggle relative line numbers
 nnoremap <leader>o :call g:ToggleNuMode()<cr>
-
 " p: paste
 " P: paste before
-" ,p:
-
-" å: Try not to use
-
-" ^: Try not to use
-
+" ,p: show TagBar
+nnoremap <silent> <leader>p :TagbarToggle<cr>
+" å: XXX
+" ^: XXX
 " a: append
 " A: append at end of line
 " ,a: append single character
 nnoremap <leader>a a<space><esc>r
-
 " s: substitute?
-" S: ?
-" ,s:
+" S: TODO ?
+" ,s: XXX
 " ,ss: show syntax highlighting stack (useful?)
 " ,sv: resource vimrc
 nnoremap <leader>ss :call SynStack()<CR>
 nnoremap <leader>sv :so $MYVIMRC<cr>
-
 " d: delete
 " D: delete rest of line
-" ,d:
-
+" ,d: XXX
 " f: find forward
 " F: find backwards
-" ,f:
+" ,f: XXX
 " f: [unite] prefix
 " ff: Unite file finder
 " fb: Unite buffer select
@@ -459,105 +389,98 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 nnoremap [unite] <Nop>
 nmap f [unite]
 nnoremap [unite]f :<C-u>Unite -no-split -start-insert file_rec/async:!<CR>
+nnoremap [unite]b :<C-u>Unite -no-split -quick-match buffer<CR>
 map fq <esc>:call CleanClose(0)<cr>
 map fc <esc>:call CleanClose(1)<cr>
-
 " g: Many uses
-" G:
-" ,g:
+" G: XXX
+" ,g: XXX
 " ,gs: Git status
 " ,gd: Git diff
+" ,gD: close Git diff
 nnoremap <leader>gs :Gstat<CR>
 nnoremap <leader>gd :Gdiff<CR>
-
+nnoremap <silent> <leader>gD :diffoff!<cr><c-w>h:bd<cr>
 " h: move left
-" H:
-" ,h:
+" H: XXX
+" ,h: XXX
 " C-h: move to left window
-
+nnoremap <C-h> <C-w>h
 " j: move down
 " J: join lines
 " ,j: add empty line below
 " C-j: move to window below
+nnoremap j gj
+nnoremap gj j
 nnoremap <leader>j o<esc>k
-
+nnoremap <C-j> <C-w>j
 " k: move up
-" K:
+" K: XXX
 " ,k: add empty line above
 " C-k: Move to window above
+nnoremap k gk
+nnoremap gk k
 nnoremap <leader>k O<esc>j
-
+nnoremap <C-k> <C-w>k
 " l: move right
-" L: 
+" L: go to lower screen
 " ,l: toggle display of unprintable characters
 " C-l: Move to right window
+nnoremap <C-l> <C-w>l
 nnoremap <leader>l :set list!<cr>
-
-" ö: Try not to use
-
-" ä: Try not to use
-
-" ': Try not to use
+" ö: shortcut to command mode
+noremap ö :
+" ä: XXX
+" ': XXX
 " *: search for line under cursor, but don't move
 nnoremap * *<c-o>
-
 " <: decrease indent
 " >: increase indent
-
 " z: many uses
-" Z:
-" ,z:
+" Z: XXX
+" ,z: XXX
 " C-z: show current position
 nnoremap <c-z> mzzMzvzz5<c-e>`z:Pulse<CR>
-
 " x: delete character
 " X: delete character backwards?
-" ,x:
-
+" ,x: XXX
 " c: change
 " C: change rest of line
 " ,c: copy file and open copy
 noremap <leader>c :call RenameFile(1)<cr>
-
 " v: visual mode
 " V: visual line
-" ,v:
+" ,v: XXX
 " C-v: visual block
-
 " b: back a word
 " b: back a Word
 " ,b: Buffer list (replace with unite?)
 nnoremap <leader>b :LustyJuggler<cr>
-
 " n: next search hit
 " N: previous search hit
 " ,n: move open file
 noremap <leader>n :call RenameFile(0)<cr>
-
-" m:
-" M:
-" ,m:
-
+" m: XXX
+" M: go to middle of screen
+" ,m: XXX
 " ,: leader key
-" ;:
+" ;: XXX
 " ,,: easymotion trigger
-let mapleader = ","
-let maplocalleader = ","
-
 " .: repeat command
 " :: command mode
 " ,.: alternate file
 noremap <leader>. <C-^>
-
-" -:
-" _:
-" ,-:
+" -: jump to mark line
+" _: jump to mark
+" ,-: XXX
 " C--: Jump to tag
+nnoremap - '
+nnoremap _ `
 nnoremap <c-_> <c-]>
-
 " <space>: toggle folds
+" ,<space>: Remove search highlighting
 nnoremap <space> za
-
+nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 "   Normal mode }}}
 " }}}
 
@@ -674,25 +597,6 @@ function! UnHiInterestingWord() "{{{
   endfor
 endfunction "}}}
 
-" InlineVariable - by Gary Bernhardt {{{
-" Changes
-"   a = 123;
-"   b = a*5;
-" to
-"   b = 123*5;
-function! InlineVariable()
-  let l:tmp_a = @a
-  normal "ayiw
-  normal 2daw
-  let l:tmp_b = @b
-  normal "bd$
-  normal dd
-  normal k$
-  exec '/\<' . @a . '\>'
-  exec ':s//' . @b
-  let @a = l:tmp_a
-  let @b = l:tmp_b
-endfunction "}}}
 
 function! Preserve(command) "{{{
 " Preserve by Jonathan Palardy
@@ -704,25 +608,6 @@ function! Preserve(command) "{{{
   call cursor(l, c)
 endfunction "}}}
 
-command! -complete=shellcmd -nargs=+ Shell silent call s:RunShellcommand(<q-args>)
-command! -nargs=* Make silent call s:RunShellcommand('make '.<q-args>)
-function! s:RunShellcommand(cmdline)
-  echo a:cmdline
-  let expanded_cmdline = a:cmdline
-  for part in split(a:cmdline, ' ')
-    if part[0] =~ '\v[%#<]'
-      let expanded_part = fnameescape(expand(part))
-      let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-    endif
-  endfor
-  botright new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  call setline(1, 'You entered:    ' . a:cmdline)
-  call setline(2, 'Expanded form:  ' . expanded_cmdline)
-  call setline(3, substitute(getline(2),'.','=','g'))
-  execute '$read !'. expanded_cmdline
-  setlocal nomodifiable
-  1
-endfunction
-
 " }}}
+
+NeoBundleCheck
