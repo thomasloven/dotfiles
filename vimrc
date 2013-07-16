@@ -21,12 +21,20 @@ NeoBundle 'Shougo/unite.vim'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 
+let g:unite_split_rule = 'botright'
 nnoremap [unite] <Nop>
 nmap f [unite]
 nnoremap [unite]f :<C-u>Unite -no-split -start-insert file_rec/async:!<CR>
+nnoremap [unite]b :<C-u>Unite -no-split -quick-match buffer<CR>
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
+  imap <buffer> <ESC> <Plug>(unite_exit)
+  cmap <buffer> <ESC> <Plug>(unite_exit)
+  nmap <buffer> <C-j> <Plug>(unite_select_next_line)
+  nmap <buffer> <C-k> <Plug>(unite_select_previous_line)
+  imap <buffer> <C-j> <Plug>(unite_select_next_line)
+  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
 
 " NeoBundle 'gmarik/vundle'
