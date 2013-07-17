@@ -8,7 +8,7 @@ if has('vim_starting')
   set rtp +=~/.vim/bundle/neobundle.vim
 endif
 let g:neobundle#types#git#default_protocol='https'
-call neobundle#rc(expand('~/vim/bundle/'))
+call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 " }}}
 
@@ -27,12 +27,10 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/unite.vim'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-let g:unite_split_rule = 'botright'
+let g:unite_split_rule = 'rightbelow'
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
-  imap <buffer> <ESC> <Plug>(unite_exit)
-  cmap <buffer> <ESC> <Plug>(unite_exit)
   nmap <buffer> <C-j> <Plug>(unite_select_next_line)
   nmap <buffer> <C-k> <Plug>(unite_select_previous_line)
   imap <buffer> <C-j> <Plug>(unite_select_next_line)
@@ -40,27 +38,37 @@ function! s:unite_my_settings()
 endfunction
 " }}}
 
-" Bundle 'gmarik/vundle'
 
-" localvimrc - source .lvimrc from project root
+" localvimrc - source .lvimrc from project root {{{
 NeoBundle 'embear/vim-localvimrc'
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
-"
-" Syntax
-" tComment - easy commenting
-NeoBundle 'tComment'
-" Syntastic - automatic syntax checking
+" }}}
+
+" Syntastic - automatic syntax checking {{{
 NeoBundle 'scrooloose/syntastic'
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=0
+" }}}
+
+" commentary - toggle commenting {{{
+NeoBundle 'tpope/vim-commentary'
+augroup commentary
+  au!
+  autocmd filetype asm set commentstring=;\ %s
+augroup END
+" }}}
+
+
 " surround - add and change surrounding "({[' and so on
 NeoBundle 'tpope/vim-surround'
+
+" TODO: Find a good latex plugin or write one
 " LaTeX-Box - latex functions
-NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
-let g:LatexBox_Folding=1
+" NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
+" let g:LatexBox_Folding=1
 
 " Navigation
 " Nerdtree - file navigator
@@ -80,7 +88,8 @@ let g:gundo_preview_bottom=1
 " Git integration
 NeoBundle 'tpope/vim-fugitive'
 " Signify - show git differences in gutter
-" NeoBundle 'mhinz/vim-signify'
+NeoBundle 'mhinz/vim-signify'
+let g:signify_sign_overwrite = 0
 
 " Completion
 " Bundle 'Valloric/YouCompleteMe'
@@ -100,11 +109,6 @@ NeoBundle 'sjl/badwolf.git'
 NeoBundle 'Mustang2'
 
 NeoBundle 'TagHighlight'
-
-" :BundleList
-" :BundleInstall
-" :BundleInstall! 
-" :BundleClean
 
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#infect()
@@ -160,6 +164,7 @@ augroup colors
   au colorscheme * hi DiffDelete ctermfg=0 ctermbg=1
   au colorscheme * hi DiffText ctermfg=0 ctermbg=4
   au colorscheme * hi SignColumn ctermbg='NONE'
+  " au colorscheme * hi PmenuSel ctermbg=0 ctermfg=3
 augroup END
 colorscheme solarized
 let g:signify_sign_color_ctermbg='NONE'
@@ -381,15 +386,8 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 " f: find forward
 " F: find backwards
 " ,f: XXX
-" f: [unite] prefix
-" ff: Unite file finder
-" fb: Unite buffer select
 " fc: save and close buffer
 " fq: close buffer without saving
-nnoremap [unite] <Nop>
-nmap f [unite]
-nnoremap [unite]f :<C-u>Unite -no-split -start-insert file_rec/async:!<CR>
-nnoremap [unite]b :<C-u>Unite -no-split -quick-match buffer<CR>
 map fq <esc>:call CleanClose(0)<cr>
 map fc <esc>:call CleanClose(1)<cr>
 " g: Many uses
@@ -415,7 +413,7 @@ nnoremap gj j
 nnoremap <leader>j o<esc>k
 nnoremap <C-j> <C-w>j
 " k: move up
-" K: XXX
+" K: lookup keyword
 " ,k: add empty line above
 " C-k: Move to window above
 nnoremap k gk
@@ -477,9 +475,15 @@ noremap <leader>. <C-^>
 nnoremap - '
 nnoremap _ `
 nnoremap <c-_> <c-]>
-" <space>: toggle folds
+" <space>: [unite] prefix
+" <space>f: Unite file finder
+" <space>b: Unite buffer select
 " ,<space>: Remove search highlighting
-nnoremap <space> za
+nnoremap [unite] <Nop>
+nmap <space> [unite]
+nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files -no-split -start-insert file_rec/async:!<CR>
+nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffers -quick-match buffer file_mru<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register -no-split register<CR>
 nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 "   Normal mode }}}
 " }}}
@@ -488,6 +492,8 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
 autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,}
+
+autocmd FileType vim setlocal keywordprg=:help
 
 autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 "autocmd FileType tex setlocal foldmarker=(fold),(end)
