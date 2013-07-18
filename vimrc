@@ -14,13 +14,13 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Vimproc - allows for asyncronous execution of external programs {{{
 NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-  \  'windows' : 'make -f make_mingw32.mak',
-  \  'cygwin' : 'make -f make_cygwin.mak',
-  \  'mac' : 'make -f make_mac.mak',
-  \  'unix' : 'make -f make_unix.mak',
-  \  },
-  \ }
+      \ 'build' : {
+      \  'windows' : 'make -f make_mingw32.mak',
+      \  'cygwin' : 'make -f make_cygwin.mak',
+      \  'mac' : 'make -f make_mac.mak',
+      \  'unix' : 'make -f make_unix.mak',
+      \  },
+      \ }
 " }}}
 
 " Unite - unified searching {{{
@@ -28,6 +28,12 @@ NeoBundle 'Shougo/unite.vim'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 let g:unite_split_rule = 'rightbelow'
+" ; is way off on Swedish keyboards, so I replace it with ö...
+let g:unite_quick_match_table = {
+      \     'a' : 0, 's' : 1, 'd' : 2, 'f' : 3, 'g' : 4, 'h' : 5, 'j' : 6, 'k' : 7, 'l' : 8, 'ö' : 9,
+      \     'q' : 10, 'w' : 11, 'e' : 12, 'r' : 13, 't' : 14, 'y' : 15, 'u' : 16, 'i' : 17, 'o' : 18, 'p' : 19,
+      \     '1' : 20, '2' : 21, '3' : 22, '4' : 23, '5' : 24, '6' : 25, '7' : 26, '8' : 27, '9' : 28, '0' : 29,
+      \ }
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
@@ -36,6 +42,32 @@ function! s:unite_my_settings()
   imap <buffer> <C-j> <Plug>(unite_select_next_line)
   imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
+
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'Shougo/unite-outline'
+
+" Unite prefix binding
+nnoremap [unite] <Nop>
+
+" [unite]a: Unite buffers (Active files)
+" [unite]s: Unite tags (Source)
+" [unite]d: Unite registers (Data)
+" [unite]f: Unite Files
+" [unite]g: Unite Grep
+" [unite]h: Unite lines (Here)
+nnoremap <silent> [unite]a 
+      \  :<C-u>Unite -buffer-name=buffers -quick-match buffer file_mru<CR>
+nnoremap <silent> [unite]s
+      \  :<C-u>Unite -buffer-name=tags tag<CR>
+nnoremap <silent> [unite]d
+      \  :<C-u>Unite -buffer-name=register -no-split register<CR>
+nnoremap <silent> [unite]f
+      \  :<C-u>Unite -buffer-name=files -no-split -start-insert file_rec/async:!<CR>
+nnoremap <silent> [unite]g
+      \  :<C-u>Unite -buffer-name=grep grep<CR>
+nnoremap <silent> [unite]h
+      \  :<C-u>Unite -buffer-name=lines -no-split -start-insert outline line<CR>
+
 " }}}
 
 
@@ -62,8 +94,44 @@ augroup END
 " }}}
 
 
-" surround - add and change surrounding "({[' and so on
+" surround - add and change surrounding "({[' and so on {{{
 NeoBundle 'tpope/vim-surround'
+" }}}
+
+" Nerdtree - file navigator {{{
+NeoBundle 'scrooloose/nerdtree'
+" }}}
+
+" Easymotion - more advanced jumping {{{
+NeoBundle 'EasyMotion'
+let g:EasyMotion_keys = 'asdfghjklqwertyuiopzxcvbnm1234567890'
+" }}}
+
+" Git plugins {{{
+" Fugitive - git bindings
+NeoBundle 'tpope/vim-fugitive'
+nnoremap [git] <nop>
+" [git]s: Git status
+" [git]d: Git diff of current file
+" [git]D: Close git diff
+" [git]l: Git log of current file in qickfix
+" [git]r: Return to current version of file
+nnoremap <silent> [git]s :Gstat<CR>
+nnoremap <silent> [git]d :Gdiff<CR>
+nnoremap <silent> [git]D :diffoff!<cr><c-w>h:bd<cr>
+nnoremap <silent> [git]l :Glog<CR>:copen<CR>
+nnoremap <silent> [git]r :Gedit %<CR>
+
+" Signify - show git differences in gutter
+NeoBundle 'mhinz/vim-signify'
+let g:signify_sign_overwrite = 0
+" [git]h: Highlight changed rows
+" [git]t: Toggle signify gutter symbols
+let g:signify_mapping_next_hunk = '[git]j'
+let g:signify_mapping_prev_hunk = '[git]k'
+let g:signify_mapping_toggle_highlight = '[git]h'
+let g:signify_mapping_toggle = '[git]t'
+" }}}
 
 " TODO: Find a good latex plugin or write one
 " LaTeX-Box - latex functions
@@ -71,25 +139,12 @@ NeoBundle 'tpope/vim-surround'
 " let g:LatexBox_Folding=1
 
 " Navigation
-" Nerdtree - file navigator
-NeoBundle 'scrooloose/nerdtree'
-" Lusty - buffer navigator (may be replaced by unite)
-NeoBundle 'sjbach/lusty'
-" CtrlP - file finder (may be replaced by unite)
-NeoBundle 'ctrlp.vim'
-" tagbar - navigate tags in file (may be replaced by unite)
-NeoBundle 'majutsushi/tagbar'
-" Easymotion - more advanced jumping
-NeoBundle 'EasyMotion'
-" Gundo - undo tree visualiser
-NeoBundle 'sjl/gundo.vim'
-let g:gundo_preview_bottom=1
-
-" Git integration
-NeoBundle 'tpope/vim-fugitive'
-" Signify - show git differences in gutter
-NeoBundle 'mhinz/vim-signify'
-let g:signify_sign_overwrite = 0
+" Undo tree navigation.
+" Not sure which one I like better...
+" NeoBundle 'sjl/gundo.vim'
+" let g:gundo_preview_bottom=1
+" NeoBundle 'mbbill/undotree'
+let g:undotree_SetFocusWhenToggle = 1
 
 " Completion
 " Bundle 'Valloric/YouCompleteMe'
@@ -309,7 +364,7 @@ set mouse=a
 nnoremap ! :VimProcBang 
 nnoremap !! :VimProcRead 
 " §: toggle NERDTree
-nnoremap <silent> § :NERDTreeTabsToggle<cr>
+nnoremap <silent> § :NERDTreeToggle<cr>
 " /: search, but in very magic mode
 nnoremap / /\v
 " ,1-6: highlight interesting words
@@ -354,7 +409,8 @@ nnoremap <leader>tp :tabprevious<cr>
 " u: undo
 " U: TODO: redo?
 " ,u: show Gundo tree
-nnoremap <silent> <leader>u :GundoToggle<cr>
+" nnoremap <silent> <leader>u :GundoToggle<cr>
+nnoremap <silent> <leader>u :UndotreeToggle<cr>
 " i: insert
 " I: insert at beginning of line
 " ,i: insert single character
@@ -362,7 +418,7 @@ nnoremap <leader>i i<space><esc>r
 " o: open line below
 " O: open line above
 " ,o: toggle relative line numbers
-nnoremap <leader>o :call g:ToggleNuMode()<cr>
+nnoremap <leader>o :set rnu!<cr>
 " p: paste
 " P: paste before
 " ,p: show TagBar
@@ -396,9 +452,7 @@ map fc <esc>:call CleanClose(1)<cr>
 " ,gs: Git status
 " ,gd: Git diff
 " ,gD: close Git diff
-nnoremap <leader>gs :Gstat<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gD :diffoff!<cr><c-w>h:bd<cr>
+nmap <leader>g [git]
 " h: move left
 " H: XXX
 " ,h: XXX
@@ -476,14 +530,8 @@ nnoremap - '
 nnoremap _ `
 nnoremap <c-_> <c-]>
 " <space>: [unite] prefix
-" <space>f: Unite file finder
-" <space>b: Unite buffer select
 " ,<space>: Remove search highlighting
-nnoremap [unite] <Nop>
 nmap <space> [unite]
-nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files -no-split -start-insert file_rec/async:!<CR>
-nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffers -quick-match buffer file_mru<CR>
-nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register -no-split register<CR>
 nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 "   Normal mode }}}
 " }}}
@@ -505,12 +553,15 @@ augroup au_python
   autocmd FileType python setlocal foldmethod=indent
 augroup END
 
+autocmd FileType qf nnoremap <buffer> j j
+autocmd FileType qf nnoremap <buffer> k k
+
 " FILETYPE }}}
 
 " FUNCTIONS {{{
 
 function! g:ToggleNuMode() "{{{
-" Toggle absolute and relative numbering mode
+  " Toggle absolute and relative numbering mode
   if(&rnu==1)
     set nu
   else
@@ -519,7 +570,7 @@ function! g:ToggleNuMode() "{{{
 endfunc "}}}
 
 function! CleanClose(toSave) "{{{
-" Close files and remove buffers
+  " Close files and remove buffers
   if (a:toSave == 1)
     w!
   endif
@@ -537,19 +588,19 @@ function! CleanClose(toSave) "{{{
 endfunction "}}}
 
 function! SynStack() "{{{
-" Shows the syntax highlighting stack
+  " Shows the syntax highlighting stack
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
 endfunc "}}}
 
 function! s:Pulse() "{{{
-" Pulse - An awesome function by Steve Losh
+  " Pulse - An awesome function by Steve Losh
   let current_window = winnr()
   windo set nocursorline
   execute current_window . 'wincmd w'
   setlocal cursorline
 
   redir => old_hi
-    silent execute 'hi CursorLine'
+  silent execute 'hi CursorLine'
   redir END
   let old_hi = split(old_hi, '\n')[0]
   let old_hi = substitute(old_hi, 'xxx', '', '')
@@ -576,7 +627,7 @@ endfunction " }}}
 command! -nargs=0 Pulse call s:Pulse()
 
 function! HiInterestingWord(n) "{{{
-" Highlight word - Another awesome function by Steve Losh
+  " Highlight word - Another awesome function by Steve Losh
   normal! mz
   normal! "zyiw
   let mid = 86750 + a:n
@@ -596,7 +647,7 @@ function! HiInterestingVisual(n) "{{{
 endfunction "}}}
 
 function! UnHiInterestingWord() "{{{
-" Unhighlight word functin - By me :)
+  " Unhighlight word functin - By me :)
   for i in range(1,6,1)
     let mid = 86750 + i
     silent! call matchdelete(mid)
@@ -605,7 +656,7 @@ endfunction "}}}
 
 
 function! Preserve(command) "{{{
-" Preserve by Jonathan Palardy
+  " Preserve by Jonathan Palardy
   let _s=@/
   let l=line(".")
   let c=col(".")
