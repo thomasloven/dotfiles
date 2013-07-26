@@ -143,7 +143,7 @@ let g:signify_mapping_toggle = '[git]t'
 " Not sure which one I like better...
 " NeoBundle 'sjl/gundo.vim'
 " let g:gundo_preview_bottom=1
-" NeoBundle 'mbbill/undotree'
+NeoBundle 'mbbill/undotree'
 let g:undotree_SetFocusWhenToggle = 1
 
 " Completion
@@ -210,7 +210,6 @@ set background=dark
 
 " Colorized background in vimdiff
 
-hi SpellBad cterm=undercurl ctermfg=1
 
 " Change some colors
 augroup colors
@@ -219,6 +218,7 @@ augroup colors
   au colorscheme * hi DiffDelete ctermfg=0 ctermbg=1
   au colorscheme * hi DiffText ctermfg=0 ctermbg=4
   au colorscheme * hi SignColumn ctermbg='NONE'
+  au colorscheme * hi SpellBad cterm=undercurl ctermfg=1
   " au colorscheme * hi PmenuSel ctermbg=0 ctermfg=3
 augroup END
 colorscheme solarized
@@ -387,8 +387,8 @@ nnoremap <leader>q :qall!<CR>
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-w>- <C-w>s
 nnoremap <C-w>/ <C-w>v
-" e: XXX
-" E: XXX
+" e: to end of word
+" E: to end of Word
 " ,e: XXX
 " ,ev: Edit vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -444,17 +444,18 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 " ,f: XXX
 " fc: save and close buffer
 " fq: close buffer without saving
+" TODO: Move those to something else. I use f too much and it's getting risky.
 map fq <esc>:call CleanClose(0)<cr>
 map fc <esc>:call CleanClose(1)<cr>
 " g: Many uses
-" G: XXX
+" G: Goto line (or last line if no count)
 " ,g: XXX
 " ,gs: Git status
 " ,gd: Git diff
 " ,gD: close Git diff
 nmap <leader>g [git]
 " h: move left
-" H: XXX
+" H: move cursor High on the screen
 " ,h: XXX
 " C-h: move to left window
 nnoremap <C-h> <C-w>h
@@ -475,7 +476,7 @@ nnoremap gk k
 nnoremap <leader>k O<esc>j
 nnoremap <C-k> <C-w>k
 " l: move right
-" L: go to lower screen
+" L: move cursor Low on the screen
 " ,l: toggle display of unprintable characters
 " C-l: Move to right window
 nnoremap <C-l> <C-w>l
@@ -512,8 +513,8 @@ nnoremap <leader>b :LustyJuggler<cr>
 " N: previous search hit
 " ,n: move open file
 noremap <leader>n :call RenameFile(0)<cr>
-" m: XXX
-" M: go to middle of screen
+" m: set mark
+" M: move cursor to the Middle of screen
 " ,m: XXX
 " ,: leader key
 " ;: XXX
@@ -528,7 +529,8 @@ noremap <leader>. <C-^>
 " C--: Jump to tag
 nnoremap - '
 nnoremap _ `
-nnoremap <c-_> <c-]>
+nnoremap <c-_> g<c-]> " Show list of tags if there are more than one
+nnoremap g<c-_> <c-]>
 " <space>: [unite] prefix
 " ,<space>: Remove search highlighting
 nmap <space> [unite]
@@ -539,7 +541,7 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 " FILETYPE {{{
 
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
-autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,}
+autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,} commentstring=/*\ %s\ */
 
 autocmd FileType vim setlocal keywordprg=:help
 
