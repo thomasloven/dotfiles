@@ -26,7 +26,7 @@ NeoBundle 'Shougo/vimproc', {
 " Unite - unified searching {{{
 NeoBundle 'Shougo/unite.vim'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+" call unite#filters#sorter_default#use(['sorter_rank'])
 let g:unite_split_rule = 'rightbelow'
 " ; is way off on Swedish keyboards, so I replace it with ö...
 let g:unite_quick_match_table = {
@@ -37,10 +37,14 @@ let g:unite_quick_match_table = {
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
-  nmap <buffer> <C-j> <Plug>(unite_select_next_line)
-  nmap <buffer> <C-k> <Plug>(unite_select_previous_line)
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+  nmap <buffer> J <Plug>(unite_select_next_line)
+  nmap <buffer> K <Plug>(unite_select_previous_line)
+  imap <buffer> J <Plug>(unite_select_next_line)
+  imap <buffer> K <Plug>(unite_select_previous_line)
+  let unite = unite#get_current_unite()
+  if unite.buffer_name =~# '^grep'
+    nnoremap <silent><buffer><expr> o unite#do_action('persist_open')
+  endif
 endfunction
 
 NeoBundle 'tsukkee/unite-tag'
@@ -62,7 +66,7 @@ nnoremap <silent> [unite]s
 nnoremap <silent> [unite]d
       \  :<C-u>Unite -buffer-name=register -no-split register<CR>
 nnoremap <silent> [unite]f
-      \  :<C-u>Unite -buffer-name=files -no-split -start-insert file_rec/async:!<CR>
+      \  :<C-u>Unite -buffer-name=files -no-split -start-insert file_rec:!<CR>
 nnoremap <silent> [unite]g
       \  :<C-u>Unite -buffer-name=grep grep<CR>
 nnoremap <silent> [unite]h
@@ -87,10 +91,6 @@ let g:syntastic_auto_loc_list=0
 
 " commentary - toggle commenting {{{
 NeoBundle 'tpope/vim-commentary'
-augroup commentary
-  au!
-  autocmd filetype asm set commentstring=;\ %s
-augroup END
 " }}}
 
 
@@ -164,6 +164,7 @@ NeoBundle 'sjl/badwolf.git'
 NeoBundle 'Mustang2'
 
 NeoBundle 'TagHighlight'
+NeoBundle 'godlygeek/tabular'
 
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#infect()
@@ -541,11 +542,15 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 " FILETYPE {{{
 
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
+autocmd filetype asm setlocal commentstring=;\ %s
 autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,} commentstring=/*\ %s\ */
+
+autocmd FileType matlab setlocal commentstring=%\ %s
 
 autocmd FileType vim setlocal keywordprg=:help
 
-autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
+autocmd BufRead *.md setlocal ft=markdown
+autocmd FileType markdown setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 "autocmd FileType tex setlocal foldmarker=(fold),(end)
 
 augroup au_python

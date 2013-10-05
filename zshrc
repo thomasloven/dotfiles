@@ -152,3 +152,6 @@ function mcd() {
 
 alias AvadaKedavra="pkill -9"
 alias tt="ssh tynnered -t 'tmux attach'"
+
+alias x11get="echo $DISPLAY > /tmp/xdisp"
+alias x11set="export DISPLAY=\`cat /tmp/xdisp\`"
