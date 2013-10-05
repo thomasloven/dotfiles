@@ -411,6 +411,9 @@ nnoremap <leader>tp :tabprevious<cr>
 " ,u: show Gundo tree
 " nnoremap <silent> <leader>u :GundoToggle<cr>
 nnoremap <silent> <leader>u :UndotreeToggle<cr>
+" Make i_^u undoable
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
 " i: insert
 " I: insert at beginning of line
 " ,i: insert single character
@@ -481,7 +484,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <leader>l :set list!<cr>
 " ö: shortcut to command mode
+" Ö: Command window
 noremap ö :
+noremap Ö q:a
 " ä: XXX
 " ': XXX
 " *: search for line under cursor, but don't move
@@ -556,7 +561,51 @@ augroup END
 autocmd FileType qf nnoremap <buffer> j j
 autocmd FileType qf nnoremap <buffer> k k
 
+autocmd CmdWinEnter * nnoremap <buffer> <ESC> <C-c><C-c>
+
 " FILETYPE }}}
+
+" LaTeX functions
+let texSections=['section','subsection','subsubsection','chapter']
+autocmd FileType tex,plaintex setlocal foldmethod=expr foldexpr=GetLatexFold(v:lnum) foldtext=LatexFoldText()
+
+function! GetLatexFold(lnum)
+  if getline(a:lnum) =~? '\v^\s*\\section'
+    return '>1'
+  endif
+  if getline(a:lnum) =~? '\v^\s*\\subsection'
+    return '>2'
+  endif
+  if getline(a:lnum) =~? '\v^\s*\\subsubsection'
+    return '>3'
+  endif
+  if getline(a:lnum) =~? '\v^\s*\\begin\{document\}'
+    return '>1'
+  endif
+  if getline(a:lnum) =~? '\v^\s*\\begin'
+    return 'a1'
+  endif
+  if getline(a:lnum-1) =~? '\v^\s*\\end'
+    return 's1'
+  endif
+  if getline(a:lnum) =~? '\v^\s*$'
+    return '-1'
+  endif
+  if(a:lnum) == 1
+    return 1
+  endif
+  return '='
+endfunction
+
+function! LatexFoldText()
+  let fs = v:foldstart
+  let line = getline(fs)
+  let foldSize = 1 + v:foldend - v:foldstart
+
+  return '+-- ' . line . ' -- [' . foldSize . ' lines]'
+
+endfunction
+
 
 " FUNCTIONS {{{
 
