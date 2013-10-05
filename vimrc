@@ -26,7 +26,7 @@ NeoBundle 'Shougo/vimproc', {
 " Unite - unified searching {{{
 NeoBundle 'Shougo/unite.vim'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+" call unite#filters#sorter_default#use(['sorter_rank'])
 let g:unite_split_rule = 'rightbelow'
 " ; is way off on Swedish keyboards, so I replace it with ö...
 let g:unite_quick_match_table = {
@@ -37,10 +37,14 @@ let g:unite_quick_match_table = {
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
-  nmap <buffer> <C-j> <Plug>(unite_select_next_line)
-  nmap <buffer> <C-k> <Plug>(unite_select_previous_line)
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+  nmap <buffer> J <Plug>(unite_select_next_line)
+  nmap <buffer> K <Plug>(unite_select_previous_line)
+  imap <buffer> J <Plug>(unite_select_next_line)
+  imap <buffer> K <Plug>(unite_select_previous_line)
+  let unite = unite#get_current_unite()
+  if unite.buffer_name =~# '^grep'
+    nnoremap <silent><buffer><expr> o unite#do_action('persist_open')
+  endif
 endfunction
 
 NeoBundle 'tsukkee/unite-tag'
@@ -62,7 +66,7 @@ nnoremap <silent> [unite]s
 nnoremap <silent> [unite]d
       \  :<C-u>Unite -buffer-name=register -no-split register<CR>
 nnoremap <silent> [unite]f
-      \  :<C-u>Unite -buffer-name=files -no-split -start-insert file_rec/async:!<CR>
+      \  :<C-u>Unite -buffer-name=files -no-split -start-insert file_rec:!<CR>
 nnoremap <silent> [unite]g
       \  :<C-u>Unite -buffer-name=grep grep<CR>
 nnoremap <silent> [unite]h
@@ -87,10 +91,6 @@ let g:syntastic_auto_loc_list=0
 
 " commentary - toggle commenting {{{
 NeoBundle 'tpope/vim-commentary'
-augroup commentary
-  au!
-  autocmd filetype asm set commentstring=;\ %s
-augroup END
 " }}}
 
 
@@ -143,7 +143,7 @@ let g:signify_mapping_toggle = '[git]t'
 " Not sure which one I like better...
 " NeoBundle 'sjl/gundo.vim'
 " let g:gundo_preview_bottom=1
-" NeoBundle 'mbbill/undotree'
+NeoBundle 'mbbill/undotree'
 let g:undotree_SetFocusWhenToggle = 1
 
 " Completion
@@ -164,6 +164,7 @@ NeoBundle 'sjl/badwolf.git'
 NeoBundle 'Mustang2'
 
 NeoBundle 'TagHighlight'
+NeoBundle 'godlygeek/tabular'
 
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#infect()
@@ -210,7 +211,6 @@ set background=dark
 
 " Colorized background in vimdiff
 
-hi SpellBad cterm=undercurl ctermfg=1
 
 " Change some colors
 augroup colors
@@ -219,6 +219,7 @@ augroup colors
   au colorscheme * hi DiffDelete ctermfg=0 ctermbg=1
   au colorscheme * hi DiffText ctermfg=0 ctermbg=4
   au colorscheme * hi SignColumn ctermbg='NONE'
+  au colorscheme * hi SpellBad cterm=undercurl ctermfg=1
   " au colorscheme * hi PmenuSel ctermbg=0 ctermfg=3
 augroup END
 colorscheme solarized
@@ -387,8 +388,8 @@ nnoremap <leader>q :qall!<CR>
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-w>- <C-w>s
 nnoremap <C-w>/ <C-w>v
-" e: XXX
-" E: XXX
+" e: to end of word
+" E: to end of Word
 " ,e: XXX
 " ,ev: Edit vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -447,17 +448,18 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 " ,f: XXX
 " fc: save and close buffer
 " fq: close buffer without saving
+" TODO: Move those to something else. I use f too much and it's getting risky.
 map fq <esc>:call CleanClose(0)<cr>
 map fc <esc>:call CleanClose(1)<cr>
 " g: Many uses
-" G: XXX
+" G: Goto line (or last line if no count)
 " ,g: XXX
 " ,gs: Git status
 " ,gd: Git diff
 " ,gD: close Git diff
 nmap <leader>g [git]
 " h: move left
-" H: XXX
+" H: move cursor High on the screen
 " ,h: XXX
 " C-h: move to left window
 nnoremap <C-h> <C-w>h
@@ -478,7 +480,7 @@ nnoremap gk k
 nnoremap <leader>k O<esc>j
 nnoremap <C-k> <C-w>k
 " l: move right
-" L: go to lower screen
+" L: move cursor Low on the screen
 " ,l: toggle display of unprintable characters
 " C-l: Move to right window
 nnoremap <C-l> <C-w>l
@@ -517,8 +519,8 @@ nnoremap <leader>b :LustyJuggler<cr>
 " N: previous search hit
 " ,n: move open file
 noremap <leader>n :call RenameFile(0)<cr>
-" m: XXX
-" M: go to middle of screen
+" m: set mark
+" M: move cursor to the Middle of screen
 " ,m: XXX
 " ,: leader key
 " ;: XXX
@@ -533,7 +535,8 @@ noremap <leader>. <C-^>
 " C--: Jump to tag
 nnoremap - '
 nnoremap _ `
-nnoremap <c-_> <c-]>
+nnoremap <c-_> g<c-]> " Show list of tags if there are more than one
+nnoremap g<c-_> <c-]>
 " <space>: [unite] prefix
 " ,<space>: Remove search highlighting
 nmap <space> [unite]
@@ -544,11 +547,15 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 " FILETYPE {{{
 
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
-autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,}
+autocmd filetype asm setlocal commentstring=;\ %s
+autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,} commentstring=/*\ %s\ */
+
+autocmd FileType matlab setlocal commentstring=%\ %s
 
 autocmd FileType vim setlocal keywordprg=:help
 
-autocmd FileType mkd setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
+autocmd BufRead *.md setlocal ft=markdown
+autocmd FileType markdown setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 "autocmd FileType tex setlocal foldmarker=(fold),(end)
 
 augroup au_python
