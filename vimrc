@@ -429,6 +429,8 @@ nnoremap <leader>o :set rnu!<cr>
 nnoremap <silent> <leader>p :TagbarToggle<cr>
 " å: XXX
 " ^: XXX
+"^^: Toggle case in insert mode
+inoremap <C-^> x<esc>mzgUb`za<backspace>
 " a: append
 " A: append at end of line
 " ,a: append single character
@@ -518,10 +520,14 @@ nnoremap <leader>b :LustyJuggler<cr>
 " n: next search hit
 " N: previous search hit
 " ,n: move open file
+" ^n: Previous tab
 noremap <leader>n :call RenameFile(0)<cr>
+nnoremap <c-n> :tabprevious<cr>
 " m: set mark
 " M: move cursor to the Middle of screen
 " ,m: XXX
+" ^m: Next tab
+nnoremap <c-m> :tabnext<cr>
 " ,: leader key
 " ;: XXX
 " ,,: easymotion trigger
