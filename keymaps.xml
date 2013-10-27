@@ -1,30 +1,29 @@
 <?xml version="1.0"?>
 <root>
+  <deviceproductdef>
+    <productname>LGT_KEYBOARD</productname>
+    <productid>0xc52e</productid>
+  </deviceproductdef>
+  <deviceproductdef>
+    <productname>APPL_KEYBOARD</productname>
+    <productid>0x023a</productid>
+  </deviceproductdef>
+
   <item>
       <name>Remap left control to left control</name>
       <identifier>private.left_ctrl_to_left_ctrl</identifier>
-
+      <device_only>DeviceVendor::LOGITECH, DeviceProduct::LGT_KEYBOARD</device_only>
+      <!-- <device_only>DeviceVendor::APPLE_COMPUTER, DeviceProduct::APPL_KEYBOARD</device_only> -->
       <autogen>
-        --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F19
+        --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F18
       </autogen>
   </item>
   <item>
-      <name>Remap F18 to ctrl+tab</name>
-      <identifier>private.F80_to_ctrl_tab</identifier>
+      <name>Remap left control to left control2</name>
+      <identifier>private.left_ctrl_to_left_ctrl2</identifier>
+      <device_only>DeviceVendor::APPLE_COMPUTER, DeviceProduct::APPL_KEYBOARD</device_only>
       <autogen>
-      --KeyToKey--
-      KeyCode::F18,
-      KeyCode::TAB, ModifierFlag::CONTROL_R
-      </autogen>
-  </item>
-  <item>
-      <name>Remap fn+tab to C-v tab</name>
-      <identifier>private.left_ctrl_to_cv_tab</identifier>
-
-      <autogen>
-        --KeyToKey--
-        KeyCode::TAB, ModifierFlag::FN,
-        KeyCode::V, ModifierFlag::CONTROL_L, KeyCode::TAB
+        --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F18
       </autogen>
   </item>
 </root>
