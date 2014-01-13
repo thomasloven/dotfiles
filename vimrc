@@ -150,10 +150,14 @@ NeoBundle 'sjl/gundo.vim'
 NeoBundle 'tpope/vim-dispatch'
 
 " Completion
-" Bundle 'Valloric/YouCompleteMe'
+" NeoBundle 'Valloric/YouCompleteMe', { 
+"   \ 'build' : {
+"   \ 'unix' : 
+"   \ './install.sh --clang-completer --system-libclang'},}
 " let g:ycm_confirm_extra_conf=0
-NeoBundle 'ervandew/supertab'
-let g:SupertabDefaultCompletionType = "context"
+" NeoBundle 'ervandew/supertab'
+" let g:SupertabDefaultCompletionType = "context"
+" :imap <C-J> <Plug>snipMateNextOrTrigger
 NeoBundle 'garbas/vim-snipmate'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'tomtom/tlib_vim'
