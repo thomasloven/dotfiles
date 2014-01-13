@@ -10,7 +10,7 @@ ZLE_ALIAS_STYLE='fg=green,bold'
 ZLE_BUILTIN_STYLE='fg=green,bold'
 ZLE_FUNCTION_STYLE='fg=green,bold'
 ZLE_COMMAND_STYLE='fg=green,bold'
-ZLE_PATH_STYLE='fg=white,underline'
+ZLE_PATH_STYLE='fg=default,underline'
 ZLE_COMMAND_UNKNOWN_TOKEN_STYLE='fg=red,bold'
 
 ZLE_HYPHEN_CLI_OPTION='fg=yellow,bold'
@@ -20,7 +20,7 @@ ZLE_DOUBLE_QUOTED='fg=magenta,bold'
 ZLE_BACK_QUOTED='fg=cyan,bold'
 ZLE_GLOBING='fg=blue,bold'
 
-ZLE_DEFAULT='fg=white,normal'
+ZLE_DEFAULT='fg=default,normal'
 
 ZLE_TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'start' 'time' 'strace' 'noglob' 'command' 'builtin')
 
