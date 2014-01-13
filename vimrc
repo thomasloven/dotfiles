@@ -413,8 +413,7 @@ nnoremap <leader>tp :tabprevious<cr>
 " u: undo
 " U: TODO: redo?
 " ,u: show Gundo tree
-" nnoremap <silent> <leader>u :GundoToggle<cr>
-nnoremap <silent> <leader>u :UndotreeToggle<cr>
+nnoremap <silent> <leader>u :GundoToggle<cr>
 " Make i_^u undoable
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
@@ -454,8 +453,8 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 " fc: save and close buffer
 " fq: close buffer without saving
 " TODO: Move those to something else. I use f too much and it's getting risky.
-map fq <esc>:call CleanClose(0)<cr>
-map fc <esc>:call CleanClose(1)<cr>
+map ,fq <esc>:call CleanClose(0)<cr>
+map ,fc <esc>:call CleanClose(1)<cr>
 " g: Many uses
 " G: Goto line (or last line if no count)
 " ,g: XXX
@@ -557,7 +556,7 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
 autocmd filetype asm setlocal commentstring=;\ %s
-autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=marker foldmarker={,} commentstring=/*\ %s\ */
+autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=syntax commentstring=/*\ %s\ */
 
 autocmd FileType matlab setlocal commentstring=%\ %s
 
