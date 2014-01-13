@@ -144,11 +144,10 @@ NeoBundle 'mhinz/vim-signify'
 
 " Navigation
 " Undo tree navigation.
-" Not sure which one I like better...
-" NeoBundle 'sjl/gundo.vim'
-" let g:gundo_preview_bottom=1
-NeoBundle 'mbbill/undotree'
-let g:undotree_SetFocusWhenToggle = 1
+let g:gundo_preview_bottom = 1
+NeoBundle 'sjl/gundo.vim'
+
+NeoBundle 'tpope/vim-dispatch'
 
 " Completion
 " Bundle 'Valloric/YouCompleteMe'
