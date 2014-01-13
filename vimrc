@@ -123,7 +123,6 @@ nnoremap <silent> [git]l :Glog<CR>:copen<CR>
 nnoremap <silent> [git]r :Gedit %<CR>
 
 " Signify - show git differences in gutter
-NeoBundle 'mhinz/vim-signify'
 let g:signify_sign_overwrite = 0
 " [git]h: Highlight changed rows
 " [git]t: Toggle signify gutter symbols
@@ -131,6 +130,11 @@ let g:signify_mapping_next_hunk = '[git]j'
 let g:signify_mapping_prev_hunk = '[git]k'
 let g:signify_mapping_toggle_highlight = '[git]h'
 let g:signify_mapping_toggle = '[git]t'
+let g:signify_sign_add = '+'
+let g:signify_sign_change = '*'
+let g:signify_sign_delete = '-'
+let g:signify_sign_delete_first_line = '-'
+NeoBundle 'mhinz/vim-signify'
 " }}}
 
 " TODO: Find a good latex plugin or write one
