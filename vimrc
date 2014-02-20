@@ -505,9 +505,9 @@ nnoremap * *<c-o>
 " >: increase indent
 " z: many uses
 " Z: XXX
-" ,z: XXX
-" C-z: show current position
-nnoremap <c-z> mzzMzvzz5<c-e>`z:Pulse<CR>
+" ,z: show current position
+" C-z: Background vim
+nnoremap <leader>z mzzMzvzz5<c-e>`z:Pulse<CR>
 " x: delete character
 " X: delete character backwards?
 " ,x: XXX
