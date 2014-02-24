@@ -8,7 +8,34 @@
     <productname>APPL_KEYBOARD</productname>
     <productid>0x023a</productid>
   </deviceproductdef>
+  <appdef>
+    <appname>ITERM2</appname>
+    <equal>com.googlecode.iterm2</equal>
+  </appdef>
 
+
+  <item>
+    <name>CapsLock to Command_L</name>
+    <identifier>private.control_to_command__esc</identifier>
+      <autogen>
+        __KeyOverlaidModifier__
+        KeyCode::F17,
+        KeyCode::COMMAND_L,
+        KeyCode::ESCAPE,
+      </autogen>
+      <not>ITERM2</not>
+  </item>
+  <item>
+    <name>CapsLock to Control_L</name>
+    <identifier>private.control_to_control__esc</identifier>
+      <autogen>
+        __KeyOverlaidModifier__
+        KeyCode::F17,
+        KeyCode::CONTROL_L,
+        KeyCode::ESCAPE,
+      </autogen>
+      <only>ITERM2</only>
+  </item>
   <item>
       <name>Remap left control to left control</name>
       <identifier>private.left_ctrl_to_left_ctrl</identifier>
