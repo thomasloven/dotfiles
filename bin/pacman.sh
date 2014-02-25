@@ -12,6 +12,10 @@ initializeANSI()
   blackf="${esc}[30m";   redf="${esc}[31m";    greenf="${esc}[32m"
   yellowf="${esc}[33m"   bluef="${esc}[34m";   purplef="${esc}[35m"
   cyanf="${esc}[36m";    whitef="${esc}[37m"
+
+  bblackf="${esc}[90m";   bredf="${esc}[91m";    bgreenf="${esc}[92m"
+  byellowf="${esc}[93m"   bbluef="${esc}[94m";   bpurplef="${esc}[95m"
+  bcyanf="${esc}[96m";    bwhitef="${esc}[97m"
   
   blackb="${esc}[40m";   redb="${esc}[41m";    greenb="${esc}[42m"
   yellowb="${esc}[43m"   blueb="${esc}[44m";   purpleb="${esc}[45m"
@@ -40,12 +44,13 @@ cat << EOF
  ${yellowf}███████▄${reset}      ${redf}████████████${reset}  ${greenf}████████████${reset}  ${bluef}████████████${reset}  ${purplef}████████████${reset}  ${cyanf}████████████${reset}
  ${yellowf}▀█████████▄▄${reset}  ${redf}██▀██▀▀██▀██${reset}  ${greenf}██▀██▀▀██▀██${reset}  ${bluef}██▀██▀▀██▀██${reset}  ${purplef}██▀██▀▀██▀██${reset}  ${cyanf}██▀██▀▀██▀██${reset}
  ${yellowf}  ▀███████▀${reset}   ${redf}▀   ▀  ▀   ▀${reset}  ${greenf}▀   ▀  ▀   ▀${reset}  ${bluef}▀   ▀  ▀   ▀${reset}  ${purplef}▀   ▀  ▀   ▀${reset}  ${cyanf}▀   ▀  ▀   ▀${reset}
- 
- ${boldon}${yellowf}  ▄███████▄   ${redf}  ▄██████▄    ${greenf}  ▄██████▄    ${bluef}  ▄██████▄    ${purplef}  ▄██████▄    ${cyanf}  ▄██████▄${reset}
- ${boldon}${yellowf}▄█████████▀▀  ${redf}▄${whitef}█▀█${redf}██${whitef}█▀█${redf}██▄  ${greenf}▄${whitef}█▀█${greenf}██${whitef}█▀█${greenf}██▄  ${bluef}▄${whitef}█▀█${bluef}██${whitef}█▀█${bluef}██▄  ${purplef}▄${whitef}█▀█${purplef}██${whitef}█▀█${purplef}██▄  ${cyanf}▄${whitef}█▀█${cyanf}██${whitef}█▀█${cyanf}██▄${reset}
- ${boldon}${yellowf}███████▀      ${redf}█${whitef}▄▄█${redf}██${whitef}▄▄█${redf}███  ${greenf}█${whitef}▄▄█${greenf}██${whitef}▄▄█${greenf}███  ${bluef}█${whitef}▄▄█${bluef}██${whitef}▄▄█${bluef}███  ${purplef}█${whitef}▄▄█${purplef}██${whitef}▄▄█${purplef}███  ${cyanf}█${whitef}▄▄█${cyanf}██${whitef}▄▄█${cyanf}███${reset}
- ${boldon}${yellowf}███████▄      ${redf}████████████  ${greenf}████████████  ${bluef}████████████  ${purplef}████████████  ${cyanf}████████████${reset}
- ${boldon}${yellowf}▀█████████▄▄  ${redf}██▀██▀▀██▀██  ${greenf}██▀██▀▀██▀██  ${bluef}██▀██▀▀██▀██  ${purplef}██▀██▀▀██▀██  ${cyanf}██▀██▀▀██▀██${reset}
- ${boldon}${yellowf}  ▀███████▀   ${redf}▀   ▀  ▀   ▀  ${greenf}▀   ▀  ▀   ▀  ${bluef}▀   ▀  ▀   ▀  ${purplef}▀   ▀  ▀   ▀  ${cyanf}▀   ▀  ▀   ▀${reset}
+
+
+ ${byellowf}  ▄███████▄${reset}   ${bredf}  ▄██████▄${reset}    ${bgreenf}  ▄██████▄${reset}    ${bbluef}  ▄██████▄${reset}    ${bpurplef}  ▄██████▄${reset}    ${bcyanf}  ▄██████▄${reset}
+ ${byellowf}▄█████████▀▀${reset}  ${bredf}▄${whitef}█▀█${bredf}██${whitef}█▀█${bredf}██▄${reset}  ${bgreenf}▄${whitef}█▀█${bgreenf}██${whitef}█▀█${bgreenf}██▄${reset}  ${bbluef}▄${whitef}█▀█${bbluef}██${whitef}█▀█${bbluef}██▄${reset}  ${bpurplef}▄${whitef}█▀█${bpurplef}██${whitef}█▀█${bpurplef}██▄${reset}  ${bcyanf}▄${whitef}█▀█${bcyanf}██${whitef}█▀█${bcyanf}██▄${reset}
+ ${byellowf}███████▀${reset}      ${bredf}█${whitef}▄▄█${bredf}██${whitef}▄▄█${bredf}███${reset}  ${bgreenf}█${whitef}▄▄█${bgreenf}██${whitef}▄▄█${bgreenf}███${reset}  ${bbluef}█${whitef}▄▄█${bbluef}██${whitef}▄▄█${bbluef}███${reset}  ${bpurplef}█${whitef}▄▄█${bpurplef}██${whitef}▄▄█${bpurplef}███${reset}  ${bcyanf}█${whitef}▄▄█${bcyanf}██${whitef}▄▄█${bcyanf}███${reset}
+ ${byellowf}███████▄${reset}      ${bredf}████████████${reset}  ${bgreenf}████████████${reset}  ${bbluef}████████████${reset}  ${bpurplef}████████████${reset}  ${bcyanf}████████████${reset}
+ ${byellowf}▀█████████▄▄${reset}  ${bredf}██▀██▀▀██▀██${reset}  ${bgreenf}██▀██▀▀██▀██${reset}  ${bbluef}██▀██▀▀██▀██${reset}  ${bpurplef}██▀██▀▀██▀██${reset}  ${bcyanf}██▀██▀▀██▀██${reset}
+ ${byellowf}  ▀███████▀${reset}   ${bredf}▀   ▀  ▀   ▀${reset}  ${bgreenf}▀   ▀  ▀   ▀${reset}  ${bbluef}▀   ▀  ▀   ▀${reset}  ${bpurplef}▀   ▀  ▀   ▀${reset}  ${bcyanf}▀   ▀  ▀   ▀${reset}
 
 EOF
