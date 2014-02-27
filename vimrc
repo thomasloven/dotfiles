@@ -25,6 +25,7 @@ NeoBundle 'Shougo/vimproc', {
 
 " Unite - unified searching {{{
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " call unite#filters#sorter_default#use(['sorter_rank'])
 let g:unite_split_rule = 'rightbelow'
