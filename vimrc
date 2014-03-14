@@ -35,7 +35,10 @@ let g:unite_quick_match_table = {
       \     'q' : 10, 'w' : 11, 'e' : 12, 'r' : 13, 't' : 14, 'y' : 15, 'u' : 16, 'i' : 17, 'o' : 18, 'p' : 19,
       \     '1' : 20, '2' : 21, '3' : 22, '4' : 23, '5' : 24, '6' : 25, '7' : 26, '8' : 27, '9' : 28, '0' : 29,
       \ }
-autocmd FileType unite call s:unite_my_settings()
+augroup unite
+  au!
+  autocmd FileType unite call s:unite_my_settings()
+augroup end
 function! s:unite_my_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
   nmap <buffer> J <Plug>(unite_select_next_line)
@@ -47,6 +50,13 @@ function! s:unite_my_settings()
     nnoremap <silent><buffer><expr> o unite#do_action('persist_open')
   endif
 endfunction
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = 
+    \ '--line-numbers --nocolor --nogroup'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
 
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'Shougo/unite-outline'
@@ -61,7 +71,7 @@ nnoremap [unite] <Nop>
 " [unite]g: Unite Grep
 " [unite]h: Unite lines (Here)
 nnoremap <silent> [unite]a 
-      \  :<C-u>Unite -buffer-name=buffers -quick-match buffer file_mru<CR>
+      \  :<C-u>Unite -buffer-name=buffers -quick-match buffer_tab<CR>
 nnoremap <silent> [unite]s
       \  :<C-u>Unite -buffer-name=tags tag<CR>
 nnoremap <silent> [unite]d
@@ -69,7 +79,9 @@ nnoremap <silent> [unite]d
 nnoremap <silent> [unite]f
       \  :<C-u>Unite -buffer-name=files -no-split -start-insert file_rec:!<CR>
 nnoremap <silent> [unite]g
-      \  :<C-u>Unite -buffer-name=grep grep<CR>
+      \  :<C-u>Unite -buffer-name=grep grep:.::<CR>
+nnoremap <silent> [unite]<space>g
+      \  :<C-u>Unite -buffer-name=grep -resume grep<CR>
 nnoremap <silent> [unite]h
       \  :<C-u>Unite -buffer-name=lines -no-split -start-insert outline line<CR>
 
@@ -137,6 +149,12 @@ let g:signify_sign_delete = '-'
 let g:signify_sign_delete_first_line = '-'
 NeoBundle 'mhinz/vim-signify'
 " }}}
+
+
+let g:unimpaired_left = '<'
+let g:unimpaired_right = '>'
+NeoBundle 'thomasloven/vim-unimpaired'
+
 
 " TODO: Find a good latex plugin or write one
 " LaTeX-Box - latex functions
@@ -356,6 +374,7 @@ vnoremap <tab> %
 
 set ttimeout
 set ttimeoutlen=100
+set timeoutlen=300
 
 set backspace=indent,eol,start
 set wildmenu
@@ -550,6 +569,8 @@ nnoremap - '
 nnoremap _ `
 nnoremap <c-_> g<c-]> " Show list of tags if there are more than one
 nnoremap g<c-_> <c-]>
+nmap [1;5m <c-_>
+nmap g[1;5m g<c-_>
 " <space>: [unite] prefix
 " ,<space>: Remove search highlighting
 nmap <space> [unite]
