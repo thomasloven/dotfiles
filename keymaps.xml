@@ -8,6 +8,10 @@
     <productname>APPL_KEYBOARD</productname>
     <productid>0x023a</productid>
   </deviceproductdef>
+  <deviceproductdef>
+    <productname>APPL_KEYBOARD2</productname>
+    <productid>0x0253</productid>
+  </deviceproductdef>
   <appdef>
     <appname>ITERM2</appname>
     <equal>com.googlecode.iterm2</equal>
@@ -49,6 +53,14 @@
       <name>Remap left control to left control2</name>
       <identifier>private.left_ctrl_to_left_ctrl2</identifier>
       <device_only>DeviceVendor::APPLE_COMPUTER, DeviceProduct::APPL_KEYBOARD</device_only>
+      <autogen>
+        --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F18
+      </autogen>
+  </item>
+  <item>
+      <name>Remap left control to left control2 Mbook</name>
+      <identifier>private.left_ctrl_to_left_ctrl2_mbook</identifier>
+      <device_only>DeviceVendor::APPLE_COMPUTER, DeviceProduct::APPL_KEYBOARD2</device_only>
       <autogen>
         --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F18
       </autogen>
