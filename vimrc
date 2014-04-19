@@ -113,6 +113,7 @@ NeoBundle 'tpope/vim-surround'
 
 " Nerdtree - file navigator {{{
 NeoBundle 'scrooloose/nerdtree'
+let NERDTreeIgnore=['\.o$','\~$']
 " }}}
 
 " Easymotion - more advanced jumping {{{
