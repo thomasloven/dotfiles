@@ -29,8 +29,8 @@ plugins=(git brew osx extract screen wakeonlan command-coloring)
 source $ZSH/oh-my-zsh.sh
 
 # Use vim for editing
-alias vim="mvim -v"
-export EDITOR="mvim -v"
+alias vim="vim"
+export EDITOR="vim"
 
 # Use vim editing mode
 # Make sure backspace works as it should
