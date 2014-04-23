@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+MD5="md5"
+HOSTNAME=`hostname`
+if [[ $OS == 'darwin' ]]; then MD5="md5"; fi
+if [[ -n $1 ]]; then HOSTNAME=$1; fi
+HASH=`echo ${HOSTNAME} | ${MD5}`
+echo -n -e "\033[38;05;$((0x${HASH:4:6}))m ${HOSTNAME}"
