@@ -11,7 +11,7 @@ current_color="green"
 
 PROMPT=''
 PROMPT+='%{$fg[$current_color]%}'
-PROMPT+=`hashhost '%m'`
+PROMPT+=`hashhost`
 PROMPT+='%{$reset_color%}'
 PROMPT+=':'
 PROMPT+='%c ' # Working directory
