@@ -152,8 +152,8 @@ NeoBundle 'mhinz/vim-signify'
 " }}}
 
 
-let g:unimpaired_left = '<'
-let g:unimpaired_right = '>'
+let g:unimpaired_left = '>'
+let g:unimpaired_right = '<'
 NeoBundle 'thomasloven/vim-unimpaired'
 
 
@@ -584,6 +584,7 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
 autocmd filetype asm setlocal commentstring=;\ %s
 autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=syntax commentstring=/*\ %s\ */
+autocmd FileType c inoremap {{ {<CR>}<ESC>O
 
 autocmd FileType matlab setlocal commentstring=%\ %s
 

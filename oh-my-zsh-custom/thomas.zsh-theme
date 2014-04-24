@@ -8,10 +8,10 @@
 # 2713 ✓
 
 current_color="green"
-
+hashhost=`hashhost`
 PROMPT=''
 PROMPT+='%{$fg[$current_color]%}'
-PROMPT+=`hashhost`
+PROMPT+='%{$hashhost%}%m'
 PROMPT+='%{$reset_color%}'
 PROMPT+=':'
 PROMPT+='%c ' # Working directory
