@@ -9,6 +9,8 @@ export LANG='sv_SE.UTF-8'
 export LC_ALL='sv_SE.UTF-8'
 
 # Path variable
+
+PATH="/home/pi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games"
 PATH="/usr/local/sbin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="/usr/texbin:${PATH}"
