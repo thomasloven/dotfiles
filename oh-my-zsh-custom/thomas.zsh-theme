@@ -10,13 +10,15 @@
 current_color="green"
 hashhost=`hashhost`
 PROMPT=''
-PROMPT+='%{$fg[$current_color]%}'
 PROMPT+='%{$hashhost%}%m'
 PROMPT+='%{$reset_color%}'
+PROMPT+='%{$fg[$current_color]%}'
 PROMPT+=':'
+PROMPT+='%{$reset_color%}'
 PROMPT+='%c ' # Working directory
 PROMPT+='%{$fg[green]%}'
-PROMPT+='%(!.%{$fg[red]%}#.$) ' # Green $ for user, red # for root
+PROMPT+='%{$fg[$current_color]%}'
+PROMPT+='%(!.#.$) ' # Green $ for user, red # for root
 PROMPT+='%{$reset_color%}'
 
 
