@@ -12,6 +12,14 @@
     <productname>APPL_KEYBOARD2</productname>
     <productid>0x0253</productid>
   </deviceproductdef>
+  <deviceproductdef>
+    <productname>DAS_KEYBOARD</productname>
+    <productid>0x2013</productid>
+  </deviceproductdef>
+  <devicevendordef>
+    <vendorname>DAS_KEYBOARD</vendorname>
+    <vendorid>0x04D9</vendorid>
+  </devicevendordef>
   <appdef>
     <appname>ITERM2</appname>
     <equal>com.googlecode.iterm2</equal>
@@ -63,6 +71,34 @@
       <device_only>DeviceVendor::APPLE_COMPUTER, DeviceProduct::APPL_KEYBOARD2</device_only>
       <autogen>
         --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F18
+      </autogen>
+  </item>
+  <item>
+      <name>Remap left control to left control Das Keyboard</name>
+      <identifier>private.left_ctrl_to_left_ctrl_das</identifier>
+      <device_only>DeviceVendor::DAS_KEYBOARD, DeviceProduct::DAS_KEYBOARD</device_only>
+      <autogen>
+        --DoublePressModifier-- KeyCode::F19, KeyCode::CONTROL_L, KeyCode::F18
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::PC_APPLICATION, KeyCode::F18
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::OPTION_L, KeyCode::COMMAND_L
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::COMMAND_L, KeyCode::OPTION_L
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::OPTION_R, KeyCode::COMMAND_R
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::COMMAND_R, KeyCode::OPTION_R
       </autogen>
   </item>
 </root>
