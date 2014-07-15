@@ -156,6 +156,7 @@ let g:unimpaired_left = '>'
 let g:unimpaired_right = '<'
 NeoBundle 'thomasloven/vim-unimpaired'
 
+NeoBundle 'majutsushi/tagbar'
 
 " TODO: Find a good latex plugin or write one
 " LaTeX-Box - latex functions
@@ -175,10 +176,13 @@ NeoBundle 'tpope/vim-dispatch'
 "   \ 'unix' : 
 "   \ './install.sh --clang-completer --system-libclang'},}
 " let g:ycm_confirm_extra_conf=0
+" let g:ycm_global_ycm_extra_conf='~/bin/dotfiles/ycm_extra_conf.py'
 " NeoBundle 'ervandew/supertab'
 " let g:SupertabDefaultCompletionType = "context"
 " :imap <C-J> <Plug>snipMateNextOrTrigger
 NeoBundle 'garbas/vim-snipmate'
+" let g:UltiSnipsExpandTrigger="<c-j>"
+" NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
@@ -406,9 +410,11 @@ nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
 " tab: Jump between brackets
 nnoremap <tab> %
 " q: Record macro
-" Q: Append macro
+" Q: Replay macro
 " ,q: close all (don't save)
 nnoremap <leader>q :qall!<CR>
+nnoremap Q @
+nnoremap QQ @@
 " w: Move forward one word
 " W: Move forward one Word
 " ,w: XXX
@@ -584,6 +590,7 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
 autocmd filetype asm setlocal commentstring=;\ %s
 autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=syntax commentstring=/*\ %s\ */
+set cinoptions=l1
 autocmd FileType c inoremap {{ {<CR>}<ESC>O
 
 autocmd FileType matlab setlocal commentstring=%\ %s

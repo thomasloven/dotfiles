@@ -6,11 +6,11 @@ AUTHOR="%C(blue)<%an>%C(reset)"
 REFS="%C(red)%d%C(reset)"
 SUBJECT="%s%C(reset)"
 
-FORMAT="$HASH}$RELATIVE_TIME}$AUTHOR}$REFS $SUBJECT"
+FORMAT="}$HASH}$RELATIVE_TIME}$AUTHOR}$REFS $SUBJECT"
 
 function pretty_git_log() {
   git log --graph --all --color=always --pretty="tformat:$FORMAT" $* |
   sed -Ee 's/(^[^<]*) ago}/\1}/' |
-  column -t -s '}' |
+  columnize.py -t -s '}' |
   less -FXR
 }

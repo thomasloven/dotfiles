@@ -15,7 +15,6 @@ PATH="/usr/texbin:${PATH}"
 PATH="/usr/local/mysql/bin:${PATH}"
 #PATH="$(cd $(which gem)/..; pwd):${PATH}"
 PATH="/usr/local/opt/ruby/bin:${PATH}"
-PATH="/usr/local/share/python:${PATH}"
 PATH="${HOME}/bin/dotfiles:${PATH}"
 PATH="${HOME}/bin:${PATH}"
 PATH=".:${PATH}"
@@ -150,8 +149,13 @@ function mcd() {
   mkdir -p "$1" && cd "$1"
 }
 
+alias ls=' ls'
+alias cd=' cd'
+alias popd=' popd'
+
 alias AvadaKedavra="pkill -9"
 alias tt="ssh tynnered -t 'tmux attach'"
 
 alias x11get="echo $DISPLAY > /tmp/xdisp"
 alias x11set="export DISPLAY=\`cat /tmp/xdisp\`"
+export CLICOLOR=1
