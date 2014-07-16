@@ -11,6 +11,6 @@ FORMAT="}$HASH}$RELATIVE_TIME}$AUTHOR}$REFS $SUBJECT"
 function pretty_git_log() {
   git log --graph --all --color=always --pretty="tformat:$FORMAT" $* |
   sed -Ee 's/(^[^<]*) ago}/\1}/' |
-  columnize.py -t -s '}' |
+  columnize -t -s '}' |
   less -FXR
 }
