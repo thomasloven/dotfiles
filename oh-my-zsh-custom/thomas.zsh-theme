@@ -26,9 +26,9 @@ function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
 
   # Don't print anything if the current directory is ignored
-  if git clean -xnd `pwd` | grep 'Would remove \./' > /dev/null; then
-    return
-  fi
+  # if git clean -xnd `pwd` | grep 'Would remove \./' > /dev/null; then
+  #   return
+  # fi
 
   OUTPUT='['
   if [[ -n $(git status -s --ignore-submodules=dirty 2> /dev/null) ]]; then
