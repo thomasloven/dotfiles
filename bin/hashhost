@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-MD5="md5sum"
+MD5="md5"
 HOSTNAME=`hostname -s`
 if [[ $OS == 'darwin' ]]; then MD5="md5"; fi
 if [[ -n $1 ]]; then HOSTNAME=$1; fi
