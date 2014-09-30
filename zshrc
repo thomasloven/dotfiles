@@ -1,8 +1,7 @@
 
-# PS4='+$(date "+%s:%N") %N:%i> '
-# exec 3>&2 2>/tmp/startlog.$$
-# setopt xtrace prompt_subst
-
+if [[ -z ${DOTFILES} ]]; then
+  DOTFILES=${HOME}/dotfiles
+fi
 
 # Swedish and UTF8
 export LANG='sv_SE.UTF-8'
@@ -20,15 +19,15 @@ PATH="${HOME}/bin:${PATH}"
 PATH=".:${PATH}"
 
 # Oh my ZSH
-ZSH=$HOME/.oh-my-zsh
-ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
-ZSH_THEME="powerline"
+ZSH=${DOTFILES}/oh-my-zsh
+ZSH_CUSTOM="${DOTFILES}/oh-my-zsh-custom"
 ZSH_THEME="thomas"
 plugins=(git brew osx extract screen wakeonlan command-coloring)
-source $ZSH/oh-my-zsh.sh
+source ${ZSH}/oh-my-zsh.sh
 
 # Use vim for editing
 alias vim="mvim -v"
+alias v=vim
 export EDITOR="mvim -v"
 
 # Use vim editing mode
@@ -59,6 +58,7 @@ setopt IGNORE_EOF
 
 alias ls='echo "\033[33m$PWD\033[0m";ls -G'
 alias sz='source ~/.zshrc'
+alias sdate='date "+%Y-%m-%d"'
 
 bindkey -M viins ' ' magic-space
 
@@ -132,7 +132,7 @@ _db() { _files -W ~/Dropbox ~/; }
 compdef _db db
 
 # Use ~/.ssh/hosts for autocompletion of ssh commands
-source ~/.oh-my-zsh/lib/completion.zsh
+source ${DOTFILES}/oh-my-zsh/lib/completion.zsh
 [ -r ~/.ssh/config ] &&      _ssh_config_hosts=(${(s: :)${(ps:\t:)${(f)"$(<$HOME/.ssh/config|grep 'Host')"}#Host}#Hostname}) || _ssh_config_hosts=()
 hosts=(
     "$_global_ssh_hosts[@]"
@@ -159,3 +159,7 @@ alias tt="ssh tynnered -t 'tmux attach'"
 alias x11get="echo $DISPLAY > /tmp/xdisp"
 alias x11set="export DISPLAY=\`cat /tmp/xdisp\`"
 export CLICOLOR=1
+
+if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
