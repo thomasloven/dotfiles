@@ -151,6 +151,7 @@ let g:signify_sign_delete_first_line = '-'
 NeoBundle 'mhinz/vim-signify'
 " }}}
 
+NeoBundle 'severin-lemaignan/vim-minimap'
 
 let g:unimpaired_left = '>'
 let g:unimpaired_right = '<'
@@ -197,9 +198,6 @@ NeoBundle 'Mustang2'
 NeoBundle 'TagHighlight'
 NeoBundle 'godlygeek/tabular'
 
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#infect()
-"call pathogen#helptags()
 filetype plugin indent on
 
 let mapleader = ","
@@ -230,26 +228,25 @@ set lazyredraw
 set title
 
 
-" SYNTAX HIGHLIGTING {{{
+" SYNTAX HIGHLIGHTING {{{
 set t_Co=256
 syntax enable
 set background=dark
 
-" SYNTAX HIGHLIGTING }}}
+" SYNTAX HIGHLIGHTING }}}
 
 
 " COLOR MAPPINGS {{{
 
-" Colorized background in vimdiff
-
-
 " Change some colors
 augroup colors
   au!
+  " Colorized background in vimdiff
   au colorscheme * hi DiffAdd ctermfg=0 ctermbg=2
   au colorscheme * hi DiffDelete ctermfg=0 ctermbg=1
   au colorscheme * hi DiffText ctermfg=0 ctermbg=4
   au colorscheme * hi SignColumn ctermbg='NONE'
+  " Red spelling mistakes
   au colorscheme * hi SpellBad cterm=undercurl ctermfg=1
   " au colorscheme * hi PmenuSel ctermbg=0 ctermfg=3
 augroup END
@@ -265,24 +262,17 @@ hi def InterestingWord5 ctermfg=16 ctermbg=5
 hi def InterestingWord6 ctermfg=16 ctermbg=6
 
 
-" Highlight interesting words with <leader>[1-6]
-vnoremap <silent> <leader>1 :call HiInterestingVisual(1)<CR>
-vnoremap <silent> <leader>2 :call HiInterestingVisual(2)<CR>
-vnoremap <silent> <leader>3 :call HiInterestingVisual(3)<CR>
-vnoremap <silent> <leader>4 :call HiInterestingVisual(4)<CR>
-vnoremap <silent> <leader>5 :call HiInterestingVisual(5)<CR>
-vnoremap <silent> <leader>6 :call HiInterestingVisual(6)<CR>
-
 " COLOR MAPPINGS }}}
 
 " LINE NUMBERS {{{
 " Line numbering
 set number
+set relativenumber
 " LINE NUMBERS }}}
 
 
 " HIDDEN CHARACTERS {{{
-" Display tab characters and toggle with <leader>l
+" Display tab characters
 set list
 set listchars=tab:▸\ ,eol:¬,nbsp:·
 set showbreak=↪
@@ -310,17 +300,6 @@ cmap w!! w !sudo dd of=%
 
 set makeprg=make\ -w
 
-function! RenameFile(copy)
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'), 'file')
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    if a:copy == 0
-      exec ':silent !rm ' . old_name
-    endif
-    redraw!
-  endif
-endfunction
 "}}}
 
 
@@ -504,6 +483,8 @@ nnoremap <C-h> <C-w>h
 " C-j: move to window below
 nnoremap j gj
 nnoremap gj j
+ " Not for quickfix window
+autocmd FileType qf nnoremap <buffer> j j
 nnoremap <leader>j o<esc>k
 nnoremap <C-j> <C-w>j
 " k: move up
@@ -512,6 +493,8 @@ nnoremap <C-j> <C-w>j
 " C-k: Move to window above
 nnoremap k gk
 nnoremap gk k
+ " Not for quickfix window
+autocmd FileType qf nnoremap <buffer> k k
 nnoremap <leader>k O<esc>j
 nnoremap <C-k> <C-w>k
 " l: move right
@@ -522,8 +505,8 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>l :set list!<cr>
 " ö: shortcut to command mode
 " Ö: Command window
-noremap ö :
-noremap Ö q:a
+nnoremap ö :
+nnoremap Ö q:a
 " ä: XXX
 " ': XXX
 " *: search for line under cursor, but don't move
@@ -541,7 +524,7 @@ nnoremap <leader>z mzzMzvzz5<c-e>`z:Pulse<CR>
 " c: change
 " C: change rest of line
 " ,c: copy file and open copy
-noremap <leader>c :call RenameFile(1)<cr>
+nnoremap <leader>c :call RenameFile(1)<cr>
 " v: visual mode
 " V: visual line
 " ,v: XXX
@@ -554,7 +537,9 @@ nnoremap <leader>b :LustyJuggler<cr>
 " N: previous search hit
 " ,n: move open file
 " ^n: Previous tab
-noremap <leader>n :call RenameFile(0)<cr>
+nnoremap n nzvzz
+nnoremap N Nzvzz
+nnoremap <leader>n :call RenameFile(0)<cr>
 nnoremap <c-n> :tabprevious<cr>
 " m: set mark
 " M: move cursor to the Middle of screen
@@ -587,20 +572,35 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 
 " FILETYPE {{{
 
-autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
-autocmd filetype asm setlocal commentstring=;\ %s
-autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=syntax commentstring=/*\ %s\ */
-set cinoptions=l1
-autocmd FileType c inoremap {{ {<CR>}<ESC>O
+""" ASM
+augroup au_asm
+  au!
+  autocmd filetype asm setlocal commentstring=;\ %s
+augroup END
 
+""" c
+augroup au_c
+  au!
+  autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=syntax commentstring=/*\ %s\ */
+  autocmd FileType c inoremap {{ {<CR>}<ESC>O
+augroup END
+set cinoptions=l1
+
+""" Makefile
+autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
+
+""" MATLAB
 autocmd FileType matlab setlocal commentstring=%\ %s
 
+""" Vim
 autocmd FileType vim setlocal keywordprg=:help
 
+""" markdown
 autocmd BufRead *.md setlocal ft=markdown
 autocmd FileType markdown setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 "autocmd FileType tex setlocal foldmarker=(fold),(end)
 
+""" python
 augroup au_python
   au!
   autocmd FileType python map ,m :w<cr>:execute '!python %'<cr>
@@ -608,14 +608,10 @@ augroup au_python
   autocmd FileType python setlocal foldmethod=indent
 augroup END
 
-autocmd FileType qf nnoremap <buffer> j j
-autocmd FileType qf nnoremap <buffer> k k
-
 autocmd CmdWinEnter * nnoremap <buffer> <ESC> <C-c><C-c>
 
-" FILETYPE }}}
 
-" LaTeX functions
+""" LaTeX
 let texSections=['section','subsection','subsubsection','chapter']
 autocmd FileType tex,plaintex setlocal foldmethod=expr foldexpr=GetLatexFold(v:lnum) foldtext=LatexFoldText()
 
@@ -656,8 +652,22 @@ function! LatexFoldText()
 
 endfunction
 
+" FILETYPE }}}
 
 " FUNCTIONS {{{
+
+function! RenameFile(copy) "{{{
+  " Asks for a new filename. Copies if copy is true, otherwise moves the file
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    if a:copy == 0
+      exec ':silent !rm ' . old_name
+    endif
+    redraw!
+  endif
+endfunction "}}}
 
 function! g:ToggleNuMode() "{{{
   " Toggle absolute and relative numbering mode
