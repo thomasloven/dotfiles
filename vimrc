@@ -3,16 +3,17 @@ set nocompatible
 
 filetype off
 
+let s:vimrcfile = expand('<sfile>:p')
+
 " Neobundle - plugin management {{{
 if has('vim_starting')
   set rtp +=~/.vim/bundle/neobundle.vim
 endif
 let g:neobundle#types#git#default_protocol='https'
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-" }}}
 
-" Vimproc - allows for asyncronous execution of external programs {{{
+" Vimproc - allows for asyncronous execution of external programs
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \  'windows' : 'make -f make_mingw32.mak',
@@ -22,10 +23,114 @@ NeoBundle 'Shougo/vimproc', {
       \  },
       \ }
 " }}}
-
-" Unite - unified searching {{{
-NeoBundle 'Shougo/unite.vim'
+"
+" Used all the time
+NeoBundle 'scrooloose/syntastic' " Automatic syntax checking
+NeoBundle 'tpope/vim-commentary' " Toggle commenting
+NeoBundle 'scrooloose/nerdtree' " File navigator
+NeoBundle 'tpope/vim-fugitive' " Git bindings
+NeoBundle 'mhinz/vim-signify' " Show git changes in gutter
+NeoBundle 'thomasloven/vim-tstatus'
+NeoBundle 'altercation/vim-colors-solarized'
+"
+" Used sometimes
+NeoBundle 'Shougo/unite.vim' " Unified searching
 NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'embear/vim-localvimrc' " Source .lvimrc from project root
+NeoBundle 'tpope/vim-surround' " Add and change surrounding ({[' and so on
+NeoBundle 'sjl/gundo.vim'
+"
+" Never used
+NeoBundle 'EasyMotion' " More advanced jumping
+NeoBundle 'thomasloven/vim-unimpaired' " Some of my changes to unimpaired. Reduntant Should be removed.
+NeoBundle 'majutsushi/tagbar' " For source navigation
+NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'TagHighlight'
+NeoBundle 'godlygeek/tabular'
+
+call neobundle#end()
+
+" }}}
+
+let g:localvimrc_sandbox=0
+let g:localvimrc_ask=0
+
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=0
+
+let NERDTreeIgnore=['\.o$','\~$']
+
+let g:EasyMotion_keys = 'asdfghjklqwertyuiopzxcvbnm1234567890'
+
+" Git plugins {{{
+nnoremap [git] <nop>
+" [git]s: Git status
+" [git]d: Git diff of current file
+" [git]D: Close git diff
+" [git]l: Git log of current file in qickfix
+" [git]r: Return to current version of file
+nnoremap <silent> [git]s :Gstat<CR>
+nnoremap <silent> [git]d :Gdiff<CR>
+nnoremap <silent> [git]D :diffoff!<cr><c-w>h:bd<cr>
+nnoremap <silent> [git]l :Glog<CR>:copen<CR>
+nnoremap <silent> [git]r :Gedit %<CR>
+
+" Signify - show git differences in gutter
+let g:signify_sign_overwrite = 0
+" [git]h: Highlight changed rows
+" [git]t: Toggle signify gutter symbols
+let g:signify_mapping_next_hunk = '[git]j'
+let g:signify_mapping_prev_hunk = '[git]k'
+let g:signify_mapping_toggle_highlight = '[git]h'
+let g:signify_mapping_toggle = '[git]t'
+let g:signify_sign_add = '+'
+let g:signify_sign_change = '*'
+let g:signify_sign_delete = '-'
+let g:signify_sign_delete_first_line = '-'
+" }}}
+
+
+let g:unimpaired_left = '>'
+let g:unimpaired_right = '<'
+
+
+" TODO: Find a good latex plugin or write one
+" LaTeX-Box - latex functions
+" NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
+" let g:LatexBox_Folding=1
+
+" Navigation
+" Undo tree navigation.
+let g:gundo_preview_bottom = 1
+
+" Completion
+" NeoBundle 'Valloric/YouCompleteMe', { 
+"   \ 'build' : {
+"   \ 'unix' : 
+"   \ './install.sh --clang-completer --system-libclang'},}
+" let g:ycm_confirm_extra_conf=0
+" let g:ycm_global_ycm_extra_conf='~/bin/dotfiles/ycm_extra_conf.py'
+" NeoBundle 'ervandew/supertab'
+" let g:SupertabDefaultCompletionType = "context"
+" :imap <C-J> <Plug>snipMateNextOrTrigger
+" let g:UltiSnipsExpandTrigger="<c-j>"
+" NeoBundle 'SirVer/ultisnips'
+
+" Looks
+let g:solarized_termtrans=1
+
+filetype plugin indent on
+
+let mapleader = ","
+let maplocalleader = ","
+
+
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " call unite#filters#sorter_default#use(['sorter_rank'])
 let g:unite_split_rule = 'rightbelow'
@@ -71,7 +176,7 @@ nnoremap [unite] <Nop>
 " [unite]g: Unite Grep
 " [unite]h: Unite lines (Here)
 nnoremap <silent> [unite]a 
-      \  :<C-u>Unite -buffer-name=buffers -quick-match buffer_tab<CR>
+      \  :<C-u>Unite -buffer-name=buffers -quick-match buffer<CR>
 nnoremap <silent> [unite]s
       \  :<C-u>Unite -buffer-name=tags tag<CR>
 nnoremap <silent> [unite]d
@@ -84,126 +189,6 @@ nnoremap <silent> [unite]<space>g
       \  :<C-u>Unite -buffer-name=grep -resume grep<CR>
 nnoremap <silent> [unite]h
       \  :<C-u>Unite -buffer-name=lines -no-split -start-insert outline line<CR>
-
-" }}}
-
-
-" localvimrc - source .lvimrc from project root {{{
-NeoBundle 'embear/vim-localvimrc'
-let g:localvimrc_sandbox=0
-let g:localvimrc_ask=0
-" }}}
-
-" Syntastic - automatic syntax checking {{{
-NeoBundle 'scrooloose/syntastic'
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=0
-" }}}
-
-" commentary - toggle commenting {{{
-NeoBundle 'tpope/vim-commentary'
-" }}}
-
-
-" surround - add and change surrounding "({[' and so on {{{
-NeoBundle 'tpope/vim-surround'
-" }}}
-
-" Nerdtree - file navigator {{{
-NeoBundle 'scrooloose/nerdtree'
-let NERDTreeIgnore=['\.o$','\~$']
-" }}}
-
-" Easymotion - more advanced jumping {{{
-NeoBundle 'EasyMotion'
-let g:EasyMotion_keys = 'asdfghjklqwertyuiopzxcvbnm1234567890'
-" }}}
-
-" Git plugins {{{
-" Fugitive - git bindings
-NeoBundle 'tpope/vim-fugitive'
-nnoremap [git] <nop>
-" [git]s: Git status
-" [git]d: Git diff of current file
-" [git]D: Close git diff
-" [git]l: Git log of current file in qickfix
-" [git]r: Return to current version of file
-nnoremap <silent> [git]s :Gstat<CR>
-nnoremap <silent> [git]d :Gdiff<CR>
-nnoremap <silent> [git]D :diffoff!<cr><c-w>h:bd<cr>
-nnoremap <silent> [git]l :Glog<CR>:copen<CR>
-nnoremap <silent> [git]r :Gedit %<CR>
-
-" Signify - show git differences in gutter
-let g:signify_sign_overwrite = 0
-" [git]h: Highlight changed rows
-" [git]t: Toggle signify gutter symbols
-let g:signify_mapping_next_hunk = '[git]j'
-let g:signify_mapping_prev_hunk = '[git]k'
-let g:signify_mapping_toggle_highlight = '[git]h'
-let g:signify_mapping_toggle = '[git]t'
-let g:signify_sign_add = '+'
-let g:signify_sign_change = '*'
-let g:signify_sign_delete = '-'
-let g:signify_sign_delete_first_line = '-'
-NeoBundle 'mhinz/vim-signify'
-" }}}
-
-NeoBundle 'severin-lemaignan/vim-minimap'
-
-let g:unimpaired_left = '>'
-let g:unimpaired_right = '<'
-NeoBundle 'thomasloven/vim-unimpaired'
-
-NeoBundle 'majutsushi/tagbar'
-
-" TODO: Find a good latex plugin or write one
-" LaTeX-Box - latex functions
-" NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
-" let g:LatexBox_Folding=1
-
-" Navigation
-" Undo tree navigation.
-let g:gundo_preview_bottom = 1
-NeoBundle 'sjl/gundo.vim'
-
-NeoBundle 'tpope/vim-dispatch'
-
-" Completion
-" NeoBundle 'Valloric/YouCompleteMe', { 
-"   \ 'build' : {
-"   \ 'unix' : 
-"   \ './install.sh --clang-completer --system-libclang'},}
-" let g:ycm_confirm_extra_conf=0
-" let g:ycm_global_ycm_extra_conf='~/bin/dotfiles/ycm_extra_conf.py'
-" NeoBundle 'ervandew/supertab'
-" let g:SupertabDefaultCompletionType = "context"
-" :imap <C-J> <Plug>snipMateNextOrTrigger
-NeoBundle 'garbas/vim-snipmate'
-" let g:UltiSnipsExpandTrigger="<c-j>"
-" NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-
-" Looks
-NeoBundle 'thomasloven/vim-tstatus'
-NeoBundle 'altercation/vim-colors-solarized'
-let g:solarized_termtrans=1
-NeoBundle 'sjl/badwolf.git'
-NeoBundle 'Mustang2'
-
-NeoBundle 'TagHighlight'
-NeoBundle 'godlygeek/tabular'
-
-filetype plugin indent on
-
-let mapleader = ","
-let maplocalleader = ","
-
-
 
 
 " DISPLAY {{{
@@ -405,7 +390,7 @@ nnoremap <C-w>/ <C-w>v
 " E: to end of Word
 " ,e: XXX
 " ,ev: Edit vimrc
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+execute ":nnoremap <leader>ev :vsplit ". s:vimrcfile. "<cr>"
 " r: replace character
 " R: replace text
 " ,r: XXX
