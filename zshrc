@@ -14,6 +14,7 @@ PATH="/usr/texbin:${PATH}"
 PATH="/usr/local/mysql/bin:${PATH}"
 #PATH="$(cd $(which gem)/..; pwd):${PATH}"
 PATH="/usr/local/opt/ruby/bin:${PATH}"
+PATH="${DOTFILES}/bin:${PATH}"
 PATH="${HOME}/bin/dotfiles:${PATH}"
 PATH="${HOME}/bin:${PATH}"
 PATH=".:${PATH}"
@@ -24,6 +25,7 @@ ZSH_CUSTOM="${DOTFILES}/oh-my-zsh-custom"
 ZSH_THEME="thomas"
 plugins=(git brew osx extract screen wakeonlan command-coloring)
 source ${ZSH}/oh-my-zsh.sh
+source ${DOTFILES}/bin/k.sh
 
 # Use vim for editing
 alias vim="mvim -v"
