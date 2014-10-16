@@ -14,3 +14,5 @@ function pretty_git_log() {
   columnize -t -s '}' |
   less -FXR
 }
+
+pretty_git_log $@
