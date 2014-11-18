@@ -560,7 +560,7 @@ nnoremap <silent> <leader><space> :call UnHiInterestingWord()<CR>:noh<CR>
 """ ASM
 augroup au_asm
   au!
-  autocmd filetype asm setlocal commentstring=;\ %s
+  autocmd FileType asm setlocal commentstring=;\ %s
 augroup END
 
 """ c
@@ -577,6 +577,8 @@ autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
 
 """ MATLAB
 autocmd FileType matlab setlocal commentstring=%\ %s
+autocmd FileType matlab setlocal foldmethod=indent
+highlight matlabComment ctermfg=5
 
 """ Vim
 autocmd FileType vim setlocal keywordprg=:help
@@ -761,5 +763,58 @@ function! Preserve(command) "{{{
 endfunction "}}}
 
 " }}}
+
+
+let s:scratch_name='--Scratch--'
+
+function! s:ToggleScratch()
+
+  let scr_bn = bufnr(s:scratch_name)
+
+  " Create a scratch buffer if none exists
+  if scr_bn == -1
+    execute 'new'. s:scratch_name
+    setlocal bufhidden=hide
+    setlocal buflisted
+    setlocal buftype=nofile
+    setlocal foldcolumn=0
+    setlocal nofoldenable
+    setlocal nonumber
+    setlocal norelativenumber
+    setlocal noswapfile
+    setlocal filetype=scratch
+    autocmd BufEnter <buffer> call <SID>autoclose_scratch()
+    nnoremap <buffer> ,c <esc>:call CleanClose(0)<cr><c-w>c
+  else
+    let scr_wn = bufwinnr(scr_bn)
+    " Switch to it if it does exist
+    if scr_wn == -1
+      execute 'split +buffer'. scr_bn
+    else
+      if winnr() != scr_wn
+        execute scr_wn . 'wincmd w'
+      else
+        " Close it if already in
+        wincmd c
+        wincmd p
+      endif
+    endif
+  endif
+endfunction
+
+
+function! s:autoclose_scratch()
+  if winbufnr(2) ==# -1
+    if tabpagenr('$') ==# 1
+      bdelete
+      quit
+    else
+      close
+    endif
+  endif
+endfunction
+
+command! -nargs=0 Scratch call <SID>ToggleScratch()
+nnoremap <silent> gs :Scratch<CR>
 
 NeoBundleCheck
