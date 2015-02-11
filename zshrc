@@ -30,7 +30,10 @@ source ${DOTFILES}/bin/k.sh
 # Use vim for editing
 alias vim="mvim -v"
 alias v=vim
+alias öe=vim #because vim...
 export EDITOR="mvim -v"
+
+export PYTHONSTARTUP="${DOTFILES}/pythonrc"
 
 # Use vim editing mode
 # Make sure backspace works as it should
@@ -38,14 +41,23 @@ export EDITOR="mvim -v"
 bindkey -v
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
-bindkey -M viins 'jj' vi-cmd-mode
-bindkey -M viins 'kj' vi-cmd-mode
+# bindkey -M viins 'jj' vi-cmd-mode
+# bindkey -M viins 'kj' vi-cmd-mode
 
 # Always run screen in utf8 mode
 alias screen="screen -U"
 alias tmux="nocorrect tmux -2"
 
 alias glog="git log --graph --oneline --decorate --all"
+unalias g
+g() {
+ if [[ -z $1 ]]; then
+   git status
+ else
+   git $@
+ fi
+ }
+compdef g git
 
 # Use C-s to insert sudo
 function insert_sudo() {

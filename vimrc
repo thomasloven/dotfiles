@@ -568,7 +568,7 @@ augroup au_c
   au!
   autocmd FileType c setlocal ts=2 sts=2 sw=2 expandtab foldmethod=syntax commentstring=/*\ %s\ */
   autocmd FileType c inoremap {{ {<CR>}<ESC>O
-  autocmd FileType c inoremap <local>{<CR> {<CR>}<c-o>O
+  autocmd FileType c inoremap {<CR> {<CR>}<c-o>O
 augroup END
 set cinoptions=l1
 
