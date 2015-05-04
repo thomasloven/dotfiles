@@ -11,6 +11,7 @@
   <deviceproductdef>
     <productname>APPL_KEYBOARD2</productname>
     <productid>0x0253</productid>
+    <productid>0x0256</productid>
   </deviceproductdef>
   <deviceproductdef>
     <productname>DAS_KEYBOARD</productname>

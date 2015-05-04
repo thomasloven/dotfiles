@@ -4,6 +4,7 @@ set nocompatible
 filetype off
 
 let s:vimrcfile = expand('<sfile>:p')
+set viminfo='100,<50,s10,h,n~/.vim/viminfo
 
 " Neobundle - plugin management {{{
 if has('vim_starting')
