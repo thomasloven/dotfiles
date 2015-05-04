@@ -64,7 +64,7 @@ let g:syntastic_warning_symbol='⚠'
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=0
 
-let NERDTreeIgnore=['\.o$','\~$']
+let NERDTreeIgnore=['\.pyc$','\.o$','\~$']
 
 let g:EasyMotion_keys = 'asdfghjklqwertyuiopzxcvbnm1234567890'
 
@@ -85,10 +85,15 @@ nnoremap <silent> [git]r :Gedit %<CR>
 let g:signify_sign_overwrite = 0
 " [git]h: Highlight changed rows
 " [git]t: Toggle signify gutter symbols
+nnoremap <silent> [git]h :SignifyToggleHighlight<CR>
+nnoremap <silent> [git]t :SignifyToggle<CR>
+
+" TODO: These rows don't seem to work...
 let g:signify_mapping_next_hunk = '[git]j'
-let g:signify_mapping_prev_hunk = '[git]k'
-let g:signify_mapping_toggle_highlight = '[git]h'
-let g:signify_mapping_toggle = '[git]t'
+let g:signtify_mapping_prev_hunk = '[git]k'
+nnoremap [git]j <plug>(signify-next-hunk)
+nnoremap [git]k <plug>(signify-prev-hunk)
+
 let g:signify_sign_add = '+'
 let g:signify_sign_change = '*'
 let g:signify_sign_delete = '-'
@@ -236,6 +241,7 @@ augroup colors
   " au colorscheme * hi PmenuSel ctermbg=0 ctermfg=3
 augroup END
 colorscheme solarized
+hi CursorLine ctermbg=16
 let g:signify_sign_color_ctermbg='NONE'
 
 " Colors for interesting words
@@ -246,6 +252,7 @@ hi def InterestingWord4 ctermfg=16 ctermbg=4
 hi def InterestingWord5 ctermfg=16 ctermbg=5
 hi def InterestingWord6 ctermfg=16 ctermbg=6
 
+highlight comment ctermfg=5
 
 " COLOR MAPPINGS }}}
 
@@ -445,9 +452,8 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 " f: find forward
 " F: find backwards
 " ,f: XXX
-" fc: save and close buffer
-" fq: close buffer without saving
-" TODO: Move those to something else. I use f too much and it's getting risky.
+" ,fc: save and close buffer
+" ,fq: close buffer without saving
 map ,fq <esc>:call CleanClose(0)<cr>
 map ,fc <esc>:call CleanClose(1)<cr>
 " g: Many uses
@@ -578,7 +584,6 @@ autocmd FileType make setlocal ts=8 sts=8 sw=8 noet foldmethod=indent
 """ MATLAB
 autocmd FileType matlab setlocal commentstring=%\ %s
 autocmd FileType matlab setlocal foldmethod=indent
-highlight matlabComment ctermfg=5
 
 """ Vim
 autocmd FileType vim setlocal keywordprg=:help
@@ -594,6 +599,8 @@ augroup au_python
   autocmd FileType python map ,m :w<cr>:execute '!python %'<cr>
   autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
   autocmd FileType python setlocal foldmethod=indent
+  autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
+  autocmd FileType python setlocal cc=1,5,9,13,17,21,+1
 augroup END
 
 autocmd CmdWinEnter * nnoremap <buffer> <ESC> <C-c><C-c>
