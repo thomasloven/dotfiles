@@ -53,6 +53,11 @@ NeoBundle 'MarcWeber/vim-addon-mw-utils'
 NeoBundle 'TagHighlight'
 NeoBundle 'godlygeek/tabular'
 
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'Shougo/unite-outline'
+
+NeoBundleLocal ~/.vim/bundle-dev
+
 call neobundle#end()
 
 " }}}
@@ -169,8 +174,6 @@ if executable('ag')
 endif
 
 
-NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'Shougo/unite-outline'
 
 " Unite prefix binding
 nnoremap [unite] <Nop>
@@ -598,10 +601,10 @@ autocmd FileType markdown setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 augroup au_python
   au!
   autocmd FileType python map ,m :w<cr>:execute '!python %'<cr>
-  autocmd FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+  autocmd FileType python map ,n :Dispatch nosetests<cr>
   autocmd FileType python setlocal foldmethod=indent
   autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
-  autocmd FileType python setlocal cc=1,5,9,13,17,21,+1
+  autocmd FileType python setlocal textwidth=79 cc=1,5,9,13,17,21,+1
 augroup END
 
 autocmd CmdWinEnter * nnoremap <buffer> <ESC> <C-c><C-c>

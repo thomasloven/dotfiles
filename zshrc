@@ -30,6 +30,11 @@ source ${DOTFILES}/bin/k.sh
 # Use vim for editing
 alias vim="mvim -v"
 alias v=vim
+if hash ipython 2>/dev/null; then
+  alias p=ipython
+else
+  alias p=python
+fi
 alias öe=vim #because vim...
 export EDITOR="mvim -v"
 

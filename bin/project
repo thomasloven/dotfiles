@@ -1,0 +1,68 @@
+#!/usr/bin/env sh
+
+readonly name='Thomas Lovén'
+
+function mit_license() {
+  local year=`date|awk '{print $4}'`
+  cat <<EOF
+The MIT License (MIT)
+
+Copyright (c) ${year} ${name}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+EOF
+
+}
+
+function git_init() {
+  local project_name=$1
+  local make=$2
+  git init
+  if [[ ${make} = true ]]; then
+    echo "Set up git repo"
+    # mkdir -p ~/git/${project_name}
+    # pushd ~/git/${project_name}
+    #   git init --bare
+    # popd
+    # git remote add origin ~/git/${project_name}
+  fi
+}
+
+function main() {
+  local project_name=$1
+  shift 1
+  local make_git=false
+  local license="mit"
+  while getopts "g" OPTION; do
+    case ${OPTION} in
+      g)
+        make_git=true
+    esac
+  done
+
+  mkdir ${project_name} || return
+
+  pushd ${project_name} || return
+    mit_license > LICENSE
+    touch README
+    git_init ${project_name} ${make_git}
+  popd
+}
+
+main "${@}"
