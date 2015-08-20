@@ -58,6 +58,7 @@ unalias g
 g() {
  if [[ -z $1 ]]; then
    git status
+   git l -5
  else
    git $@
  fi
