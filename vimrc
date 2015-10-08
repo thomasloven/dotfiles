@@ -43,7 +43,8 @@ NeoBundle 'sjl/gundo.vim'
 "
 " Never used
 NeoBundle 'EasyMotion' " More advanced jumping
-NeoBundle 'thomasloven/vim-unimpaired' " Some of my changes to unimpaired. Reduntant Should be removed.
+" NeoBundle 'thomasloven/vim-unimpaired' " Some of my changes to unimpaired. Reduntant Should be removed.
+NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'majutsushi/tagbar' " For source navigation
 NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'garbas/vim-snipmate'
@@ -107,8 +108,8 @@ let g:signify_sign_delete_first_line = '-'
 " }}}
 
 
-let g:unimpaired_left = '>'
-let g:unimpaired_right = '<'
+" let g:unimpaired_left = '>'
+" let g:unimpaired_right = '<'
 
 
 " TODO: Find a good latex plugin or write one
@@ -600,7 +601,7 @@ autocmd FileType markdown setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 """ python
 augroup au_python
   au!
-  autocmd FileType python map ,m :w<cr>:execute '!python %'<cr>
+  autocmd FileType python map ,m :w<cr>:execute '!python3 %'<cr>
   autocmd FileType python map ,n :Dispatch nosetests<cr>
   autocmd FileType python setlocal foldmethod=indent
   autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
