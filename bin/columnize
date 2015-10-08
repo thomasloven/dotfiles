@@ -1,55 +1,57 @@
 #!/usr/bin/env python
 
-from sys import stdin,stdout
-import sys
-import re
+'Columnize text with ANSI escape codes'
+
+from __future__ import print_function
 import getopt
 from os import path
+import re
+import sys
+
+try:
+    # Python 3
+    from itertools import zip_longest
+except ImportError:
+    # Python 2
+    from itertools import izip_longest as zip_longest
+
+progname = path.basename(sys.argv[0])
 
 def getlength(s):
-    s = re.sub("\x1b\[[0-9;]*m", "", s)
-    return len(s.decode("utf8"))
-
-def pad(l, length):
-    return l + [0]*(length - len(l))
+    'Find length of a string, ignoring escape sequences'
+    s = re.sub('\x1b\[[0-9;]*m', '', s)
+    return len(s)
 
 def usage():
-    print """usage: columnize.py [-s sep]"""
+    print(progname, ': ', str(err))
+    print('Columnize text with ANSI escape codes')
+    print('usage: columnize.py [-s sep]')
 
 
-if __name__=="__main__":
-    try:
-        opts,args = getopt.getopt(sys.argv[1:], "ts:")
-    except getopt.GetoptError as err:
-        print path.basename(sys.argv[0]),": ",
-        print str(err)
-        usage()
-        sys.exit(2)
+try:
+    opts,args = getopt.getopt(sys.argv[1:], 'ts:')
+    opts = dict(opts)
+except getopt.GetoptError as err:
+    print(progname, ': ', str(err))
+    usage()
+    sys.exit(2)
 
-    splitchar='\t'
+splitchar = opts.get('-s', '\t')
 
-    for o,a in opts:
-        if o == "-s":
-            splitchar = a
+lines = []
+lengths = []
+# Read each line from stdin
+for line in sys.stdin:
+    cols = line.strip().split(splitchar)
+    lines.append(cols)
+    # Calculate the widths of each column
+    width = [getlength(col) for col in cols]
+    # Save the longest columns' lengths
+    lengths = map(max, zip_longest(lengths, width, fillvalue=0))
 
-    lines = []
-    lengths = [0]
-    for line in stdin:
-        items = line.rstrip().split(splitchar)
-        lines.append(items)
-        counts = [getlength(i) for i in items]
-        # Pad lengths with zeros
-        items = max(len(lengths), len(counts))
-        counts = pad(counts, items)
-        lengths = pad(lengths, items)
-        # Find the longest lengths
-        lengths = map(max,zip(lengths, counts))
-
-    l = 0
-    for line in lines:
-        i = 0
-        for c in line[:-1]:
-            print c, ' '*(lengths[i]-getlength(c)),
-            i += 1
-        print line[-1]
-        l += 1
+lengths = list(lengths)
+for line in lines:
+    for i,col in enumerate(line):
+        spaces = ' '*(lengths[i]-getlength(col))
+        print(col, spaces, end='')
+    print()
