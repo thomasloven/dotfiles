@@ -1,10 +1,10 @@
 #!/bin/bash
 
 HASH="%C(yellow)%h%C(reset)"
-RELATIVE_TIME="%C(green)%ar"
+RELATIVE_TIME="%C(green)%ar%C(reset)"
 AUTHOR="%C(blue)<%an>%C(reset)"
 REFS="%C(red)%d%C(reset)"
-SUBJECT="%s%C(reset)"
+SUBJECT="%C(reset)%s%C(reset)"
 
 FORMAT="}$HASH}$RELATIVE_TIME}$AUTHOR}$REFS $SUBJECT"
 

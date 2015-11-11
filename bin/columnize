@@ -51,7 +51,8 @@ for line in sys.stdin:
 
 lengths = list(lengths)
 for line in lines:
+    thisline = ''
     for i,col in enumerate(line):
-        spaces = ' '*(lengths[i]-getlength(col))
-        print(col, spaces, end='')
-    print()
+        spaces = ' '*(lengths[i]-getlength(col)+1)
+        thisline += col + spaces
+    print(thisline.rstrip())
