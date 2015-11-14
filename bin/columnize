@@ -46,16 +46,15 @@ def getlength(s):
     return len(s)
 
 def usage():
-    print(progname, ': ', str(err))
     print('Columnize text with ANSI escape codes')
-    print('usage: columnize.py [-s sep]')
+    print('usage:', progname, '[-s sep]')
 
 
 try:
     opts,args = getopt.getopt(sys.argv[1:], 'ts:')
     opts = dict(opts)
 except getopt.GetoptError as err:
-    print(progname, ': ', str(err))
+    print(progname, ':', str(err))
     usage()
     sys.exit(2)
 
