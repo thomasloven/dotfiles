@@ -183,3 +183,7 @@ export CLICOLOR=1
 if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
   source /usr/local/bin/virtualenvwrapper.sh
 fi
+
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+source ${DOTFILES}/bin/pman.zsh
